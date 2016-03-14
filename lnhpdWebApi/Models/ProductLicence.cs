@@ -7,13 +7,22 @@ namespace lnhpdWebApi.Models
 {
     public class ProductLicence
     {
+        public int FileNumber { get; set; }
         public int SubmissionId { get; set; }
         public string LicenceNumber { get; set; }
-        public int CompanyNameId { get; set; }
-        public string CompanyName { get; set; }
+        public DateTime? LicenceDate { get; set; }
+        public DateTime? RevisedDate { get; set; }
+        public DateTime? TimeReceipt { get; set; }
+        public DateTime? DateStart { get; set; }
+        public string Notes { get; set; }
+        public int ProductNameId { get; set; }
         public string ProductName { get; set; }
         public string DosageFormE { get; set; }
         public string DosageFormF { get; set; }
+        public int CompanyId { get; set; }
+        public int CompanyNameId { get; set; }
+        public string CompanyName { get; set; }
+        public int SubSubmissionTypeCode { get; set; }
         public string SubSubmissionTypeDescE { get; set; }
         public string SubSubmissionTypeDescF { get; set; }
         public int FlagPrimaryName { get; set; }

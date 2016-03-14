@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>lnhpdWebApi</RootNamespace>
     <AssemblyName>lnhpdWebApi</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -201,15 +201,51 @@
     <Compile Include="Areas\HelpPage\IModelDocumentationProvider.cs" />
     <Compile Include="Areas\HelpPage\ModelDescriptions.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\IngredientController.cs" />
+    <Compile Include="Controllers\IngredientQuantityController.cs" />
+    <Compile Include="Controllers\IngredientSourceController.cs" />
+    <Compile Include="Controllers\IngredientSubmissionController.cs" />
+    <Compile Include="Controllers\ProductDoseController.cs" />
     <Compile Include="Controllers\ProductLicenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductPurposeController.cs" />
+    <Compile Include="Controllers\ProductRiskController.cs" />
+    <Compile Include="Controllers\ProductRiskTextController.cs" />
+    <Compile Include="Controllers\ProductRouteController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\IIngredientQuantityRepository.cs" />
+    <Compile Include="Models\IIngredientRepository.cs" />
+    <Compile Include="Models\IIngredientSourceRepository.cs" />
+    <Compile Include="Models\IIngredientSubmissionRepository.cs" />
+    <Compile Include="Models\Ingredient.cs" />
+    <Compile Include="Models\IngredientQuantity.cs" />
+    <Compile Include="Models\IngredientQuantityRepository.cs" />
+    <Compile Include="Models\IngredientRepository.cs" />
+    <Compile Include="Models\IngredientSource.cs" />
+    <Compile Include="Models\IngredientSourceRepository.cs" />
+    <Compile Include="Models\IngredientSubmission.cs" />
+    <Compile Include="Models\IngredientSubmissionRepository.cs" />
+    <Compile Include="Models\IProductDoseRepository.cs" />
+    <Compile Include="Models\IProductPurposeRepository.cs" />
+    <Compile Include="Models\IProductRiskRepository.cs" />
+    <Compile Include="Models\IProductRiskTextRepository.cs" />
+    <Compile Include="Models\IProductRouteRepository.cs" />
+    <Compile Include="Models\ProductDose.cs" />
+    <Compile Include="Models\ProductDoseRepository.cs" />
     <Compile Include="Models\ProductLicence.cs" />
     <Compile Include="Models\ProductLicenceRepository.cs" />
     <Compile Include="Models\IProductLicenceRepository.cs" />
+    <Compile Include="Models\ProductPurpose.cs" />
+    <Compile Include="Models\ProductPurposeRepository.cs" />
+    <Compile Include="Models\ProductRisk.cs" />
+    <Compile Include="Models\ProductRiskRepository.cs" />
+    <Compile Include="Models\ProductRiskText.cs" />
+    <Compile Include="Models\ProductRiskTextRepository.cs" />
+    <Compile Include="Models\ProductRoute.cs" />
+    <Compile Include="Models\ProductRouteRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -325,7 +361,9 @@
     <Folder Include="wet\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
