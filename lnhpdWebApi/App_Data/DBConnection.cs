@@ -466,8 +466,8 @@ namespace lnhpd
                                 item.MatrixId = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 item.SubmissionId = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
                                 item.IngredientTypeCode = dr["INGREDIENT_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["INGREDIENT_TYPE_CODE"]);
-                                item.NameUpperE = dr["NAME_UPPER_DESC"] == DBNull.Value ? string.Empty : dr["NAME_UPPER_DESC"].ToString().Trim();
-                                item.NameUpperF = dr["NAME_UPPER_DESC_F"] == DBNull.Value ? string.Empty : dr["NAME_UPPER_DESC_F"].ToString().Trim();
+                                item.NameUpperE = dr["NAME_UPPER"] == DBNull.Value ? string.Empty : dr["NAME_UPPER"].ToString().Trim();
+                                item.NameUpperF = dr["NAME_UPPER_F"] == DBNull.Value ? string.Empty : dr["NAME_UPPER_F"].ToString().Trim();
 
                                 items.Add(item);
                             }
@@ -512,8 +512,8 @@ namespace lnhpd
                                 item.MatrixId = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 item.SubmissionId = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
                                 item.IngredientTypeCode = dr["INGREDIENT_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["INGREDIENT_TYPE_CODE"]);
-                                item.NameUpperE = dr["NAME_UPPER_DESC"] == DBNull.Value ? string.Empty : dr["NAME_UPPER_DESC"].ToString().Trim();
-                                item.NameUpperF = dr["NAME_UPPER_DESC_F"] == DBNull.Value ? string.Empty : dr["NAME_UPPER_DESC_F"].ToString().Trim();
+                                item.NameUpperE = dr["NAME_UPPER"] == DBNull.Value ? string.Empty : dr["NAME_UPPER"].ToString().Trim();
+                                item.NameUpperF = dr["NAME_UPPER_F"] == DBNull.Value ? string.Empty : dr["NAME_UPPER_F"].ToString().Trim();
 
                                 submission = item;
                             }
@@ -832,7 +832,7 @@ namespace lnhpd
         public List<ProductRiskText> GetAllProductRiskText()
         {
             var items = new List<ProductRiskText>();
-            string commandText = "SELECT * FROM NHPPLQ_OWNER.PRODUCT_RISK_TEST_ONLINE";
+            string commandText = "SELECT * FROM NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE";
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
@@ -849,8 +849,8 @@ namespace lnhpd
                                 var item = new ProductRiskText();
                                 item.TextId = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
                                 item.RiskId = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
-                                item.RiskTypeE = dr["RISK_TYPE_E"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_E"].ToString().Trim();
-                                item.RiskTypeF = dr["RISK_TYPE_F"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_F"].ToString().Trim();
+                                item.RiskTypeE = dr["RISK_TEXT_E"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_E"].ToString().Trim();
+                                item.RiskTypeF = dr["RISK_TEXT_F"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_F"].ToString().Trim();
 
                                 items.Add(item);
                             }
@@ -894,8 +894,8 @@ namespace lnhpd
                                 var item = new ProductRiskText();
                                 item.TextId = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
                                 item.RiskId = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
-                                item.RiskTypeE = dr["RISK_TYPE_E"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_E"].ToString().Trim();
-                                item.RiskTypeF = dr["RISK_TYPE_F"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_F"].ToString().Trim();
+                                item.RiskTypeE = dr["RISK_TEXT_E"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_E"].ToString().Trim();
+                                item.RiskTypeF = dr["RISK_TEXT_F"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_F"].ToString().Trim();
 
                                 riskText = item;
                             }
