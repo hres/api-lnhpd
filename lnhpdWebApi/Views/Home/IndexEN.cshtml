@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/GoC.WebTemplate/GoCWebTemplate_Layout.cshtml";
+}
+
+<div id="body">
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Licensed Natural Health Product Open Data - API</h1>
+            </hgroup>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Request Type:
+                        </th>
+                        <th scope=colgroup colspan=2>
+                            Format:
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Get All Ingredients:</td>
+                        <td><a class="btn btn-default" href="./api/ingredient/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/ingredient/?type=xml">XML</a></td>
+                    </tr>
+                    <tr>
+                        <td>Get All Ingredient Quantities:</td>
+                        <td><a class="btn btn-default" href="./api/ingredientquantity/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/ingredientquantity/?type=xml">XML</a></td>
+                    </tr>
+                    <tr>
+                        <td>Get All Ingredient Sources:</td>
+                        <td><a class="btn btn-default" href="./api/ingredientsource/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/ingredientsource/?type=xml">XML</a></td>
+                    </tr>
+                    <tr>
+                        <td>Get All Ingredient Submissions:</td>
+                        <td><a class="btn btn-default" href="./api/ingredientsubmission/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/ingredientsubmission/?type=xml">XML</a></td>
+                    </tr>
+                    <tr>
+                        <td>Get All Product Doses:</td>
+                        <td><a class="btn btn-default" href="./api/productdose/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/productdose/?type=xml">XML</a></td>
+                    </tr>
+                    <tr>
+                        <td>Get All Product Licences:</td>
+                        <td><a class="btn btn-default" href="./api/productlicence/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/productlicence/?type=xml">XML</a></td>
+                    </tr>
+                    <tr>
+                        <td>Get All Product Purposes:</td>
+                        <td><a class="btn btn-default" href="./api/productpurpose/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/productpurpose/?type=xml">XML</a></td>
+                    </tr>
+                    <tr>
+                        <td>Get All Product Risks:</td>
+                        <td><a class="btn btn-default" href="./api/productrisk/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/productrisk/?type=xml">XML</a></td>
+                    </tr>
+                    <tr>
+                        <td>Get All Product Risk Text:</td>
+                        <td><a class="btn btn-default" href="./api/productrisktext/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/productrisktext/?type=xml">XML</a></td>
+                    </tr>
+                    <tr>
+                        <td>Get All Product Routes:</td>
+                        <td><a class="btn btn-default" href="./api/productroute/?type=json">Json</a></td>
+                        <td><a class="btn btn-default" href="./api/productroute/?type=xml">XML</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
