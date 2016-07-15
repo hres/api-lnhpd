@@ -259,10 +259,6 @@
   <ItemGroup>
     <Content Include="bin\lnhpdWebApi.dll" />
     <Content Include="Global.asax" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -285,7 +281,7 @@
     <Content Include="Libraries\GoC.WebTemplateMVC.dll" />
     <Content Include="Libraries\WebTemplateCore.dll" />
     <Content Include="reference-en.html" />
-    <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
+    <None Include="Properties\PublishProfiles\lnhpd.pubxml" />
     <None Include="Properties\PublishProfiles\lnhpWebApi20151230113805 - Web Deploy.pubxml" />
     <Content Include="search-en.html" />
     <Content Include="Views\GoC.WebTemplate\ChangeLog.txt" />
@@ -313,7 +309,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\GoC.WebTemplate\GoCWebTemplate.LeftMenu_Layout.cshtml" />
     <Content Include="Views\GoC.WebTemplate\GoCWebTemplate.Transactional.LeftMenu_Layout.cshtml" />
     <Content Include="Views\GoC.WebTemplate\GoCWebTemplate.Transactional_Layout.cshtml" />
