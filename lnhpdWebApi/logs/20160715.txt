@@ -1,0 +1,10 @@
+********** 9:58:03 AM **********
+Exception Type: System.OverflowException
+Exception: Value was either too large or too small for an Int32.
+Source: DbConnection.cs - GetAllIngredientQuantity()
+Stack Trace: 
+   at System.Decimal.FCallToInt32(Decimal d)
+   at System.Decimal.System.IConvertible.ToInt32(IFormatProvider provider)
+   at System.Convert.ToInt32(Object value)
+   at lnhpd.DBConnection.GetAllIngredientQuantity() in C:\Users\hcuser\Documents\lnhpdWebApi\api-lnhpd\lnhpdWebApi\App_Data\DBConnection.cs:line 266
+
