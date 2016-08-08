@@ -9,7 +9,6 @@ namespace lnhpdWebApi.Models
     {
         public int SubmissionId { get; set; }
         public string IngredientName { get; set; }
-        public string IngredientNameOther { get; set; }
         public int MatrixId { get; set; }
         public int MatrixTypeCode { get; set; }
     }

@@ -9,7 +9,6 @@ namespace lnhpdWebApi.Models
     {
         public int TextId { get; set; }
         public int RiskId { get; set; }
-        public string RiskTypeE { get; set; }
-        public string RiskTypeF { get; set; }
+        public string RiskType { get; set; }
     }
 }

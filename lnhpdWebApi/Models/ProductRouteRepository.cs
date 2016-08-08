@@ -9,15 +9,15 @@ namespace lnhpdWebApi.Models
         private ProductRoute _route = new ProductRoute();
         DBConnection dbConnection = new DBConnection("en");
 
-        public IEnumerable<ProductRoute> GetAll()
+        public IEnumerable<ProductRoute> GetAll(string lang)
         {
-            _routes = dbConnection.GetAllProductRoute();
+            _routes = dbConnection.GetAllProductRoute(lang);
             return _routes;
         }
 
-        public ProductRoute Get(int id)
+        public ProductRoute Get(int id, string lang)
         {
-            _route = dbConnection.GetProductRouteById(id);
+            _route = dbConnection.GetProductRouteById(id, lang);
             return _route;
         }
     }

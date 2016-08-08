@@ -8,7 +8,7 @@ namespace lnhpdWebApi.Models
 {
     interface IIngredientSourceRepository
     {
-        IEnumerable<IngredientSource> GetAll();
-        IngredientSource Get(int id);
+        IEnumerable<IngredientSource> GetAll(string lang);
+        IngredientSource Get(int id, string lang);
     }
 }

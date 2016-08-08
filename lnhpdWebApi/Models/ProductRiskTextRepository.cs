@@ -9,15 +9,15 @@ namespace lnhpdWebApi.Models
         private ProductRiskText _riskText = new ProductRiskText();
         DBConnection dbConnection = new DBConnection("en");
 
-        public IEnumerable<ProductRiskText> GetAll()
+        public IEnumerable<ProductRiskText> GetAll(string lang)
         {
-            _riskTexts = dbConnection.GetAllProductRiskText();
+            _riskTexts = dbConnection.GetAllProductRiskText(lang);
             return _riskTexts;
         }
 
-        public ProductRiskText Get(int id)
+        public ProductRiskText Get(int id, string lang)
         {
-            _riskText = dbConnection.GetProductRiskTextById(id);
+            _riskText = dbConnection.GetProductRiskTextById(id, lang);
             return _riskText;
         }
     }

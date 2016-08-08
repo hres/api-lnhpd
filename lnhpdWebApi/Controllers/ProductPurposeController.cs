@@ -12,16 +12,16 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IProductPurposeRepository databasePlaceholder = new ProductPurposeRepository();
 
-        public IEnumerable<ProductPurpose> GetAllProductPurpose()
+        public IEnumerable<ProductPurpose> GetAllProductPurpose(string lang)
         {
 
-            return databasePlaceholder.GetAll();
+            return databasePlaceholder.GetAll(lang);
         }
 
 
-        public ProductPurpose GetProductPurposeByID(int id)
+        public ProductPurpose GetProductPurposeByID(int id, string lang)
         {
-            ProductPurpose purpose = databasePlaceholder.Get(id);
+            ProductPurpose purpose = databasePlaceholder.Get(id, lang);
             if (purpose == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);

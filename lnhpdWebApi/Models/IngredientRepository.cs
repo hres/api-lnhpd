@@ -9,15 +9,15 @@ namespace lnhpdWebApi.Models
         private Ingredient _ingredient = new Ingredient();
         DBConnection dbConnection = new DBConnection("en");
 
-        public IEnumerable<Ingredient> GetAll()
+        public IEnumerable<Ingredient> GetAll(string lang)
         {
-            _ingredients = dbConnection.GetAllIngredient();
+            _ingredients = dbConnection.GetAllIngredient(lang);
             return _ingredients;
         }
 
-        public Ingredient Get(int id)
+        public Ingredient Get(int id, string lang)
         {
-            _ingredient = dbConnection.GetIngredientById(id);
+            _ingredient = dbConnection.GetIngredientById(id, lang);
             return _ingredient;
         }
     }

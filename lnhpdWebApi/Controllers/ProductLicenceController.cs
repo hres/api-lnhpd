@@ -11,16 +11,16 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IProductLicenceRepository databasePlaceholder = new ProductLicenceRepository();
 
-        public IEnumerable<ProductLicence> GetAllProductLicence()
+        public IEnumerable<ProductLicence> GetAllProductLicence(string lang)
         {
 
-            return databasePlaceholder.GetAll();
+            return databasePlaceholder.GetAll(lang);
         }
 
 
-        public ProductLicence GetLicenceCompanyByID(int id)
+        public ProductLicence GetLicenceCompanyByID(int id, string lang)
         {
-            ProductLicence licence = databasePlaceholder.Get(id);
+            ProductLicence licence = databasePlaceholder.Get(id, lang);
             if (licence == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);

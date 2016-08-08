@@ -12,16 +12,16 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IProductDoseRepository databasePlaceholder = new ProductDoseRepository();
 
-        public IEnumerable<ProductDose> GetAllProductDose()
+        public IEnumerable<ProductDose> GetAllProductDose(string lang)
         {
 
-            return databasePlaceholder.GetAll();
+            return databasePlaceholder.GetAll(lang);
         }
 
 
-        public ProductDose GetProductDoseByID(int id)
+        public ProductDose GetProductDoseByID(int id, string lang)
         {
-            ProductDose dose = databasePlaceholder.Get(id);
+            ProductDose dose = databasePlaceholder.Get(id, lang);
             if (dose == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);

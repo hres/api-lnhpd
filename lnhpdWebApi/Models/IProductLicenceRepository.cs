@@ -8,7 +8,7 @@ namespace lnhpdWebApi.Models
 {
     interface IProductLicenceRepository
     {
-        IEnumerable<ProductLicence> GetAll();
-        ProductLicence Get(int id);
+        IEnumerable<ProductLicence> GetAll(string lang);
+        ProductLicence Get(int id, string lang);
     }
 }

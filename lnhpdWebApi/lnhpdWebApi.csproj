@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>lnhpdWebApi</RootNamespace>
     <AssemblyName>lnhpdWebApi</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -202,6 +202,7 @@
     <Compile Include="App_Data\ExceptionHelper.cs" />
     <Compile Include="App_Data\JsonHelper.cs" />
     <Compile Include="App_Data\QueryStringHelper.cs" />
+    <Compile Include="App_Data\UtilityHelper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -278,9 +279,13 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="js\dhpr.js" />
+    <Content Include="js\jquery.xdomainrequest.min.js" />
     <Content Include="Libraries\GoC.WebTemplateMVC.dll" />
     <Content Include="Libraries\WebTemplateCore.dll" />
+    <Content Include="licensed-natrual-health-product.html" />
     <Content Include="reference-en.html" />
+    <Content Include="Controllers\dhprController.ashx" />
     <None Include="Properties\PublishProfiles\lnhpd.pubxml" />
     <None Include="Properties\PublishProfiles\lnhpWebApi20151230113805 - Web Deploy.pubxml" />
     <Content Include="search-en.html" />
@@ -319,7 +324,10 @@
     <Content Include="Views\Home\IndexEN.cshtml" />
     <Content Include="Views\Home\IndexFR.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="css\" />
+    <Folder Include="distro\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

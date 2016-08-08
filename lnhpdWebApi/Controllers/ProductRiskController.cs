@@ -12,16 +12,16 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IProductRiskRepository databasePlaceholder = new ProductRiskRepository();
 
-        public IEnumerable<ProductRisk> GetAllProductRisk()
+        public IEnumerable<ProductRisk> GetAllProductRisk(string lang)
         {
 
-            return databasePlaceholder.GetAll();
+            return databasePlaceholder.GetAll(lang);
         }
 
 
-        public ProductRisk GetProductRiskByID(int id)
+        public ProductRisk GetProductRiskByID(int id, string lang)
         {
-            ProductRisk risk = databasePlaceholder.Get(id);
+            ProductRisk risk = databasePlaceholder.Get(id, lang);
             if (risk == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);

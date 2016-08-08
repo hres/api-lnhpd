@@ -12,18 +12,14 @@ namespace lnhpdWebApi.Models
         public int Quantity { get; set; }
         public int QuantityMinimum { get; set; }
         public int QuantityMaximum { get; set; }
-        public string UomTypeDescAmtQuantityE { get; set; }
-        public string UomTypeDescAmtQuantityF { get; set; }
+        public string UomTypeDescAmtQuantity { get; set; }
         public string RatioNumerator { get; set; }
         public string RatioDenominator { get; set; }
         public string DriedHerbEquivalent { get; set; }
-        public string UomTypeDescDheE { get; set; }
-        public string UomTypeDescDheF { get; set; }
-        public string ExtractTypeDescE { get; set; }
-        public string ExtractTypeDescF { get; set; }
+        public string UomTypeDescDhe { get; set; }
+        public string ExtractTypeDesc { get; set; }
         public int PotencyAmount { get; set; }
-        public string UomTypeDescPotencyE { get; set; }
-        public string UomTypeDescPotencyF { get; set; }
+        public string UomTypeDescPotency { get; set; }
         public string PotencyConstituent { get; set; }
     }
 }

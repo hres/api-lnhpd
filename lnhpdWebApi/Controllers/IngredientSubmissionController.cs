@@ -12,16 +12,16 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IIngredientSubmissionRepository databasePlaceholder = new IngredientSubmissionRepository();
 
-        public IEnumerable<IngredientSubmission> GetAllIngredientSubmission()
+        public IEnumerable<IngredientSubmission> GetAllIngredientSubmission(string lang)
         {
 
-            return databasePlaceholder.GetAll();
+            return databasePlaceholder.GetAll(lang);
         }
 
 
-        public IngredientSubmission GetIngredientSubmissionByID(int id)
+        public IngredientSubmission GetIngredientSubmissionByID(int id, string lang)
         {
-            IngredientSubmission submission = databasePlaceholder.Get(id);
+            IngredientSubmission submission = databasePlaceholder.Get(id, lang);
             if (submission == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);

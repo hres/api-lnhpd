@@ -8,7 +8,7 @@ namespace lnhpdWebApi.Models
 {
     interface IProductPurposeRepository
     {
-        IEnumerable<ProductPurpose> GetAll();
-        ProductPurpose Get(int id);
+        IEnumerable<ProductPurpose> GetAll(string lang);
+        ProductPurpose Get(int id, string lang);
     }
 }

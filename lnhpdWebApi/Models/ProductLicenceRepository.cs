@@ -12,17 +12,17 @@ namespace lnhpdWebApi.Models
     DBConnection dbConnection = new DBConnection("en");
 
 
-    public IEnumerable<ProductLicence> GetAll()
+    public IEnumerable<ProductLicence> GetAll(string lang)
     {
-        _licences = dbConnection.GetAllProductLicence();
+        _licences = dbConnection.GetAllProductLicence(lang);
 
         return _licences;
     }
 
 
-    public ProductLicence Get(int id)
+    public ProductLicence Get(int id, string lang)
     {
-        _licence = dbConnection.GetProductLicenceById(id);
+        _licence = dbConnection.GetProductLicenceById(id, lang);
         return _licence;
     }
 

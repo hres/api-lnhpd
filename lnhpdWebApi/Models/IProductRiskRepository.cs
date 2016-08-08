@@ -8,7 +8,7 @@ namespace lnhpdWebApi.Models
 {
     interface IProductRiskRepository
     {
-        IEnumerable<ProductRisk> GetAll();
-        ProductRisk Get(int id);
+        IEnumerable<ProductRisk> GetAll(string lang);
+        ProductRisk Get(int id, string lang);
     }
 }

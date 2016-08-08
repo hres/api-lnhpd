@@ -9,15 +9,15 @@ namespace lnhpdWebApi.Models
         private IngredientSubmission _submission = new IngredientSubmission();
         DBConnection dbConnection = new DBConnection("en");
 
-        public IEnumerable<IngredientSubmission> GetAll()
+        public IEnumerable<IngredientSubmission> GetAll(string lang)
         {
-            _submissions = dbConnection.GetAllIngredientSubmission();
+            _submissions = dbConnection.GetAllIngredientSubmission(lang);
             return _submissions;
         }
 
-        public IngredientSubmission Get(int id)
+        public IngredientSubmission Get(int id, string lang)
         {
-            _submission = dbConnection.GetIngredientSubmissionById(id);
+            _submission = dbConnection.GetIngredientSubmissionById(id, lang);
             return _submission;
         }
     }

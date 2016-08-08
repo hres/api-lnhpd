@@ -12,16 +12,16 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IIngredientQuantityRepository databasePlaceholder = new IngredientQuantityRepository();
 
-        public IEnumerable<IngredientQuantity> GetAllIngredientQuantity()
+        public IEnumerable<IngredientQuantity> GetAllIngredientQuantity(string lang)
         {
 
-            return databasePlaceholder.GetAll();
+            return databasePlaceholder.GetAll(lang);
         }
 
 
-        public IngredientQuantity GetIngredientQuantityByID(int id)
+        public IngredientQuantity GetIngredientQuantityByID(int id, string lang)
         {
-            IngredientQuantity quantity = databasePlaceholder.Get(id);
+            IngredientQuantity quantity = databasePlaceholder.Get(id, lang);
             if (quantity == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);

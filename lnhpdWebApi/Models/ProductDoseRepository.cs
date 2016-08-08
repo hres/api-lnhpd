@@ -9,15 +9,15 @@ namespace lnhpdWebApi.Models
         private ProductDose _dose = new ProductDose();
         DBConnection dbConnection = new DBConnection("en");
 
-        public IEnumerable<ProductDose> GetAll()
+        public IEnumerable<ProductDose> GetAll(string lang)
         {
-            _doses = dbConnection.GetAllProductDose();
+            _doses = dbConnection.GetAllProductDose(lang);
             return _doses;
         }
 
-        public ProductDose Get(int id)
+        public ProductDose Get(int id, string lang)
         {
-            _dose = dbConnection.GetProductDoseById(id);
+            _dose = dbConnection.GetProductDoseById(id, lang);
             return _dose;
         }
     }

@@ -17,14 +17,12 @@ namespace lnhpdWebApi.Models
         public string Notes { get; set; }
         public int ProductNameId { get; set; }
         public string ProductName { get; set; }
-        public string DosageFormE { get; set; }
-        public string DosageFormF { get; set; }
+        public string DosageForm { get; set; }
         public int CompanyId { get; set; }
         public int CompanyNameId { get; set; }
         public string CompanyName { get; set; }
         public int SubSubmissionTypeCode { get; set; }
-        public string SubSubmissionTypeDescE { get; set; }
-        public string SubSubmissionTypeDescF { get; set; }
+        public string SubSubmissionTypeDesc { get; set; }
         public int FlagPrimaryName { get; set; }
         public int FlagProductStatus { get; set; }
         public int FlagAttestedMonograph { get; set; }
