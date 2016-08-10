@@ -11,10 +11,11 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IProductLicenceRepository databasePlaceholder = new ProductLicenceRepository();
 
-        public IEnumerable<ProductLicence> GetAllProductLicence(string lang)
+        
+        public IEnumerable<ProductLicence> GetByCriteria(string brandname, string ingredient, string companyname, string din, string lang)
         {
 
-            return databasePlaceholder.GetAll(lang);
+            return databasePlaceholder.GetAllProductByCriteria(brandname, ingredient, companyname, din, lang);
         }
 
 
@@ -26,6 +27,12 @@ namespace lnhpdWebApi.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             return licence;
+        }
+
+        public IEnumerable<ProductLicence> GetAllProductLicence(string lang)
+        {
+
+            return databasePlaceholder.GetAll(lang);
         }
     }
 }

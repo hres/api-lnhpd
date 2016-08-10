@@ -30,107 +30,101 @@ namespace dhpr
             }
         }
 
-        //public static List<SearchDrug> GetAllDrugProductList(string lang)
-        //{
-        //    var items = new List<SearchDrug>();
-        //    var filteredList = new List<SearchDrug>();
-        //    var json = string.Empty;
+        public static List<ProductLicence> GetAllProductByCriteria(string lang, string term)
+        {
+            var items = new List<ProductLicence>();
+            var filteredList = new List<ProductLicence>();
+            var json = string.Empty;
+            var din = term;
+            var brandname = term;
+            var ingredient = term;
+            var company = term;
+           
+            var lnhpdJsonUrl = string.Format("{0}&brandname={1}&ingredient={2}&companyname={3}&din={4}&lang={5}", ConfigurationManager.AppSettings["lnhpdJsonUrl"].ToString(), brandname, ingredient, company, din, lang);
+
+            try
+            {
+                using (var webClient = new System.Net.WebClient())
+                {
+                    json = webClient.DownloadString(lnhpdJsonUrl);
+                    if (!string.IsNullOrWhiteSpace(json))
+                    {
+                        items = JsonConvert.DeserializeObject<List<ProductLicence>>(json);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorMessages = string.Format("UtilityHelper - GetJSonDataFromDPDAPI()- Error Message:{0}", ex.Message);
+                ExceptionHelper.LogException(ex, errorMessages);
+            }
+            finally
+            {
+
+            }
+            return items;
+        }
+        public static List<ProductLicence> GetDrugProductList(string lang)
+        {
+            // CertifySSL.EnableTrustedHosts();
+            var items = new List<ProductLicence>();
+            var filteredList = new List<ProductLicence>();
+            var json = string.Empty;
             
-        //    // var postData = new Dictionary<string, string>();
-        //    var dpdJsonUrl = string.Format("{0}&lang={1}", ConfigurationManager.AppSettings["dpdJsonUrl"].ToString(), lang);
+            var lnhpdJsonUrl = string.Format("{0}&lang={1}", ConfigurationManager.AppSettings["lnhpdJsonUrl"].ToString(), lang);
+            try
+            {
+                using (var webClient = new System.Net.WebClient())
+                {
+                    json = webClient.DownloadString(lnhpdJsonUrl);
+                    if (!string.IsNullOrWhiteSpace(json))
+                    {
+                        items = JsonConvert.DeserializeObject<List<ProductLicence>>(json);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorMessages = string.Format("UtilityHelper - GetJSonDataFromRegAPI()- Error Message:{0}", ex.Message);
+                ExceptionHelper.LogException(ex, errorMessages);
+            }
+            finally
+            {
 
-        //    try
-        //    {
-        //        using (var webClient = new System.Net.WebClient())
-        //        {
-        //            json = webClient.DownloadString(dpdJsonUrl);
-        //            if (!string.IsNullOrWhiteSpace(json))
-        //            {
-        //                items = JsonConvert.DeserializeObject<List<SearchDrug>>(json);
+            }
+            return items;
+        }
 
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var errorMessages = string.Format("UtilityHelper - GetJSonDataFromDPDAPI()- Error Message:{0}", ex.Message);
-        //        ExceptionHelper.LogException(ex, errorMessages);
-        //    }
-        //    finally
-        //    {
+        public static ProductLicence GetByID(string lnhpdID, string lang)
+        {
+            // CertifySSL.EnableTrustedHosts();
+            var item = new ProductLicence();
+            var json = string.Empty;
+            var postData = new Dictionary<string, string>();
+            var lnhpdJsonUrlbyID = string.Format("{0}&id={1}&lang={2}", ConfigurationManager.AppSettings["lnhpdJsonUrl"].ToString(), lnhpdID, lang);
 
-        //    }
-        //    return items;
-        //}
-        //public static List<SearchDrug> GetDrugProductList(string lang, string term)
-        //{
-        //    // CertifySSL.EnableTrustedHosts();
-        //    var items = new List<SearchDrug>();
-        //    var filteredList = new List<SearchDrug>();
-        //    var json = string.Empty;
-        //    var din = term;
-        //    var brandname = term;
-        //    var company = term;
-        //    // var postData = new Dictionary<string, string>();
-        //    var dpdJsonUrl = string.Format("{0}&din={1}&brandname={2}&company={3}&lang={4}", ConfigurationManager.AppSettings["dpdJsonUrl"].ToString(), din, brandname, company, lang);
-            
-        //    try
-        //    {
-        //        using (var webClient = new System.Net.WebClient())
-        //        {
-        //            json = webClient.DownloadString(dpdJsonUrl);
-        //            if (!string.IsNullOrWhiteSpace(json))
-        //            {
-        //                items = JsonConvert.DeserializeObject<List<SearchDrug>>(json);
+            try
+            {
+                using (var webClient = new System.Net.WebClient())
+                {
+                    json = webClient.DownloadString(lnhpdJsonUrlbyID);
+                    if (!string.IsNullOrWhiteSpace(json))
+                    {
+                        item = JsonConvert.DeserializeObject<ProductLicence>(json);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorMessages = string.Format("UtilityHelper - GetDrugProductByID()- Error Message:{0}", ex.Message);
+                ExceptionHelper.LogException(ex, errorMessages);
+            }
+            finally
+            {
 
-        //                //if (items != null && items.Count > 0)
-        //                //{
-        //                //     filteredList = items.Where(c => c.DrugIdentificationNumber.ToLower().Contains(term) || c.BrandName.ToLower().Contains(term) || c.CompanyName.ToLower().Contains(term)).ToList();
-        //                //}
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var errorMessages = string.Format("UtilityHelper - GetJSonDataFromRegAPI()- Error Message:{0}", ex.Message);
-        //        ExceptionHelper.LogException(ex, errorMessages);
-        //    }
-        //    finally
-        //    {
-
-        //    }
-        //    return items;
-        //}
-
-        //public static SearchDrug GetDpdByID(string dpdID, string lang)
-        //{
-        //    // CertifySSL.EnableTrustedHosts();
-        //    var item = new SearchDrug();
-        //    var json = string.Empty;
-        //    var postData = new Dictionary<string, string>();
-        //    var dpdJsonUrlbyID = string.Format("{0}&id={1}&lang={2}", ConfigurationManager.AppSettings["dpdJsonUrl"].ToString(), dpdID, lang);
-
-        //    try
-        //    {
-        //        using (var webClient = new System.Net.WebClient())
-        //        {
-        //            json = webClient.DownloadString(dpdJsonUrlbyID);
-        //            if (!string.IsNullOrWhiteSpace(json))
-        //            {
-        //                item = JsonConvert.DeserializeObject<SearchDrug>(json);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var errorMessages = string.Format("UtilityHelper - GetDrugProductByID()- Error Message:{0}", ex.Message);
-        //        ExceptionHelper.LogException(ex, errorMessages);
-        //    }
-        //    finally
-        //    {
-
-        //    }
-        //    return item;
-        //}
+            }
+            return item;
+        }
     }
 }

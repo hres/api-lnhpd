@@ -9,6 +9,8 @@ using System.Configuration;
 using lnhpdWebApi.Models;
 using System.Data.Odbc;
 using Oracle.ManagedDataAccess.Client;
+using dhpr;
+
 namespace lnhpd
 {
 
@@ -98,6 +100,112 @@ namespace lnhpd
             return items;
         }
 
+
+        public List<ProductLicence> GetAllProductByCriteria(string brandname, string ingredient, string companyname, string din, string lang)
+        {
+            var orderClause = "";
+            var items = new List<ProductLicence>();
+            string commandText = "SELECT FILE_NUMBER, SUBMISSION_ID, LICENCE_NUMBER, LICENCE_DATE, REVISED_DATE, TIME_RECEIPT, DATE_START, NOTES, PRODUCT_NAME_ID, PRODUCT_NAME, COMPANY_ID, COMPANY_NAME_ID, COMPANY_NAME, SUB_SUBMISSION_TYPE_CODE, FLAG_PRIMARY_NAME, FLAG_PRODUCT_STATUS, FLAG_ATTESTED_MONOGRAPH, ";
+            if (lang.Equals("fr"))
+            {
+                commandText += "DOSAGE_FORM_F as DOSAGE_FORM, SUB_SUBMISSION_TYPE_DESC_F as SUB_SUBMISSION_TYPE_DESC ";
+            }
+            else {
+                commandText += "DOSAGE_FORM, SUB_SUBMISSION_TYPE_DESC ";
+            }
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE";
+
+            //commandText += " LEFT OUTER JOIN NHPPLQ_OWNER.INGREDIENT_SUBMISSION_ONLINE B ON A.SUBMISSION_ID = B.SUBMISSION_ID";
+            commandText += " WHERE (";
+            //commandText += " B.SUBMISSION_ID IN (SELECT b.SUBMISSION_ID FROM NHPPLQ_OWNER.INGREDIENT_SUBMISSION_ONLINE B WHERE A.SUBMISSION_ID = B.SUBMISSION_ID) AND ";
+            //commandText += " (";
+
+
+
+            if (din != null)
+            {
+                commandText += " UPPER(LICENCE_NUMBER) LIKE '%" + din.ToUpper() + "%'";
+            }
+            if (brandname != null)
+            {
+                if (din != null) commandText += " OR";
+
+                commandText += " UPPER(PRODUCT_NAME) LIKE '%" + brandname.ToUpper() + "%'";
+               
+            }
+            if (ingredient != null)
+            {
+            //    commandText += " UPPER(DRUG_IDENTIFICATION_NUMBER) LIKE '%" + din.ToUpper() + "%'";
+            }
+            if (companyname != null)
+            {
+                if ((din != null) || (brandname != null)) commandText += " OR";
+                commandText += " UPPER(COMPANY_NAME) LIKE '%" + companyname.ToUpper() + "%'";
+            }
+            commandText += ")";
+            if (lang.Equals("fr"))
+            {
+                orderClause += " translate(COMPANY_NAME,'ÀÂÄÇÈÉËÊÌÎÏÒÔÖÙÚÛÜ','AAACEEEEIIIOOOUUUU'), translate(BRAND_NAME_F,'ÀÂÄÇÈÉËÊÌÎÏÒÔÖÙÚÛÜ','AAACEEEEIIIOOOUUUU'),";
+            }
+            else
+            {
+                orderClause += " translate(COMPANY_NAME,'ÀÂÄÇÈÉËÊÌÎÏÒÔÖÙÚÛÜ','AAACEEEEIIIOOOUUUU'), translate(BRAND_NAME,'ÀÂÄÇÈÉËÊÌÎÏÒÔÖÙÚÛÜ','AAACEEEEIIIOOOUUUU'),";
+            }
+
+            commandText += " ORDER BY LICENCE_NUMBER, PRODUCT_NAME";
+            using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
+            {
+                OracleCommand cmd = new OracleCommand(commandText, con);
+                try
+                {
+                    con.Open();
+                    using (OracleDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                var item = new ProductLicence();
+
+                                item.FileNumber = dr["FILE_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FILE_NUMBER"]);
+                                item.SubmissionId = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.LicenceNumber = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
+                                item.LicenceDate = dr["LICENCE_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["LICENCE_DATE"]);
+                                item.RevisedDate = dr["REVISED_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["REVISED_DATE"]);
+                                item.TimeReceipt = dr["TIME_RECEIPT"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["TIME_RECEIPT"]);
+                                item.DateStart = dr["DATE_START"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DATE_START"]);
+                                item.Notes = dr["NOTES"] == DBNull.Value ? string.Empty : dr["NOTES"].ToString().Trim(); ;
+                                item.ProductNameId = dr["PRODUCT_NAME_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["PRODUCT_NAME_ID"]);
+                                item.ProductName = dr["PRODUCT_NAME"] == DBNull.Value ? string.Empty : dr["PRODUCT_NAME"].ToString().Trim();
+                                item.DosageForm = dr["DOSAGE_FORM"] == DBNull.Value ? string.Empty : dr["DOSAGE_FORM"].ToString().Trim();
+                                item.CompanyId = dr["COMPANY_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["COMPANY_ID"]);
+                                item.CompanyNameId = dr["COMPANY_NAME_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["COMPANY_NAME_ID"]);
+                                item.CompanyName = dr["COMPANY_NAME"] == DBNull.Value ? string.Empty : dr["COMPANY_NAME"].ToString().Trim();
+                                item.SubSubmissionTypeCode = dr["SUB_SUBMISSION_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUB_SUBMISSION_TYPE_CODE"]);
+                                item.SubSubmissionTypeDesc = dr["SUB_SUBMISSION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_SUBMISSION_TYPE_DESC"].ToString().Trim();
+                                item.FlagPrimaryName = dr["FLAG_PRIMARY_NAME"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRIMARY_NAME"]);
+                                item.FlagProductStatus = dr["FLAG_PRODUCT_STATUS"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRODUCT_STATUS"]);
+                                item.FlagAttestedMonograph = dr["FLAG_ATTESTED_MONOGRAPH"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_ATTESTED_MONOGRAPH"]);
+
+                                items.Add(item);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string errorMessages = string.Format("DbConnection.cs - GetAllProductLicence()");
+                    ExceptionHelper.LogException(ex, errorMessages);
+                }
+                finally
+                {
+                    if (con.State == ConnectionState.Open)
+                        con.Close();
+                }
+            }
+            return items;
+        }
+
         public ProductLicence GetProductLicenceById(int id, string lang)
         {
             var licence = new ProductLicence();
@@ -108,7 +216,7 @@ namespace lnhpd
             } else {
                 commandText += "DOSAGE_FORM, SUB_SUBMISSION_TYPE_DESC ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE WHERE SUBMISSION_ID = " + id;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE WHERE LICENCE_NUMBER = " + id;
 
 
             using (

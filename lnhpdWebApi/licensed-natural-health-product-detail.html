@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
     wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-    <title>Drug &amp; health product register</title>
+    <title>Product information</title>
     <meta content="width=device-width,initial-scale=1" name="viewport">
     <!-- Meta data -->
     <meta name="dcterms.language" title="ISO639-2" content="eng" />
@@ -43,12 +43,20 @@
     <!-- Google Tag Manager DO NOT REMOVE OR MODIFY - NE PAS SUPPRIMER OU MODIFIER -->
     <script>dataLayer1 = [];</script>
     <!-- End Google Tag Manager -->
+    <script>
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+    </script>
 </head>
 
 <body vocab="http://schema.org/" typeof="WebPage" class="secondary">
     <!-- Google Tag Manager DO NOT REMOVE OR MODIFY - NE PAS SUPPRIMER OU MODIFIER -->
     <noscript><iframe title="Google Tag Manager" src="//www.googletagmanager.com/ns.html?id=GTM-TLGQ9K" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer1'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer1','GTM-TLGQ9K');</script>
+    <script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer1' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer1', 'GTM-TLGQ9K');</script>
     <!-- End Google Tag Manager -->
     <ul id="wb-tphp">
         <li class="wb-slc">
@@ -65,7 +73,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="list-inline margin-bottom-none">
-                            <li><a lang="fr" href="index-fr.html">Français</a></li>
+                            <li><a lang="fr" href="inspectionDetail-fr.html" id="langLink">Français</a></li>
                         </ul>
                     </div>
                 </div>
@@ -86,10 +94,10 @@
                     <form action="http://recherche-search.gc.ca/rGs/s_r?#wb-land" method="get" name="cse-search-box" role="search" class="form-inline">
                         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
                         <script type="text/javascript">
-var autoCompletionOptions = { 'validLanguages' : 'en', };
-		google.load( 'search', '1');
-		google.setOnLoadCallback( function() {google.search.CustomSearchControl.attachAutoCompletionWithOptions( '008724028898028201144:knjjdikrhq0', document.getElementById( 'wb-srch-q' ), 'cse-search-box', autoCompletionOptions );});
-		google.setOnLoadCallback( function() {setTimeout( function(){google.search.CustomSearchControl.attachAutoCompletionWithOptions( '008724028898028201144:knjjdikrhq0', document.getElementById( 'wb-srch-q-imprt' ), 'cse-search-box',autoCompletionOptions );}, 2000);});</script>
+                            var autoCompletionOptions = { 'validLanguages': 'en', };
+                            google.load('search', '1');
+                            google.setOnLoadCallback(function () { google.search.CustomSearchControl.attachAutoCompletionWithOptions('008724028898028201144:knjjdikrhq0', document.getElementById('wb-srch-q'), 'cse-search-box', autoCompletionOptions); });
+                            google.setOnLoadCallback(function () { setTimeout(function () { google.search.CustomSearchControl.attachAutoCompletionWithOptions('008724028898028201144:knjjdikrhq0', document.getElementById('wb-srch-q-imprt'), 'cse-search-box', autoCompletionOptions); }, 2000); });</script>
                         <div class="form-group">
                             <label for="wb-srch-q" class="wb-inv">Search website</label>
                             <input name="cdn" value="canada" type="hidden" />
@@ -140,52 +148,46 @@ var autoCompletionOptions = { 'validLanguages' : 'en', };
         </nav>
     </header>
 
-    <div class="container">
-            <main role="main" property="mainContentOfPage" class="container">
-                <div class="wb-frmvld">
-                    <form name="rds" action="regulatory-decision-summary-result.html" method="get" id="rds">
-                        <h1 property="name" id="wb-cont">Search licensed natural health products</h1><br />
-                            <p class="well"><span class="red_text">Note</span> - The product information found within this database originates from organizations not subject to the <a rel="external" href="http://lois.justice.gc.ca/eng/O-3.01/index.html"><em>Official Languages Act</em></a> and is available in the language in which it was written and submitted to Health Canada.</p>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h2 class="panel-title">Search criteria</h2>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <label for="term" class="control-label required">
-                                                <span class="field-name">Drug/device name, medicinal ingredient, manufacturer, or drug identification number(DIN)/licence number :</span>
-                                                <strong class="required">(required)</strong>
-                                            </label>
-                                            <input name="term" type="text" id="term" list="list-liste" placeholder="[Enter text here to search for a Regulatory Decision Summary by drug/device name, medicinal ingredient, manufacturer, or DIN/license numbe.]" class="full-width" required="required">
-                                            <datalist id="list-liste" data-ajax-replace=".././list-liste-eng.txt" class="wb-data-ajax-replace-inited"> </datalist>
-                                        </div>
+    <a class="container">
+        <main role="main" property="mainContentOfPage" class="container">
+            <h1 property="name" id="wb-cont">Product information</h1>
+            <div><a href="licensed-natural-health-product.html">New Search</a></div>
+    <section>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 id="title" class="panel-title">Drug product Summary: <span id="searchcriteria"></span></h2>
+            </div>
+            <p class="well">
+                BLA
+            </p>
+           
+            <div class="row">
+                <p class="col-sm-4"><strong>Product name:  </strong></p>
+                <div class="col-sm-8"><p id="brandname"></p></div>
+            </div>
+           
 
-                                        <div class="form-group">
-                                            <input type="submit" value="Submit" class="btn btn-primary" />
-                                            <input type="reset" value="Reset" class="btn btn-default nextBtn" />
-                                        </div>
-                                    </div>
-                              </div>
-                            <p>For more information on Regulatory Decision Summaries, click here: <a href="http://www.hc-sc.gc.ca/dhp-mps/prodpharma/rds-sdr/index-eng.php">http://www.hc-sc.gc.ca/dhp-mps/prodpharma/rds-sdr/index-eng.php</a></p>
-                    </form>
-                </div>
-                <div class="row pagedetails">
-                    <div class="col-sm-5 col-xs-12 datemod">
-                        <dl id="wb-dtmd">
-                            <dt>Date modified:&#32;</dt>
-                            <dd><time property="dateModified">2016-03-18</time></dd>
-                        </dl>
-                    </div>
-                    <div class="clear visible-xs"></div>
-                    <div class="col-sm-4 col-xs-6">
-                        <a href="http://www.canada.ca/en/contact/feedback.html" class="btn btn-default"><span class="glyphicon glyphicon-comment mrgn-rght-sm"></span>Feedback<span class="wb-inv"> about this web site</span></a>
-                    </div>
-                    <div class="col-sm-3 col-xs-6 text-right">
-                        <div class="wb-share" data-wb-share='{"lnkClass": "btn btn-default"}'></div>
-                    </div>
-                    <div class="clear visible-xs"></div>
-                </div>
-            </main>
+        </div>
+
+    </section>
+            <div><a href="licensed-natural-health-product.html">New Search</a></div>
+    <div class="row pagedetails">
+        <div class="col-sm-5 col-xs-12 datemod">
+            <dl id="wb-dtmd">
+                <dt>Date modified:&#32;</dt>
+                <dd><time property="dateModified">2016-08-05</time></dd>
+            </dl>
+        </div>
+        <div class="clear visible-xs"></div>
+        <div class="col-sm-4 col-xs-6">
+            <a href="http://www.canada.ca/en/contact/feedback.html" class="btn btn-default"><span class="glyphicon glyphicon-comment mrgn-rght-sm"></span>Feedback<span class="wb-inv"> about this web site</span></a>
+        </div>
+        <div class="col-sm-3 col-xs-6 text-right">
+            <div class="wb-share" data-wb-share='{"lnkClass": "btn btn-default"}'></div>
+        </div>
+        <div class="clear visible-xs"></div>
+    </div>
+    </main>
     </div>
 
     <footer role="contentinfo" id="wb-info">
@@ -269,7 +271,7 @@ var autoCompletionOptions = { 'validLanguages' : 'en', };
             </div>
         </div>
     </footer>
-    
+
     <!--[if gte IE 9 | !IE ]><!-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
     <script src="./distro/4.0.20/wet-boew/js/wet-boew.min.js"></script>
@@ -277,46 +279,21 @@ var autoCompletionOptions = { 'validLanguages' : 'en', };
     <!--[if lt IE 9]>
     <script src="./distro/4.0.20/wet-boew/js/ie8-wet-boew2.min.js"></script>
     <![endif]-->
-   
 
     <script src="./js/dhpr.js"></script>
     <!--[if lt IE 10 | !IE ]><!-->
     <script src="./js/jquery.xdomainrequest.min.js"></script>
-    <!--<![endif]-->  
+    <!--<![endif]-->
+
     <script>
-        //$("#myButton").on("click", function (e) {
-        //    e.preventDefault();
-        //    var aData = [];
-        //    aData[0] = $("#ddlSelectYear").val();
-        //    $("#contentHolder").empty();
-        //    var jsonData = JSON.stringify({ aData: aData });
-        //    $.ajax({
-        //        type: "POST",
-        //        //getListOfCars is my webmethod   
-        //        url: "WebService.asmx/getListOfCars",
-        //        data: jsonData,
-        //        contentType: "application/json; charset=utf-8",
-        //        dataType: "json", // dataType is json format
-        //        success: OnSuccess,
-        //        error: OnErrorCall
-        //    });
+        var lang = "en";
+        var pType = "lnhpd";
 
-        //    function OnSuccess(response) {
-        //        console.log(response.d);
-            //var items = response.d;
-            //var fragment = "<ul>"
-            //$.each(items, function (index, val) {
+        $("a#langLink").attr('href', goDhprLangUrlByID(lang, pType));
 
-            //    var carName = val.carName;
-            //    var carRating = val.carRating;
-            //    var carYear = val.carYear;
-            //    fragment += "<li> " + carName + " :: " + carRating + " - " + carYear + "</li>";
-            //});
-        //$("#contentHolder").append(fragment);
-        //    }
-        //    function OnErrorCall(response) { console.log(error); }
-        //});
+        $.getJSON(goDhprUrlByID(lang, pType), function (data) {
+            $('#brandname').append(data.ProductName);
+        });
     </script>
-       
 </body>
 </html>

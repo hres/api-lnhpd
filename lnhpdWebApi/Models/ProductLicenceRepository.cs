@@ -18,9 +18,15 @@ namespace lnhpdWebApi.Models
 
         return _licences;
     }
+    public IEnumerable<ProductLicence> GetAllProductByCriteria(string brandname, string ingredient, string companyname, string din, string lang)
+        {
+        _licences = dbConnection.GetAllProductByCriteria(brandname, ingredient, companyname, din, lang);
+
+        return _licences;
+    }
 
 
-    public ProductLicence Get(int id, string lang)
+        public ProductLicence Get(int id, string lang)
     {
         _licence = dbConnection.GetProductLicenceById(id, lang);
         return _licence;

@@ -10,5 +10,7 @@ namespace lnhpdWebApi.Models
     {
         IEnumerable<ProductLicence> GetAll(string lang);
         ProductLicence Get(int id, string lang);
+        IEnumerable<ProductLicence> GetAllProductByCriteria(string brandname, string ingredient, string companyname, string din, string lang);
+        
     }
 }
