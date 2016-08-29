@@ -8,7 +8,9 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using lnhpdWebApi;
 using lnhpdWebApi.Models;
+
 namespace dhpr
 {
     /// <summary>
@@ -39,7 +41,7 @@ namespace dhpr
             var brandname = term;
             var ingredient = term;
             var company = term;
-           
+
             var lnhpdJsonUrl = string.Format("{0}&brandname={1}&ingredient={2}&companyname={3}&din={4}&lang={5}", ConfigurationManager.AppSettings["lnhpdJsonUrl"].ToString(), brandname, ingredient, company, din, lang);
 
             try
@@ -71,7 +73,7 @@ namespace dhpr
             var items = new List<ProductLicence>();
             var filteredList = new List<ProductLicence>();
             var json = string.Empty;
-            
+
             var lnhpdJsonUrl = string.Format("{0}&lang={1}", ConfigurationManager.AppSettings["lnhpdJsonUrl"].ToString(), lang);
             try
             {

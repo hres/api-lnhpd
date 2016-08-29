@@ -148,46 +148,56 @@
         </nav>
     </header>
 
-    <a class="container">
+    <div class="container">
         <main role="main" property="mainContentOfPage" class="container">
             <h1 property="name" id="wb-cont">Product information</h1>
-            <div><a href="licensed-natural-health-product.html">New Search</a></div>
-    <section>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 id="title" class="panel-title">Drug product Summary: <span id="searchcriteria"></span></h2>
-            </div>
-            <p class="well">
-                BLA
-            </p>
-           
-            <div class="row">
-                <p class="col-sm-4"><strong>Product name:  </strong></p>
-                <div class="col-sm-8"><p id="brandname"></p></div>
-            </div>
-           
+            <p class="pagetag"><strong>From <a href="http://www.healthycanadians.gc.ca/department-ministere/hc-sc-eng.php?_ga=1.203751760.1566644155.1449063473">Health Canada</a></strong></p><br />
+            <p class="well"><span class="red_text">Note</span> - The product information found within this database originates from organizations not subject to the <a rel="external" href="http://lois.justice.gc.ca/eng/O-3.01/index.html"><em>Official Languages Act</em></a> and is available in the language in which it was written and submitted to Health Canada.</p>
 
-        </div>
+            <div><a href="licensed-natural-health-product.html">New Search</a></div><br />
 
-    </section>
+            <section>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 id="title" class="panel-title">Drug product Summary: <span id="searchcriteria"></span></h2>
+                    </div><br />
+
+                    <div class="row">
+                        <p class="col-sm-4"><strong>Natural Product Number (NPN): </strong></p>
+                        <div class="col-sm-8"><p id="npn"></p></div>
+                        <p class="col-sm-4"><strong>Current status: </strong></p>
+                        <div class="col-sm-8"><p id="currentStatus"></p></div>
+                        <p class="col-sm-4"><strong>Brand name: </strong></p>
+                        <div class="col-sm-8"><p id="brandname"></p></div>
+                        <p class="col-sm-4"><strong>Licence holder: </strong></p>
+                        <div class="col-sm-8"><p id="company"></p></div>
+                        <p class="col-sm-4"><strong>Dosage Form: </strong></p>
+                        <div class="col-sm-8"><p id="dosageForm"></p></div>
+                        <p class="col-sm-4"><strong>Recommended route of administration: </strong></p>
+                        <div class="col-sm-8"><p id="recommendRoute"></p></div>
+                        <p class="col-sm-4"><strong>Recommended dose: </strong></p>
+                    </div>
+                </div>
+            </section>
+
             <div><a href="licensed-natural-health-product.html">New Search</a></div>
-    <div class="row pagedetails">
-        <div class="col-sm-5 col-xs-12 datemod">
-            <dl id="wb-dtmd">
-                <dt>Date modified:&#32;</dt>
-                <dd><time property="dateModified">2016-08-05</time></dd>
-            </dl>
-        </div>
-        <div class="clear visible-xs"></div>
-        <div class="col-sm-4 col-xs-6">
-            <a href="http://www.canada.ca/en/contact/feedback.html" class="btn btn-default"><span class="glyphicon glyphicon-comment mrgn-rght-sm"></span>Feedback<span class="wb-inv"> about this web site</span></a>
-        </div>
-        <div class="col-sm-3 col-xs-6 text-right">
-            <div class="wb-share" data-wb-share='{"lnkClass": "btn btn-default"}'></div>
-        </div>
-        <div class="clear visible-xs"></div>
-    </div>
-    </main>
+            <div class="row pagedetails">
+                <div class="col-sm-5 col-xs-12 datemod">
+                    <dl id="wb-dtmd">
+                        <dt>Date modified:&#32;</dt>
+                        <dd><time property="dateModified">2016-08-05</time></dd>
+                    </dl>
+                </div>
+                <div class="clear visible-xs"></div>
+                <div class="col-sm-4 col-xs-6">
+                    <a href="http://www.canada.ca/en/contact/feedback.html" class="btn btn-default"><span class="glyphicon glyphicon-comment mrgn-rght-sm"></span>Feedback<span class="wb-inv"> about this web site</span></a>
+                </div>
+                <div class="col-sm-3 col-xs-6 text-right">
+                    <div class="wb-share" data-wb-share='{"lnkClass": "btn btn-default"}'></div>
+                </div>
+                <div class="clear visible-xs"></div>
+            </div>
+        </main>
     </div>
 
     <footer role="contentinfo" id="wb-info">
@@ -292,7 +302,12 @@
         $("a#langLink").attr('href', goDhprLangUrlByID(lang, pType));
 
         $.getJSON(goDhprUrlByID(lang, pType), function (data) {
+            $('#npn').append(data.LicenceNumber);
             $('#brandname').append(data.ProductName);
+            $('#currentStatus').append(formatedProductStatus(lang, data.FlagProductStatus));
+            $('#company').append(data.CompanyName);
+            $('#dosageForm').append(data.DosageForm);
+            $('#recommendRoute').append(formatedRoute(lang, data.LicenceNumber));
         });
     </script>
 </body>

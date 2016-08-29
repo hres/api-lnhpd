@@ -85,6 +85,42 @@ function formatedList(data) {
     return "";
 }
 
+function formatedProductStatus(lang, flagProductStatus) {
+    
+    if ($.trim(flagProductStatus) == '') {
+        return "";
+    }
+
+    switch (flagProductStatus) {
+        case 0:
+            return lang == "fr" ? "Discontinué" : "Discontinued";
+        case 1:
+            return lang == "fr" ? "Actif" : "Active";
+        case 2:
+            return lang == "fr" ? "Cessation de vente" : "Stop Sale";
+        case 3:
+            return lang == "fr" ? "Suspendu" : "Suspended";
+        case 4:
+            return lang == "fr" ? "Annulé" : "Cancelled";
+        case 5:
+            return lang == "fr" ? "Toutes" : "All";
+        default:
+            return "&nbsp;";
+    }
+  
+}
+
+function formatedRoute(lang, npn) {
+
+    if ($.trim(npn) == '') {
+        return "";
+    }
+
+    return GetAllProductRoute(lang, npn);
+    
+}
+
+
 function getUnique(inputArray) {
     var outputArray = [];
 
