@@ -149,19 +149,16 @@ function formatedDoseList(monographFlag, doseList) {
 }
 
 function formatedMedIngList(monographFlag, miList) {
-    alert("@@@ 11!");
     if (miList.length == 0) {
         $("#medIngTable").hide();
-        alert("@@@ 12!");
         return "";
     }
-    alert("@@@ 13!");
+
     if (miList.length == 1) {
         $("#medIngTable").hide();
-        alert("@@@ 14!");
         return miList[0].ingredient_name;
     }
-    alert("@@@ 15!");
+
     var txt = '';
     var i;
     for (i = 0; i < miList.length; i++) {
@@ -184,52 +181,43 @@ function formatedMedIngList(monographFlag, miList) {
                 txt += "</td>";
                     
                 txt += '<td headers="potency">';
-                alert("@@@ 15" + i + ", TXT 1: " + txt);
-                if (miList[i].QuantityList[j].potency_string != null) {
-                    txt += miList[i].QuantityList[j].potency_string;
+                if (miList[i].quantity_list[j].potency_string != "") {
+                    txt += miList[i].quantity_list[j].potency_string;
                 }
                 txt += "</td></tr>";
-                alert("@@@ 15 TXT All: " + txt);
             }
         }
     }
-    alert("@@@ 16!");
+
     if (txt != '') {
         txt = txt.replace("undefined", "");
-        alert("@@@ 17: " + txt);
         return txt;
     }
-    alert("@@@ 18!");
+
     return "&nbsp;";
 }
 
 function formatedNonMedIngList(nmiList) {
-    alert("@@@ 21!");
     if (nmiList.length == 0) {
         $("#nonMedIngSection").hide();
-        alert("@@@ 22!");
         return "";
     }
-    alert("@@@ 23!");
+    
     if (nmiList.length == 1) {
         $("#nonMedIngSection").hide();
-        alert("@@@ 24!");
         return nmiList[0].ingredient_name;
     }
-    alert("@@@ 25!");
+    
     var txt = "<ul>";
     var i;
-    alert("@@@ 26!");
     for (i = 0; i < nmiList.length; i++) {
         txt += "<li>" + nmiList[i].ingredient_name + "</li>";
     }
-    alert("@@@ 27!");
+    
     if (txt != '') {
         txt = txt.replace("undefined", "");
-        alert("@@@ 28!");
         return txt + "</ul>";
     }
-    alert("@@@ 29!");
     return "&nbsp;";
 }
 

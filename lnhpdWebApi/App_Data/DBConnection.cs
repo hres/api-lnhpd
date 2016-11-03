@@ -773,7 +773,6 @@ namespace lnhpd
                                     else {
                                         potencyString += item.potency;
                                     }
-                                }
 
                                 if (item.potency_uom_type_desc != null)
                                 {
@@ -782,6 +781,7 @@ namespace lnhpd
                                 if (item.potency_constituent != null)
                                 {
                                     potencyString += "<br />" + item.potency_constituent;
+                                }
                                 }
 
                                 item.potency_string = potencyString;
@@ -832,7 +832,7 @@ namespace lnhpd
                 {
                     // Error: second Extract exsits.
                 }
-                if (medInglist[0].potency_string != null)
+                if (medInglist[0].potency_string != "")
                 {
                     newMedInglist[newMedInglist.Count - 1].potency_string += "<br />" + medInglist[0].potency_string;
                 }
