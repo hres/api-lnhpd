@@ -9,6 +9,6 @@ namespace lnhpdWebApi.Models
     {
         public int text_id { get; set; }
         public int submission_id { get; set; }
-        public String Purpose { get; set; }
+        public String purpose { get; set; }
     }
 }

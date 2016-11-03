@@ -417,12 +417,15 @@
             $('#currentStatus').append(formatedProductStatus(lang, data.flag_product_status));
             $('#company').append(data.company_name);
             $('#dosageForm').append(data.dosage_form);
-            $('#routeAdmin').append(formatedRoutelist(data.route_list));
+            $('#routeAdmin').append(formatedRouteList(data.route_list));
             $('#recommendDose').append(formatedDoseList(data.flag_attested_monograph, data.dose_list));
             $('#recommendPurpose').append(formatedPurposeList(data.flag_attested_monograph, data.purpose_list));
             $('#riskInfo').append(formatedRiskList(data.flag_attested_monograph, data.risk_list));
+            alert("@@@ 1!");
             $('#medIng').append(formatedMedIngList(data.flag_attested_monograph, data.medicinal_ingredient_list));
+            alert("@@@ 2!");
             $('#nonMedIng').append(formatedNonMedIngList(data.non_medicinal_ingredient_list));
+            alert("@@@ 3!");
             $('#licenceDate').append(formatedDate(data.licence_date));
             $('#RevisedDate').append(formatedDate(data.revised_date));
         });

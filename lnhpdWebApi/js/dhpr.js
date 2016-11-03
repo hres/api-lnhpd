@@ -149,16 +149,19 @@ function formatedDoseList(monographFlag, doseList) {
 }
 
 function formatedMedIngList(monographFlag, miList) {
+    alert("@@@ 11!");
     if (miList.length == 0) {
         $("#medIngTable").hide();
+        alert("@@@ 12!");
         return "";
     }
-
+    alert("@@@ 13!");
     if (miList.length == 1) {
         $("#medIngTable").hide();
+        alert("@@@ 14!");
         return miList[0].ingredient_name;
     }
-
+    alert("@@@ 15!");
     var txt = '';
     var i;
     for (i = 0; i < miList.length; i++) {
@@ -171,6 +174,7 @@ function formatedMedIngList(monographFlag, miList) {
                 if (miList[i].quantity_list[j].Quantity != 0) {
                     txt += miList[i].quantity_list[j].quantity_string;
                 }
+
                 txt += "</td>";
                 
                 txt += '<td headers="extract">';
@@ -180,42 +184,52 @@ function formatedMedIngList(monographFlag, miList) {
                 txt += "</td>";
                     
                 txt += '<td headers="potency">';
-                if (miList[i].QuantityList[j].PotencyString != null) {
-                    txt += miList[i].QuantityList[j].PotencyString;
+                alert("@@@ 15" + i + ", TXT 1: " + txt);
+                if (miList[i].QuantityList[j].potency_string != null) {
+                    txt += miList[i].QuantityList[j].potency_string;
                 }
                 txt += "</td></tr>";
+                alert("@@@ 15 TXT All: " + txt);
             }
         }
     }
-
+    alert("@@@ 16!");
     if (txt != '') {
         txt = txt.replace("undefined", "");
+        alert("@@@ 17: " + txt);
         return txt;
     }
+    alert("@@@ 18!");
     return "&nbsp;";
 }
 
 function formatedNonMedIngList(nmiList) {
+    alert("@@@ 21!");
     if (nmiList.length == 0) {
         $("#nonMedIngSection").hide();
+        alert("@@@ 22!");
         return "";
     }
-
+    alert("@@@ 23!");
     if (nmiList.length == 1) {
         $("#nonMedIngSection").hide();
+        alert("@@@ 24!");
         return nmiList[0].ingredient_name;
     }
-
+    alert("@@@ 25!");
     var txt = "<ul>";
     var i;
+    alert("@@@ 26!");
     for (i = 0; i < nmiList.length; i++) {
         txt += "<li>" + nmiList[i].ingredient_name + "</li>";
     }
-
+    alert("@@@ 27!");
     if (txt != '') {
         txt = txt.replace("undefined", "");
+        alert("@@@ 28!");
         return txt + "</ul>";
     }
+    alert("@@@ 29!");
     return "&nbsp;";
 }
 
@@ -257,7 +271,7 @@ function formatedPurposeList(monographFlag, purposeList) {
         var txt = "";
         var i;
         for (i = 0; i < purposeList.length; i++) {
-            txt += purposeList[i].Purpose + "<br />";
+            txt += purposeList[i].purpose + "<br />";
         }
 
         if (txt != '') {
@@ -284,9 +298,9 @@ function formatedRiskList(monographFlag, riskList) {
         var txt = "";
         var i;
         for (i = 0; i < riskList.length; i++) {
-            txt += riskList[i].RiskTypeDesc + "&nbsp;" + riskList[i].SubRiskTypeDesc + "<br />";
-            for (j = 0; j < riskList[i].RiskTextList.length; j++) {
-                txt += "<dd>" + riskList[i].RiskTextList[j].RiskText + "</dd>";
+            txt += riskList[i].risk_type_desc + "&nbsp;" + riskList[i].sub_risk_type_desc + "<br />";
+            for (j = 0; j < riskList[i].risk_text_list.length; j++) {
+                txt += "<dd>" + riskList[i].risk_text_list[j].risk_text + "</dd>";
             }
         }
 
@@ -310,7 +324,7 @@ function formatedRouteList(routeList) {
     var txt = "";
     var i;
     for (i = 0; i < routeList.length; i++) {
-        txt += routeList[i].RouteTypeDesc;
+        txt += routeList[i].route_type_desc;
     }
 
     if (txt != '') {
