@@ -826,11 +826,11 @@ namespace lnhpd
             {
                 if (medInglist[0].quantity > 0)
                 {
-                    // Error: second Qunatity exists.
+                    newMedInglist[newMedInglist.Count - 1].quantity_string += "<br />" + medInglist[0].quantity_string;
                 }
                 if (medInglist[0].ratio_numerator != null)
                 {
-                    // Error: second Extract exsits.
+                    newMedInglist[newMedInglist.Count - 1].extract_string += "<br />" + medInglist[0].extract_string;
                 }
                 if (medInglist[0].potency_string != "")
                 {
