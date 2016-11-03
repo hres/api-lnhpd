@@ -43,7 +43,7 @@ namespace dhpr
                         case programType.lnhpd:
                             var lnhpdItem = new ProductLicence();
                             lnhpdItem = UtilityHelper.GetByID(linkId, lang);
-                            if(lnhpdItem.SubmissionId > 0)
+                            if(lnhpdItem.submission_id > 0)
                             {
                                 jsonResult = JsonHelper.JsonSerializer<ProductLicence>(lnhpdItem);
                                 context.Response.Write(jsonResult);

@@ -7,8 +7,8 @@ namespace lnhpdWebApi.Models
 {
     public class ProductPurpose
     {
-        public int TextId { get; set; }
-        public int SubmissionId { get; set; }
+        public int text_id { get; set; }
+        public int submission_id { get; set; }
         public String Purpose { get; set; }
     }
 }

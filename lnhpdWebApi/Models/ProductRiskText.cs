@@ -7,8 +7,8 @@ namespace lnhpdWebApi.Models
 {
     public class ProductRiskText
     {
-        public int TextId { get; set; }
-        public int RiskId { get; set; }
-        public string RiskType { get; set; }
+        public int text_id { get; set; }
+        public int risk_id { get; set; }
+        public string risk_text { get; set; }
     }
 }

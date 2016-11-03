@@ -7,9 +7,11 @@ namespace lnhpdWebApi.Models
 {
     public class ProductRisk
     {
-        public int SubmissionId { get; set; }
-        public int RiskId { get; set; }
+        public int submission_id { get; set; }
+        public int risk_id { get; set; }
         public string RiskTypeDesc { get; set; }
         public string SubRiskTypeDesc { get; set; }
+
+        public List<ProductRiskText> RiskTextList { get; set; }
     }
 }

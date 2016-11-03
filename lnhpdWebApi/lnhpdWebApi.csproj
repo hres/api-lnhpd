@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>lnhpdWebApi</RootNamespace>
     <AssemblyName>lnhpdWebApi</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -243,6 +243,7 @@
     <Compile Include="Models\IProductRiskRepository.cs" />
     <Compile Include="Models\IProductRiskTextRepository.cs" />
     <Compile Include="Models\IProductRouteRepository.cs" />
+    <Compile Include="Models\ProductComparer.cs" />
     <Compile Include="Models\ProductDose.cs" />
     <Compile Include="Models\ProductDoseRepository.cs" />
     <Compile Include="Models\ProductLicence.cs" />

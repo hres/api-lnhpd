@@ -7,8 +7,8 @@ namespace lnhpdWebApi.Models
 {
     public class IngredientSource
     {
-        public int MaterialId { get; set; }
-        public int MatrixId { get; set; }
-        public string MaterialTypeDesc { get; set; }
+        public int material_id { get; set; }
+        public int matrix_id { get; set; }
+        public string material_type_desc { get; set; }
     }
 }

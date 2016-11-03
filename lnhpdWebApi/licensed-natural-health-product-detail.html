@@ -68,7 +68,7 @@
     </ul>
     <header role="banner">
         <div id="wb-bnr" class="container">
-            <section id="wb-lng" class="visible-md visible-lg text-right">
+            <section id="wb-lng" class="visible-md visible-lg text-+right">
                 <h2 class="wb-inv">Language selection</h2>
                 <div class="row">
                     <div class="col-md-12">
@@ -163,19 +163,128 @@
                     </div><br />
 
                     <div class="row">
-                        <p class="col-sm-4"><strong>Natural Product Number (NPN): </strong></p>
-                        <div class="col-sm-8"><p id="npn"></p></div>
-                        <p class="col-sm-4"><strong>Current status: </strong></p>
-                        <div class="col-sm-8"><p id="currentStatus"></p></div>
-                        <p class="col-sm-4"><strong>Brand name: </strong></p>
-                        <div class="col-sm-8"><p id="brandname"></p></div>
-                        <p class="col-sm-4"><strong>Licence holder: </strong></p>
-                        <div class="col-sm-8"><p id="company"></p></div>
-                        <p class="col-sm-4"><strong>Dosage Form: </strong></p>
-                        <div class="col-sm-8"><p id="dosageForm"></p></div>
-                        <p class="col-sm-4"><strong>Recommended route of administration: </strong></p>
-                        <div class="col-sm-8"><p id="recommendRoute"></p></div>
-                        <p class="col-sm-4"><strong>Recommended dose: </strong></p>
+                        <dl class="col-sm-12">
+                            <dt>Natural Product Number (NPN): </dt>
+                            <dd id="npn"></dd>
+                        </dl>
+                        <dl class="col-sm-12">
+                            <dt>Current status: </dt>
+                            <dd id="currentStatus"></dd>
+                        </dl>
+                        <dl class="col-sm-12">
+                            <dt>Brand name: </dt>
+                            <dd id="brandname"></dd>
+                        </dl>
+                        <dl class="col-sm-12">
+                            <dt>Licence holder: </dt>
+                            <dd id="company"></dd>
+                        </dl>
+                        <dl class="col-sm-12">
+                            <dt>Dosage Form: </dt>
+                            <dd id="dosageForm"></dd>
+                        </dl>
+                        <dl class="col-sm-12" id="routeSection">
+                            <dt>Recommended route of administration: </dt>
+                            <dd id="routeAdmin"></dd>
+                        </dl>
+                        <div class="col-sm-12" id="recommendDoseSection">
+                            <strong>Recommended dose: </strong>
+                            <p id="doseAuthMonoLink"><a href="http://webprod.hc-sc.gc.ca/nhpid-bdipsn/monosReq.do?lang=eng">As authorized in the NHPD monograph(s) to which the applicant attested</a></p>
+                            <table class="table table-striped table-hover table-bordered" id="recommendDoseTable">
+                                <thead>
+                                    <tr>
+                                        <th id="population" scope="rowgroup" colspan="5">Sub population (Sub Pop.)</th>
+                                        <th id="quantity" scope="rowgroup" colspan="4">Quantity (Qty)</th>
+                                        <th id="frequency" scope="rowgroup" colspan="4">Frequency (Freq.)</th>
+                                    </tr>
+                                    <tr>
+                                        <th id="subpopulation" headers="population">Sub Pop.</th>
+                                        <th id="subpopage" headers="population">Age</th>
+                                        <th id="subpopmin" headers="population">Min.</th>
+                                        <th id="subpopmax" headers="population">Max.</th>
+                                        <th id="subpopuomage" headers="population">
+                                            UoM
+                                            <sup id="fn1-rf">
+                                                <a id="fnote" class="footnote-link" href="#fn1-dt" title="see footnote">
+                                                    <span class="wb-inv">Footnote </span>1
+                                                </a>
+                                            </sup>
+                                            Age
+                                        </th>
+                                        <th id="qty" headers="quantity">Qty</th>
+                                        <th id="qtymin" headers="quantity">Min.</th>
+                                        <th id="qtymax" headers="quantity">Max.</th>
+                                        <th id="uomqty" headers="quantity">UoM&nbsp;Qty</th>
+                                        <th id="freq" headers="frequency">Freq.</th>
+                                        <th id="freqmin" headers="frequency">Min.</th>
+                                        <th id="freqmax" headers="frequency">Max.</th>
+                                        <th id="uomfreq" headers="frequency">UoM&nbsp;Freq.</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="13">
+                                            <aside class="wb-fnote wb-fnote-inited" role="note">
+                                                <h2 id="fn">Footnotes</h2>
+                                                <dl>
+                                                    <dt id="fn1-dt">Footnote 1</dt>
+                                                    <dd aria-labelledby="fn1-dt" tabindex="-1" id="fn1">
+                                                        <p>UoM: Unit of Measure</p>
+                                                        <p class="fn-rtn">
+                                                            <a href="#fn1-rf">
+                                                                <span class="wb-inv">
+                                                                    Return to footnote
+                                                                </span>1
+                                                                <span class="wb-inv">
+                                                                    referrer
+                                                                </span>
+                                                            </a>
+                                                        </p>
+                                                    </dd>
+                                                </dl>
+                                            </aside>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                                <tbody id="recommendDose"></tbody>
+                            </table>
+                        </div>
+                        <dl class="col-sm-12" id="recommendPurposeSection">
+                            <dt>Recommended use or purpose: </dt>
+                            <dd id="purposeAuthMonoLink"><a href="http://webprod.hc-sc.gc.ca/nhpid-bdipsn/monosReq.do?lang=eng">As authorized in the NHPD monograph(s) to which the applicant attested</a></dd>
+                            <dd id="recommendPurpose"></dd>
+                        </dl>
+                        <dl class="col-sm-12" id="riskInfoSection">
+                            <dt>Risk Information: </dt>
+                            <dd id="riskAuthMonoLink"><a href="http://webprod.hc-sc.gc.ca/nhpid-bdipsn/monosReq.do?lang=eng">As authorized in the NHPD monograph(s) to which the applicant attested</a></dd>
+                            <dd id="riskInfo"></dd>
+                        </dl>
+                        <div class="col-sm-12" id="medIngTable">
+                            <table class="table table-striped wb-tables table-bordered" data-wb-tables='{"ordering" : false}{"paging" : false}'>
+                                <caption class="text-left">List of medicinal ingredients: </caption>
+                                <thead>
+                                    <tr>
+                                        <th id="ingredient">Medicinal ingredients</th>
+                                        <th id="ingquantity">Quantity (Qty)</th>
+                                        <th id="extract">Extract</th>
+                                        <th id="potency">Potency</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="medIng"></tbody>
+                            </table>
+                        </div>
+                        <dl class="col-sm-12" id="nonMedIngSection">
+                            <dt>List of non-medicinal ingredients: </dt>
+                            <dd id="nonMedIng"></dd>
+                        </dl>
+                        <dl class="col-sm-12">
+                            <dt>Date of licensing: </dt>
+                            <dd id="licenceDate"></dd>
+                        </dl>
+                        <dl class="col-sm-12">
+                            <dt>Revised date of licence: </dt>
+                            <dd id="revisedDate"></dd>
+                        </dl>
                     </div>
                 </div>
             </section>
@@ -302,12 +411,20 @@
         $("a#langLink").attr('href', goDhprLangUrlByID(lang, pType));
 
         $.getJSON(goDhprUrlByID(lang, pType), function (data) {
-            $('#npn').append(data.LicenceNumber);
-            $('#brandname').append(data.ProductName);
-            $('#currentStatus').append(formatedProductStatus(lang, data.FlagProductStatus));
-            $('#company').append(data.CompanyName);
-            $('#dosageForm').append(data.DosageForm);
-            $('#recommendRoute').append(formatedRoute(lang, data.LicenceNumber));
+            alert("@@@ TEST: " + JSON.stringify(data));
+            $('#npn').append(data.licence_number);
+            $('#brandname').append(formatedBrandName(data.product_name, data.secondary_brand_name_list));
+            $('#currentStatus').append(formatedProductStatus(lang, data.flag_product_status));
+            $('#company').append(data.company_name);
+            $('#dosageForm').append(data.dosage_form);
+            $('#routeAdmin').append(formatedRoutelist(data.route_list));
+            $('#recommendDose').append(formatedDoseList(data.flag_attested_monograph, data.dose_list));
+            $('#recommendPurpose').append(formatedPurposeList(data.flag_attested_monograph, data.purpose_list));
+            $('#riskInfo').append(formatedRiskList(data.flag_attested_monograph, data.risk_list));
+            $('#medIng').append(formatedMedIngList(data.flag_attested_monograph, data.medicinal_ingredient_list));
+            $('#nonMedIng').append(formatedNonMedIngList(data.non_medicinal_ingredient_list));
+            $('#licenceDate').append(formatedDate(data.licence_date));
+            $('#RevisedDate').append(formatedDate(data.revised_date));
         });
     </script>
 </body>

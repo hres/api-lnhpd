@@ -153,14 +153,16 @@ var autoCompletionOptions = { 'validLanguages' : 'en', };
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="term" class="control-label required">
-                                    <span class="field-name">Drug/device name, medicinal ingredient, manufacturer, or drug identification number(DIN)/licence number :</span>
-                                    <strong class="required">(required)</strong>
-                                </label>
-                                <input name="term" type="text" id="term" list="list-liste" placeholder="[Enter text here to search for a Regulatory Decision Summary by drug/device name, medicinal ingredient, manufacturer, or DIN/license numbe.]" class="full-width" required="required">
+                                Search for natural health products that have been issued a product licence by Health Canada.<br />You may search using 4 ways:<br />
+                                <ol>
+                                    <li>Licence Holder</li>
+                                    <li>Brand Name</li>
+                                    <li>Medicinal Ingredient</li>
+                                    <li>Natural Product Number (NPN) or Homeopathic Medicine Number (DIN-HM)</li>
+                                </ol>
+                                <input name="term" type="text" id="term" list="list-liste" placeholder="[Enter text here to search for a drug by license number, brand name, medicinal ingredient or NPN/DIN-HM]" class="full-width" required="required">
                                 <datalist id="list-liste" data-ajax-replace=".././list-liste-eng.txt" class="wb-data-ajax-replace-inited"> </datalist>
                             </div>
-
                             <div class="form-group">
                                 <input type="submit" value="Submit" class="btn btn-primary" />
                                 <input type="reset" value="Reset" class="btn btn-default nextBtn" />

@@ -156,22 +156,22 @@
               output += "<caption class='text-left'>Search Result<br><span class='wb-inv'>Search Results</span></caption>";
               output += "<thead>";
               output += "<tr>";
-              output += "<th id='submissionid' scope='col' class='hg-primary align-top' >Submission Id</th>";
+              output += "<th id='submission_id' scope='col' class='hg-primary align-top' >Submission Id</th>";
               output += "<th id='companyname' scope='col' class='hg-primary align-top' >Company Name</th>";
               output += "<th id='productname' scope='col' class='hg-primary align-top' >Product Name</th>";
               output += "<th id='productstatus' scope='col' class='hg-primary align-top' >Flag Product Status</th>";
 
               output += "</tr></thead><tbody>";
               $.each(data, function(i, item) {
-                  if ((item.SubmissionId.toString().search(new RegExp(q, "i")) != -1) || (item.CompanyName.search(new RegExp(q, "i")) != -1)) {
+                  if ((item.submission_id.toString().search(new RegExp(q, "i")) != -1) || (item.company_name.search(new RegExp(q, "i")) != -1)) {
 				  output += "<tr><td>";
-                  output += data[i].SubmissionId;
+                  output += data[i].submission_id;
                   output += "</td><td>";
-                  output += data[i].CompanyName;
+                  output += data[i].company_name;
                   output += "</td><td>";
-                  output += data[i].ProductName;
+                  output += data[i].product_name;
                   output += "</td><td>";
-                  output += data[i].FlagProductStatus;
+                  output += data[i].flag_product_status;
                   output += "</td>";
                   output += "</tr>";
                   }

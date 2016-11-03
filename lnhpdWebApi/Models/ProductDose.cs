@@ -7,20 +7,20 @@ namespace lnhpdWebApi.Models
 {
     public class ProductDose
     {
-        public int SubmissionId { get; set; }
-        public int DoseId { get; set; }
-        public string PopulationTypeDesc { get; set; }
-        public int Age { get; set; }
-        public int AgeMinimum { get; set; }
-        public int AgeMaximum { get; set; }
-        public string UomTypeDescAge { get; set; }
-        public int QuantityDose { get; set; }
-        public int QuantityMinimumDose { get; set; }
-        public int QuantityMaximumDose { get; set; }
-        public string UomTypeDescQuantityDose { get; set; }
-        public int Frequency { get; set; }
-        public int FrequencyMinimum { get; set; }
-        public int FrequencyMaximum { get; set; }
-        public string UomTypeDescFrequency { get; set; }
+        public int submission_id { get; set; }
+        public int dose_id { get; set; }
+        public string population_type_desc { get; set; }
+        public int age { get; set; }
+        public int age_minimum { get; set; }
+        public int age_maximum { get; set; }
+        public string age_uom_type_desc { get; set; }
+        public int quantity_dose { get; set; }
+        public int quantity_dose_minimum { get; set; }
+        public int quantity_dose_maximum { get; set; }
+        public string quantity_dose_uom_type_desc { get; set; }
+        public int frequency { get; set; }
+        public int frequency_minimum { get; set; }
+        public int frequency_maximum { get; set; }
+        public string frequency_uom_type_desc { get; set; }
     }
 }

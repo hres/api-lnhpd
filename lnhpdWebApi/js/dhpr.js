@@ -85,8 +85,141 @@ function formatedList(data) {
     return "";
 }
 
+function formatedBrandName(brandName, secondaryBrandNameList) {
+    if (secondaryBrandNameList == null) {
+        return brandName;
+    }
+    var txt = "";
+    var i;
+    txt += brandName + ";<br />";
+    for (i = 0; i < secondaryBrandNameList.length; i++) {
+        if (secondaryBrandNameList[i] != brandName && secondaryBrandNameList[i] != null) {
+            txt += secondaryBrandNameList[i] + ";<br />";
+        }
+    }
+
+    if (txt != '') {
+        txt = txt.replace("undefined", "");
+        return txt;
+    }
+    return "&nbsp;";
+}
+
+function formatedDoseList(monographFlag, doseList) {
+    if (monographFlag >= 1) {
+        $("#recommendDoseTable").hide();
+        $("#doseAuthMonoLink").show();
+        return "";
+    } else {
+        if (doseList.length == 0) {
+            $("#recommendDoseSection").hide();
+            return "";
+        }
+        // console.log(data.length);
+        var txt = "";
+        var i;
+        for (i = 0; i < doseList.length; i++) {
+            txt += "<tr><td headers='population subpopulation'>" + (doseList[i].population_type_desc) + "</td>";
+            txt += "<td headers='population subpopage'>" + (doseList[i].age) + "</td>";
+            txt += "<td headers='population subpopmin'>" + (doseList[i].age_minimum) + "</td>";
+            txt += "<td headers='population subpopmax'>" + (doseList[i].age_maximum) + "</td>";
+            txt += "<td headers='population subpopuomage'>" + (doseList[i].age_uom_type_desc) + "</td>";
+
+            txt += "<td headers='quantity qty'>" + (doseList[i].quantity_dose) + "</td>";
+            txt += "<td headers='quantity qtymin'>" + (doseList[i].quantity_dose_minimum) + "</td>";
+            txt += "<td headers='quantity qtymax'>" + (doseList[i].quantity_dose_maximum) + "</td>";
+            txt += "<td headers='quantity uomqty'>" + (doseList[i].quantity_dose_uom_type_desc) + "</td>";
+
+            txt += "<td headers='frequency freq'>" + (doseList[i].frequency) + "</td>";
+            txt += "<td headers='frequency freqmin'>" + (doseList[i].frequency_minimum) + "</td>";
+            txt += "<td headers='frequency freqmax'>" + (doseList[i].frequency_maximum) + "</td>";
+            txt += "<td headers='frequency uomfreq'>" + (doseList[i].frequency_uom_type_desc);
+            txt += "</td></tr>"
+        }
+
+        if (txt != '') {
+            txt = txt.replace("undefined", "");
+            $("#doseAuthMonoLink").hide();
+            $("#recommendDoseTable").show();
+            return txt;
+        }
+        $("#recommendDoseSection").hide();
+        return "&nbsp;";
+    }
+}
+
+function formatedMedIngList(monographFlag, miList) {
+    if (miList.length == 0) {
+        $("#medIngTable").hide();
+        return "";
+    }
+
+    if (miList.length == 1) {
+        $("#medIngTable").hide();
+        return miList[0].ingredient_name;
+    }
+
+    var txt = '';
+    var i;
+    for (i = 0; i < miList.length; i++) {
+        txt += '<tr><td headers="ingredient">' + miList[i].ingredient_name + "</td>";
+        if (monographFlag >= 1) {
+            return '<tr><td colspan="3"><a href="http://webprod.hc-sc.gc.ca/nhpid-bdipsn/monosReq.do?lang=eng">As authorized in the NHPD monograph(s) to which the applicant attested</a></td>';
+        } else {
+            for (j = 0; j < miList[i].quantity_list.length; j++) {
+                txt += '<td headers="ingquantity">';
+                if (miList[i].quantity_list[j].Quantity != 0) {
+                    txt += miList[i].quantity_list[j].quantity_string;
+                }
+                txt += "</td>";
+                
+                txt += '<td headers="extract">';
+                if (miList[i].quantity_list[j].ratio_numerator != 0) {
+                    txt += miList[i].quantity_list[j].extract_string;
+                }
+                txt += "</td>";
+                    
+                txt += '<td headers="potency">';
+                if (miList[i].QuantityList[j].PotencyString != null) {
+                    txt += miList[i].QuantityList[j].PotencyString;
+                }
+                txt += "</td></tr>";
+            }
+        }
+    }
+
+    if (txt != '') {
+        txt = txt.replace("undefined", "");
+        return txt;
+    }
+    return "&nbsp;";
+}
+
+function formatedNonMedIngList(nmiList) {
+    if (nmiList.length == 0) {
+        $("#nonMedIngSection").hide();
+        return "";
+    }
+
+    if (nmiList.length == 1) {
+        $("#nonMedIngSection").hide();
+        return nmiList[0].ingredient_name;
+    }
+
+    var txt = "<ul>";
+    var i;
+    for (i = 0; i < nmiList.length; i++) {
+        txt += "<li>" + nmiList[i].ingredient_name + "</li>";
+    }
+
+    if (txt != '') {
+        txt = txt.replace("undefined", "");
+        return txt + "</ul>";
+    }
+    return "&nbsp;";
+}
+
 function formatedProductStatus(lang, flagProductStatus) {
-    
     if ($.trim(flagProductStatus) == '') {
         return "";
     }
@@ -110,14 +243,91 @@ function formatedProductStatus(lang, flagProductStatus) {
   
 }
 
+function formatedPurposeList(monographFlag, purposeList) {
+    if (monographFlag >= 1) {
+        $("#recommendPurpose").hide();
+        $("#purposeAuthMonoLink").show();
+        return "";
+    } else {
+        if (purposeList.length == 0) {
+            $("#recommendPurposeSection").hide();
+            return "";
+        }
+
+        var txt = "";
+        var i;
+        for (i = 0; i < purposeList.length; i++) {
+            txt += purposeList[i].Purpose + "<br />";
+        }
+
+        if (txt != '') {
+            txt = txt.replace("undefined", "");
+            $("#recommendPurpose").show();
+            $("#purposeAuthMonoLink").hide();
+            return txt;
+        }
+        return "&nbsp;";
+    }
+}
+
+function formatedRiskList(monographFlag, riskList) {
+    if (monographFlag >= 1) {
+        $("#riskInfo").hide();
+        $("#riskAuthMonoLink").show();
+        return "";
+    } else {
+        if (riskList.length == 0) {
+            $("#riskInfoSection").hide();
+            return "";
+        }
+
+        var txt = "";
+        var i;
+        for (i = 0; i < riskList.length; i++) {
+            txt += riskList[i].RiskTypeDesc + "&nbsp;" + riskList[i].SubRiskTypeDesc + "<br />";
+            for (j = 0; j < riskList[i].RiskTextList.length; j++) {
+                txt += "<dd>" + riskList[i].RiskTextList[j].RiskText + "</dd>";
+            }
+        }
+
+        if (txt != '') {
+            txt = txt.replace("undefined", "");
+            $("#riskInfo").show();
+            $("#riskAuthMonoLink").hide();
+            return txt;
+        }
+        return "&nbsp;";
+    }
+}
+
+
+function formatedRouteList(routeList) {
+    if (routeList.length == null) {
+        $("#routeAdmin").hide();
+        return "";
+    }
+
+    var txt = "";
+    var i;
+    for (i = 0; i < routeList.length; i++) {
+        txt += routeList[i].RouteTypeDesc;
+    }
+
+    if (txt != '') {
+        txt = txt.replace("undefined", "");
+        return txt;
+    }
+
+    return "&nbsp;";
+}
+
 function formatedRoute(lang, npn) {
 
     if ($.trim(npn) == '') {
         return "";
     }
 
-    return GetAllProductRoute(lang, npn);
-    
+    return UtilityHelper.GetProductRoutesByID(npn, lang);
 }
 
 

@@ -7,7 +7,7 @@ namespace lnhpdWebApi.Models
 {
     public class ProductRoute
     {
-        public int SubmissionId { get; set; }
+        public int submission_id { get; set; }
         public int RouteId { get; set; }
         public string RouteTypeDesc { get; set; }
     }

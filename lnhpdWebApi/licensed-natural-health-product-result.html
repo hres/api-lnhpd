@@ -310,18 +310,23 @@ var autoCompletionOptions = { 'validLanguages' : 'en', };
                     {
                         "data": null,
                         "render": function (data, type, full) {
-                            return '<a href=licensed-natural-health-product-detail.html?lang=en&linkID=' + data.LicenceNumber + '>' + data.LicenceNumber + '</a>';
+                            return '<a href=licensed-natural-health-product-detail.html?lang=en&linkID=' + data.licence_number + '>' + data.licence_number + '</a>';
                         }
                     },
-                    { "data": "ProductName", sDefaultContent: "" },
-                    { "data": "CompanyName", sDefaultContent: "" },
+                    { "data": "product_name", sDefaultContent: "" },
+                    //{
+                    //    "data": null,
+                    //    "render": function (data, type, full) {
+                    //        return formatedBrandName(data.brandName, data.secondary_brand_name_list);
+                    //    }
+                    //},
+                    { "data": "company_name", sDefaultContent: "" },
                     {
                         "data": null,
                         "render": function (data, type, full) {
-                            return formatedProductStatus(lang, data.FlagProductStatus);
+                            return formatedProductStatus(lang, data.flag_product_status);
                         }
                     }
-
                 ]
             }
 

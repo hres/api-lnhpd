@@ -10,6 +10,7 @@ using System.Threading;
 using System.Web;
 using lnhpdWebApi;
 using lnhpdWebApi.Models;
+using System.Text;
 
 namespace dhpr
 {
@@ -48,6 +49,7 @@ namespace dhpr
             {
                 using (var webClient = new System.Net.WebClient())
                 {
+                    webClient.Encoding = UTF8Encoding.UTF8;
                     json = webClient.DownloadString(lnhpdJsonUrl);
                     if (!string.IsNullOrWhiteSpace(json))
                     {
@@ -127,6 +129,37 @@ namespace dhpr
 
             }
             return item;
+        }
+
+        public static List<ProductRoute> GetProductRoutesByID(string lnhpdID, string lang)
+        {
+            // CertifySSL.EnableTrustedHosts();
+            var items = new List<ProductRoute>();
+            var filteredList = new List<ProductRoute>();
+            var json = string.Empty;
+
+            var lnhpdRoutesJsonUrl = string.Format("{0}&id={1}&lang={2}", ConfigurationManager.AppSettings["lnhpdRoutesJsonUrl"].ToString(), lang);
+            try
+            {
+                using (var webClient = new System.Net.WebClient())
+                {
+                    json = webClient.DownloadString(lnhpdRoutesJsonUrl);
+                    if (!string.IsNullOrWhiteSpace(json))
+                    {
+                        items = JsonConvert.DeserializeObject<List<ProductRoute>>(json);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorMessages = string.Format("UtilityHelper - GetProductRoutesByID()- Error Message:{0}", ex.Message);
+                ExceptionHelper.LogException(ex, errorMessages);
+            }
+            finally
+            {
+
+            }
+            return items;
         }
     }
 }

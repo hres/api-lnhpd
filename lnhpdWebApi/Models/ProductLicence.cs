@@ -7,24 +7,32 @@ namespace lnhpdWebApi.Models
 {
     public class ProductLicence
     {
-        public int FileNumber { get; set; }
-        public int SubmissionId { get; set; }
-        public string LicenceNumber { get; set; }
-        public DateTime? LicenceDate { get; set; }
-        public DateTime? RevisedDate { get; set; }
-        public DateTime? TimeReceipt { get; set; }
-        public DateTime? DateStart { get; set; }
-        public string Notes { get; set; }
-        public int ProductNameId { get; set; }
-        public string ProductName { get; set; }
-        public string DosageForm { get; set; }
-        public int CompanyId { get; set; }
-        public int CompanyNameId { get; set; }
-        public string CompanyName { get; set; }
-        public int SubSubmissionTypeCode { get; set; }
-        public string SubSubmissionTypeDesc { get; set; }
-        public int FlagPrimaryName { get; set; }
-        public int FlagProductStatus { get; set; }
-        public int FlagAttestedMonograph { get; set; }
+        public int file_number { get; set; }
+        public int submission_id { get; set; }
+        public string licence_number { get; set; }
+        public DateTime? licence_date { get; set; }
+        public DateTime? revised_date { get; set; }
+        public DateTime? time_receipt { get; set; }
+        public DateTime? date_start { get; set; }
+        public string notes { get; set; }
+        public int product_name_id { get; set; }
+        public string product_name { get; set; }
+        public string dosage_form { get; set; }
+        public int company_id { get; set; }
+        public int company_name_id { get; set; }
+        public string company_name { get; set; }
+        public int sub_submission_type_code { get; set; }
+        public string sub_submission_type_desc { get; set; }
+        public int flag_primary_name { get; set; }
+        public int flag_product_status { get; set; }
+        public int flag_attested_monograph { get; set; }
+        
+        public List<string> secondary_brand_name_list { get; set; }
+        public List<ProductDose> dose_list { get; set; }
+        public List<ProductRoute> route_list { get; set; }
+        public List<ProductPurpose> purpose_list { get; set; }
+        public List<ProductRisk> risk_list { get; set; }
+        public List<Ingredient> medicinal_ingredient_list { get; set; }
+        public List<Ingredient> non_medicinal_ingredient_list { get; set; }
     }
 }

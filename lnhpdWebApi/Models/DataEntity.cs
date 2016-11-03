@@ -20,7 +20,7 @@ namespace dhpr
     {
         public string Id { get; set; }
         public string BrandName { get; set; }
-        public string CompanyName { get; set; }
+        public string company_name { get; set; }
         public string DrugIdentificationNumber { get; set; }
         
     }
