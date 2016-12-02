@@ -81,6 +81,7 @@ namespace dhpr
             {
                 using (var webClient = new System.Net.WebClient())
                 {
+                    webClient.Encoding = Encoding.UTF8;
                     json = webClient.DownloadString(lnhpdJsonUrl);
                     if (!string.IsNullOrWhiteSpace(json))
                     {
@@ -112,6 +113,7 @@ namespace dhpr
             {
                 using (var webClient = new System.Net.WebClient())
                 {
+                    webClient.Encoding = Encoding.UTF8;
                     json = webClient.DownloadString(lnhpdJsonUrlbyID);
                     if (!string.IsNullOrWhiteSpace(json))
                     {
@@ -143,6 +145,7 @@ namespace dhpr
             {
                 using (var webClient = new System.Net.WebClient())
                 {
+                    webClient.Encoding = Encoding.UTF8;
                     json = webClient.DownloadString(lnhpdRoutesJsonUrl);
                     if (!string.IsNullOrWhiteSpace(json))
                     {

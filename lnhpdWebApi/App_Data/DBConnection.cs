@@ -668,7 +668,7 @@ namespace lnhpd
             string commandText = "SELECT I.INGREDIENT_NAME, Q.INGREDIENT_AMOUNT_ID, Q.MATRIX_ID, Q.QUANTITY, Q.QUANTITY_MINIMUM, Q.QUANTITY_MAXIMUM, Q.RATIO_NUMERATOR, Q.RATIO_DENOMINATOR, Q.DRIED_HERB_EQUIVALENT, Q.POTENCY_AMOUNT, Q.POTENCY_CONSTITUENT, ";
             if (lang.Equals("fr"))
             {
-                commandText += "Q.UOM_TYPE_DESC_AMT_QUANTITY_F as Q.UOM_TYPE_DESC_AMT_QUANTITY, Q.UOM_TYPE_DESC_DHE_F as Q.UOM_TYPE_DESC_DHE, Q.EXTRACT_TYPE_DESC_F as Q.EXTRACT_TYPE_DESC, Q.UOM_TYPE_DESC_POTENCY_F as Q.UOM_TYPE_DESC_POTENCY ";
+                commandText += "Q.UOM_TYPE_DESC_AMT_QUANTITY_F as UOM_TYPE_DESC_AMT_QUANTITY, Q.UOM_TYPE_DESC_DHE_F as UOM_TYPE_DESC_DHE, Q.EXTRACT_TYPE_DESC_F as EXTRACT_TYPE_DESC, Q.UOM_TYPE_DESC_POTENCY_F as UOM_TYPE_DESC_POTENCY ";
             }
             else {
                 commandText += "Q.UOM_TYPE_DESC_AMT_QUANTITY, Q.UOM_TYPE_DESC_DHE, Q.EXTRACT_TYPE_DESC, Q.UOM_TYPE_DESC_POTENCY ";
@@ -1259,7 +1259,7 @@ namespace lnhpd
             string commandText = "SELECT DISTINCT D.SUBMISSION_ID, D.DOSE_ID, D.AGE, D.AGE_MINIMUM, D.AGE_MAXIMUM, D.QUANTITY_DOSE, D.QUANTITY_MINIMUM_DOSE, D.QUANTITY_MAXIMUM_DOSE, D.FREQUENCY, D.FREQUENCY_MINIMUM, D.FREQUENCY_MAXIMUM, ";
             if (lang.Equals("fr"))
             {
-                commandText += "D.POPULATION_TYPE_DESC_F as D.POPULATION_TYPE_DESC, D.UOM_TYPE_DESC_AGE_F as D.UOM_TYPE_DESC_AGE, D.UOM_TYPE_DESC_QUANTITY_DOSE_F as D.UOM_TYPE_DESC_QUANTITY_DOSE, D.UOM_TYPE_DESC_FREQUENCY_F as D.UOM_TYPE_DESC_FREQUENCY ";
+                commandText += "D.POPULATION_TYPE_DESC_F as POPULATION_TYPE_DESC, D.UOM_TYPE_DESC_AGE_F as UOM_TYPE_DESC_AGE, D.UOM_TYPE_DESC_QUANTITY_DOSE_F as UOM_TYPE_DESC_QUANTITY_DOSE, D.UOM_TYPE_DESC_FREQUENCY_F as UOM_TYPE_DESC_FREQUENCY ";
             }
             else {
                 commandText += "D.POPULATION_TYPE_DESC, D.UOM_TYPE_DESC_AGE, D.UOM_TYPE_DESC_QUANTITY_DOSE, D.UOM_TYPE_DESC_FREQUENCY ";
@@ -1427,7 +1427,7 @@ namespace lnhpd
             string commandText = "SELECT DISTINCT P.TEXT_ID, P.SUBMISSION_ID, ";
             if (lang.Equals("fr"))
             {
-                commandText += "P.PURPOSE_F as P.PURPOSE_E ";
+                commandText += "P.PURPOSE_F as PURPOSE_E ";
             }
             else {
                 commandText += "P.PURPOSE_E ";
@@ -1585,7 +1585,7 @@ namespace lnhpd
             string commandText = "SELECT DISTINCT R.SUBMISSION_ID, R.RISK_ID, ";
             if (lang.Equals("fr"))
             {
-                commandText += "R.RISK_TYPE_DESC_F as R.RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as R.SUB_RISK_TYPE_DESC ";
+                commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC ";
             }
             else {
                 commandText += "R.RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC ";
@@ -1897,7 +1897,7 @@ namespace lnhpd
             string commandText = "SELECT DISTINCT R.SUBMISSION_ID, R.ROUTE_ID, ";
             if (lang.Equals("fr"))
             {
-                commandText += "R.ROUTE_TYPE_DESC_F as R.ROUTE_TYPE_DESC ";
+                commandText += "R.ROUTE_TYPE_DESC_F as ROUTE_TYPE_DESC ";
             }
             else {
                 commandText += "R.ROUTE_TYPE_DESC ";

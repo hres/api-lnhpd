@@ -32,7 +32,12 @@ function goDhprUrlByID(lang, pType) {
 function goDhprLangUrlByID(lang, pType) {
     var linkID = getParameterByName("linkID");
     var langSwitch = lang == 'en' ? "fr" : "en";
-    var langUrl = "regulatory-decision-summary-result.html?" + langSwitch + ".html?linkID=" + linkID + "&pType=" + pType + "&lang=" + langSwitch;
+    var langUrl;
+
+    if (pType == "lnhpd") {
+        return "licensed-natural-health-product-detail-fr.html";
+    }
+    langUrl = "regulatory-decision-summary-result.html?" + langSwitch + ".html?linkID=" + linkID + "&pType=" + pType + "&lang=" + langSwitch;
     return langUrl;
 }
 
