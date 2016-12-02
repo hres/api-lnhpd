@@ -493,13 +493,13 @@ namespace lnhpd
             string commandText = "SELECT DISTINCT I.SUBMISSION_ID, I.MATRIX_ID, I.MATRIX_TYPE_CODE, ";
             if (lang.Equals("fr"))
             {
-                commandText += "I.INGREDIENT_NAME_OTHER as I.INGREDIENT_NAME ";
+                commandText += "I.INGREDIENT_NAME_OTHER as INGREDIENT_NAME ";
             }
             else {
                 commandText += "I.INGREDIENT_NAME ";
             }
             commandText += "FROM NHPPLQ_OWNER.INGREDIENT_ONLINE I, NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE L WHERE L.SUBMISSION_ID = I.SUBMISSION_ID AND I.MATRIX_TYPE_CODE = 2 AND L.LICENCE_NUMBER = " + licenceNumber;
-            commandText += " ORDER BY I.INGREDIENT_NAME ASC";
+            commandText += " ORDER BY INGREDIENT_NAME ASC";
 
 
             using (
@@ -549,13 +549,13 @@ namespace lnhpd
             string commandText = "SELECT DISTINCT I.SUBMISSION_ID, I.MATRIX_ID, I.MATRIX_TYPE_CODE, ";
             if (lang.Equals("fr"))
             {
-                commandText += "I.INGREDIENT_NAME_OTHER as I.INGREDIENT_NAME ";
+                commandText += "I.INGREDIENT_NAME_OTHER as INGREDIENT_NAME ";
             }
             else {
                 commandText += "I.INGREDIENT_NAME ";
             }
             commandText += "FROM NHPPLQ_OWNER.INGREDIENT_ONLINE I, NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE L WHERE L.SUBMISSION_ID = I.SUBMISSION_ID AND I.MATRIX_TYPE_CODE = 3 AND L.LICENCE_NUMBER = " + licenceNumber;
-            commandText += " ORDER BY I.INGREDIENT_NAME ASC";
+            commandText += " ORDER BY INGREDIENT_NAME ASC";
 
 
             using (
@@ -674,7 +674,7 @@ namespace lnhpd
                 commandText += "Q.UOM_TYPE_DESC_AMT_QUANTITY, Q.UOM_TYPE_DESC_DHE, Q.EXTRACT_TYPE_DESC, Q.UOM_TYPE_DESC_POTENCY ";
             }
             commandText += "FROM NHPPLQ_OWNER.INGREDIENT_QUANTITY_ONLINE Q, NHPPLQ_OWNER.INGREDIENT_ONLINE I WHERE I.MATRIX_ID = Q.MATRIX_ID AND Q.MATRIX_ID = " + matrix_id;
-            commandText += " ORDER BY UPPER(I.INGREDIENT_NAME), Q.QUANTITY, Q.RATIO_NUMERATOR ASC";
+            commandText += " ORDER BY UPPER(INGREDIENT_NAME), QUANTITY, RATIO_NUMERATOR ASC";
 
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))

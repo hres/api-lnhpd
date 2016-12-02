@@ -292,10 +292,7 @@
         var lang = "en";
         var pType = "lnhpd";
 
-        $("a#langLink").attr('href', goDhprLangUrlByID(lang, pType));
-
         $.getJSON(goDhprUrlByID(lang, pType), function (data) {
-            alert("@@@ TEST: " + JSON.stringify(data));
             $('#npn').append(data.licence_number);
             $('#brandname').append(formatedBrandName(data.product_name, data.secondary_brand_name_list));
             $('#currentStatus').append(formatedProductStatus(lang, data.flag_product_status));
