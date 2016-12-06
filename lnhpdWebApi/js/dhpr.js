@@ -35,7 +35,7 @@ function goDhprLangUrlByID(lang, pType) {
     var langUrl;
 
     if (pType == "lnhpd") {
-        return "licensed-natural-health-product-detail-fr.html";
+        return "produit-sante-naturel-homologue-detail.html";
     }
     langUrl = "regulatory-decision-summary-result.html?" + langSwitch + ".html?linkID=" + linkID + "&pType=" + pType + "&lang=" + langSwitch;
     return langUrl;

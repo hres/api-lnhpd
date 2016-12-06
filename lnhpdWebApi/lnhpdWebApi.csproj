@@ -385,10 +385,10 @@
     <Content Include="js\jquery.xdomainrequest.min.js" />
     <Content Include="Libraries\GoC.WebTemplateMVC.dll" />
     <Content Include="Libraries\WebTemplateCore.dll" />
-    <Content Include="licensed-natural-health-product-fr.html" />
-    <Content Include="licensed-natural-health-product-detail-fr.html" />
+    <Content Include="produit-sante-naturel-homologue.html" />
+    <Content Include="produit-sante-naturel-homologue-detail.html" />
     <Content Include="licensed-natural-health-product-detail.html" />
-    <Content Include="licensed-natural-health-product-result-fr.html" />
+    <Content Include="produit-sante-naturel-homologue-resultat.html" />
     <Content Include="licensed-natural-health-product-result.html" />
     <Content Include="licensed-natural-health-product.html" />
     <Content Include="reference-en.html" />

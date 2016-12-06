@@ -278,7 +278,7 @@ namespace lnhpd
                                 item2.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
                                 item2.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
                                 item2.product_name = dr["PRODUCT_NAME"] == DBNull.Value ? string.Empty : dr["PRODUCT_NAME"].ToString().Trim();
-                                //item2.secondary_brand_name_list = GetSecondaryBrandNameList(Convert.ToInt32(item2.LicenceNumber), lang);
+                                //item2.secondary_brand_name_list = GetSecondaryBrandNameList(Convert.ToInt32(item2.licence_number), lang);
                                 item2.flag_primary_name = dr["FLAG_PRIMARY_NAME"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRIMARY_NAME"]);
                                 item2.flag_product_status = dr["FLAG_PRODUCT_STATUS"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRODUCT_STATUS"]);
 
