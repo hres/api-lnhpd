@@ -209,40 +209,41 @@ namespace lnhpd
         public List<ProductLicence> GetAllProductBySingleTerm(string term, string lang)
         {
             var items = new List<ProductLicence>();
-            var items1 = new List<ProductLicence>();
-            var items2 = new List<ProductLicence>();
 
-            string commandText1 = "SELECT DISTINCT SUBMISSION_ID, LICENCE_NUMBER, PRODUCT_NAME, COMPANY_NAME, FLAG_PRIMARY_NAME, FLAG_PRODUCT_STATUS ";
+            // Get all record from PRODUCT_LICENCE_ONLINE and INGREDIENT_SUBMISSION_ONLINE with the specified term
+            // Only keep record with FLAG_PRIMARY_NAME=1 if duplicate found between the two tables
+            string commandText1 = "SELECT * FROM";
+            commandText1 += "(SELECT DISTINCT PRODUCT_LICENCE_ONLINE.SUBMISSION_ID, ";
+            commandText1 += "PRODUCT_LICENCE_ONLINE.LICENCE_NUMBER, ";
+            commandText1 += "PRODUCT_LICENCE_ONLINE.PRODUCT_NAME, ";
+            commandText1 += "PRODUCT_LICENCE_ONLINE.COMPANY_NAME, ";
+            commandText1 += "PRODUCT_LICENCE_ONLINE.FLAG_PRIMARY_NAME, ";
+            commandText1 += "PRODUCT_LICENCE_ONLINE.FLAG_PRODUCT_STATUS, ";
+            commandText1 += "ROW_NUMBER() ";
+            commandText1 += "OVER(PARTITION BY PRODUCT_LICENCE_ONLINE.LICENCE_NUMBER ";
+            commandText1 += "ORDER BY PRODUCT_LICENCE_ONLINE.LICENCE_NUMBER, PRODUCT_LICENCE_ONLINE.PRODUCT_NAME) AS ROWNUMBER ";
             commandText1 += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE ";
-            commandText1 += "WHERE (";
+            commandText1 += "LEFT JOIN NHPPLQ_OWNER.INGREDIENT_SUBMISSION_ONLINE ";
+            commandText1 += "ON PRODUCT_LICENCE_ONLINE.SUBMISSION_ID = INGREDIENT_SUBMISSION_ONLINE.SUBMISSION_ID ";
+            commandText1 += "WHERE ((";
             if (term != null)
             {
-                commandText1 += "UPPER(LICENCE_NUMBER) LIKE '%" + term.ToUpper() + "%' OR ";
-                commandText1 += "UPPER(PRODUCT_NAME) LIKE '%" + term.ToUpper() + "%' OR ";
-                commandText1 += "UPPER(COMPANY_NAME) LIKE '%" + term.ToUpper() + "%'";
+                commandText1 += "UPPER(PRODUCT_LICENCE_ONLINE.LICENCE_NUMBER) LIKE '%" + term.ToUpper() + "%' OR ";
+                commandText1 += "UPPER(PRODUCT_LICENCE_ONLINE.PRODUCT_NAME) LIKE '%" + term.ToUpper() + "%' OR ";
+                commandText1 += "UPPER(PRODUCT_LICENCE_ONLINE.COMPANY_NAME) LIKE '%" + term.ToUpper() + "%' OR";
+                commandText1 += "((UPPER(INGREDIENT_SUBMISSION_ONLINE.NAME_UPPER) LIKE '%" + term.ToUpper() + "%') AND ";
+                commandText1 += "(INGREDIENT_SUBMISSION_ONLINE.INGREDIENT_TYPE_CODE = 2)) AND";
+                commandText1 += " PRODUCT_LICENCE_ONLINE.FLAG_PRIMARY_NAME = 1) ";
             }
             commandText1 += ")";
 
-            commandText1 += " ORDER BY LICENCE_NUMBER, PRODUCT_NAME";
-
-            string commandText2 = "SELECT DISTINCT SUBMISSION_ID, LICENCE_NUMBER, PRODUCT_NAME, COMPANY_NAME, FLAG_PRIMARY_NAME, FLAG_PRODUCT_STATUS ";
-            commandText2 += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE ";
-            commandText2 += "WHERE SUBMISSION_ID IN ( ";
-            commandText2 += "SELECT SUBMISSION_ID ";
-            commandText2 += "FROM NHPPLQ_OWNER.INGREDIENT_SUBMISSION_ONLINE ";
-            commandText2 += "WHERE ";
-            if (term != null)
-            {
-                commandText2 += "(UPPER(NAME_UPPER) LIKE '%" + term.ToUpper() + "%') AND (INGREDIENT_TYPE_CODE = 2)";
-            }
-            commandText2 += ") ";
-            commandText2 += "AND FLAG_PRIMARY_NAME = 1 ";
-            commandText2 += "ORDER BY LICENCE_NUMBER, PRODUCT_NAME";
+            commandText1 += " ORDER BY PRODUCT_LICENCE_ONLINE.LICENCE_NUMBER, PRODUCT_LICENCE_ONLINE.PRODUCT_NAME";
+            commandText1 += ")";
+            commandText1 += " WHERE ROWNUMBER = 1";
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd1 = new OracleCommand(commandText1, con);
-                OracleCommand cmd2 = new OracleCommand(commandText2, con);
                 try
                 {
                     con.Open();
@@ -252,49 +253,18 @@ namespace lnhpd
                         {
                             while (dr.Read())
                             {
-                                var item1 = new ProductLicence();
+                                var item = new ProductLicence();
 
-                                item1.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
-                                item1.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
-                                item1.product_name = dr["PRODUCT_NAME"] == DBNull.Value ? string.Empty : dr["PRODUCT_NAME"].ToString().Trim();
-                                //item1.secondary_brand_name_list = GetSecondaryBrandNameList(Convert.ToInt32(item1.licence_number), lang);
-                                item1.company_name = dr["COMPANY_NAME"] == DBNull.Value ? string.Empty : dr["COMPANY_NAME"].ToString().Trim();
-                                item1.flag_primary_name = dr["FLAG_PRIMARY_NAME"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRIMARY_NAME"]);
-                                item1.flag_product_status = dr["FLAG_PRODUCT_STATUS"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRODUCT_STATUS"]);
+                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
+                                item.product_name = dr["PRODUCT_NAME"] == DBNull.Value ? string.Empty : dr["PRODUCT_NAME"].ToString().Trim();
+                                item.company_name = dr["COMPANY_NAME"] == DBNull.Value ? string.Empty : dr["COMPANY_NAME"].ToString().Trim();
+                                item.flag_primary_name = dr["FLAG_PRIMARY_NAME"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRIMARY_NAME"]);
+                                item.flag_product_status = dr["FLAG_PRODUCT_STATUS"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRODUCT_STATUS"]);
 
-                                items1.Add(item1);
+                                items.Add(item);
                             }
                         }
-                    }
-
-                    using (OracleDataReader dr = cmd2.ExecuteReader())
-                    {
-                        if (dr.HasRows)
-                        {
-                            while (dr.Read())
-                            {
-                                var item2 = new ProductLicence();
-
-                                item2.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
-                                item2.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
-                                item2.product_name = dr["PRODUCT_NAME"] == DBNull.Value ? string.Empty : dr["PRODUCT_NAME"].ToString().Trim();
-                                //item2.secondary_brand_name_list = GetSecondaryBrandNameList(Convert.ToInt32(item2.licence_number), lang);
-                                item2.flag_primary_name = dr["FLAG_PRIMARY_NAME"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRIMARY_NAME"]);
-                                item2.flag_product_status = dr["FLAG_PRODUCT_STATUS"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRODUCT_STATUS"]);
-
-                                items2.Add(item2);
-                            }
-                        }
-                    }
-
-                    if (items2 != null && items2.Count > 0)
-                    {
-                        var mergedList = items1.Union(items2, new ProductComparer());
-                        items = mergedList.ToList();
-                    }
-                    else
-                    {
-                        items = items1;
                     }
                 }
                 catch (Exception ex)
@@ -308,6 +278,7 @@ namespace lnhpd
                         con.Close();
                 }
             }
+
             return items;
         }
 
