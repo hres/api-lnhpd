@@ -133,36 +133,5 @@ namespace dhpr
             return item;
         }
 
-        public static List<ProductRoute> GetProductRoutesByID(string lnhpdID, string lang)
-        {
-            // CertifySSL.EnableTrustedHosts();
-            var items = new List<ProductRoute>();
-            var filteredList = new List<ProductRoute>();
-            var json = string.Empty;
-
-            var lnhpdRoutesJsonUrl = string.Format("{0}&id={1}&lang={2}", ConfigurationManager.AppSettings["lnhpdRoutesJsonUrl"].ToString(), lang);
-            try
-            {
-                using (var webClient = new System.Net.WebClient())
-                {
-                    webClient.Encoding = Encoding.UTF8;
-                    json = webClient.DownloadString(lnhpdRoutesJsonUrl);
-                    if (!string.IsNullOrWhiteSpace(json))
-                    {
-                        items = JsonConvert.DeserializeObject<List<ProductRoute>>(json);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                var errorMessages = string.Format("UtilityHelper - GetProductRoutesByID()- Error Message:{0}", ex.Message);
-                ExceptionHelper.LogException(ex, errorMessages);
-            }
-            finally
-            {
-
-            }
-            return items;
-        }
     }
 }
