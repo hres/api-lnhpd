@@ -101,32 +101,34 @@
                     <div class="panel-heading">
                         <h2 id="title" class="panel-title">Drug product Summary: <span id="searchcriteria"></span></h2>
                     </div><br />
-
+                    
                     <div class="row">
-                        <dl class="col-sm-12">
-                            <dt>Natural Product Number (NPN): </dt>
-                            <dd id="npn"></dd>
-                        </dl>
-                        <dl class="col-sm-12">
-                            <dt>Current status: </dt>
-                            <dd id="currentStatus"></dd>
-                        </dl>
-                        <dl class="col-sm-12">
-                            <dt>Brand name: </dt>
-                            <dd id="brandname"></dd>
-                        </dl>
-                        <dl class="col-sm-12">
-                            <dt>Licence holder: </dt>
-                            <dd id="company"></dd>
-                        </dl>
-                        <dl class="col-sm-12">
-                            <dt>Dosage Form: </dt>
-                            <dd id="dosageForm"></dd>
-                        </dl>
-                        <dl class="col-sm-12" id="routeSection">
-                            <dt>Recommended route of administration: </dt>
-                            <dd id="routeAdmin"></dd>
-                        </dl>
+                        <div class="data" style="margin-bottom:0px">
+                            <dl class="col-sm-12">
+                                <dt>Natural Product Number (NPN): </dt>
+                                <dd id="npn"></dd>
+                            </dl>
+                        </div>
+                            <dl class="col-sm-12">
+                                <dt>Current status: </dt>
+                                <dd id="currentStatus"></dd>
+                            </dl>
+                            <dl class="col-sm-12">
+                                <dt>Brand name: </dt>
+                                <dd id="brandname"></dd>
+                            </dl>
+                            <dl class="col-sm-12">
+                                <dt>Licence holder: </dt>
+                                <dd id="company"></dd>
+                            </dl>
+                            <dl class="col-sm-12">
+                                <dt>Dosage Form: </dt>
+                                <dd id="dosageForm"></dd>
+                            </dl>
+                            <dl class="col-sm-12" id="routeSection">
+                                <dt>Recommended route of administration: </dt>
+                                <dd id="routeAdmin"></dd>
+                            </dl>
                         <div class="col-sm-12" id="recommendDoseSection">
                             <strong>Recommended dose: </strong>
                             <p id="doseAuthMonoLink"><a href="http://webprod.hc-sc.gc.ca/nhpid-bdipsn/monosReq.do?lang=eng">As authorized in the NHPD monograph(s) to which the applicant attested</a></p>
@@ -325,6 +327,8 @@
             $('#licenceDate').append(formatedDate(data.licence_date));
             $('#RevisedDate').append(formatedDate(data.revised_date));
         });
+
+        $("dd").css("margin-bottom", "0px");
     </script>
 </body>
 </html>
