@@ -5,7 +5,7 @@ using System.Web;
 using System.IO;
 using System.Configuration;
 
-namespace dhpr
+namespace lnhpd
 {
     /// <summary>
     /// Summary description for ExceptionHelper
