@@ -4,7 +4,6 @@ using System.Data;
 using System.Configuration;
 using lnhpdWebApi.Models;
 using Oracle.ManagedDataAccess.Client;
-using dhpr;
 
 namespace lnhpd
 {

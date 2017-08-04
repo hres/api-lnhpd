@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Data;
 using System.Reflection;
 
-namespace dhpr
+namespace lnhpd
 {
     /// <summary>
     /// JSON Serialization and Deserialization Assistant Class

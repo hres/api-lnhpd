@@ -38,7 +38,7 @@ namespace dhpr
                 {
                     switch (pType)
                     {
-                        case programType.lnhpd:
+                        case programType.lnhpd:r
                             var lnhpdItem = new ProductLicence();
                             lnhpdItem = UtilityHelper.GetByID(linkId, lang);
                             if(lnhpdItem.submission_id > 0)
