@@ -10,23 +10,23 @@ namespace lnhpdWebApi.Controllers
 {
     public class ProductRouteController : ApiController
     {
-        static readonly IProductDoseRepository databasePlaceholder = new ProductDoseRepository();
+        static readonly IProductRouteRepository databasePlaceholder = new ProductRouteRepository();
 
-        public IEnumerable<ProductDose> GetAllProductDose(string lang)
+        public IEnumerable<ProductRoute> GetAllProductRoute(string lang)
         {
 
             return databasePlaceholder.GetAll(lang);
         }
 
 
-        public ProductDose GetProductDoseByID(int id, string lang)
+        public ProductRoute GetProductRouteByID(int id, string lang)
         {
-            ProductDose dose = databasePlaceholder.Get(id, lang);
-            if (dose == null)
+            ProductRoute route = databasePlaceholder.Get(id, lang);
+            if (route == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-            return dose;
+            return route;
         }
     }
 }

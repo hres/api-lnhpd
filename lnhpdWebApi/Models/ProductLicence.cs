@@ -32,7 +32,7 @@ namespace lnhpdWebApi.Models
         public List<ProductRoute> route_list { get; set; }
         public List<ProductPurpose> purpose_list { get; set; }
         public List<ProductRisk> risk_list { get; set; }
-        public List<Ingredient> medicinal_ingredient_list { get; set; }
-        public List<Ingredient> non_medicinal_ingredient_list { get; set; }
+        public List<MedicinalIngredient> medicinal_ingredient_list { get; set; }
+        public List<MedicinalIngredient> non_medicinal_ingredient_list { get; set; }
     }
 }
