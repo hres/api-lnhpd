@@ -19,14 +19,15 @@ namespace lnhpdWebApi.Controllers
         }
 
 
-        public ProductLicence GetLicenceCompanyByID(int id, string lang)
+        public IEnumerable<ProductLicence> GetLicenceCompanyByID(int id, string lang)
         {
-            ProductLicence licence = databasePlaceholder.Get(id, lang);
-            if (licence == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            return licence;
+
+            return databasePlaceholder.Get(id, lang);
+            //if (licence == null)
+            //{
+            //    throw new HttpResponseException(HttpStatusCode.NotFound);
+            //}
+            //return licence;
         }
 
         public IEnumerable<ProductLicence> GetAllProductLicence(string lang)

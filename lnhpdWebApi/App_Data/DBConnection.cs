@@ -170,9 +170,10 @@ namespace lnhpd
             return items;
         }
 
-        public ProductLicence GetProductLicenceById(int id, string lang)
+        public List<ProductLicence> GetProductLicenceById(int id, string lang)
         {
-            var licence = new ProductLicence();
+            //var licence = new ProductLicence();
+            var items = new List<ProductLicence>();
             string commandText = "SELECT FILE_NUMBER, SUBMISSION_ID, LICENCE_NUMBER, LICENCE_DATE, REVISED_DATE, TIME_RECEIPT, DATE_START, NOTES, PRODUCT_NAME_ID, PRODUCT_NAME, COMPANY_ID, COMPANY_NAME_ID, COMPANY_NAME, SUB_SUBMISSION_TYPE_CODE, FLAG_PRIMARY_NAME, FLAG_PRODUCT_STATUS, FLAG_ATTESTED_MONOGRAPH, ";
             if (lang.Equals("fr"))
             {
@@ -181,7 +182,7 @@ namespace lnhpd
             else {
                 commandText += "DOSAGE_FORM, SUB_SUBMISSION_TYPE_DESC ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE WHERE FLAG_PRIMARY_NAME = 1 AND LICENCE_NUMBER = " + id;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE WHERE LICENCE_NUMBER = " + id;
 
 
             using (
@@ -220,7 +221,7 @@ namespace lnhpd
                                 item.flag_product_status = dr["FLAG_PRODUCT_STATUS"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_PRODUCT_STATUS"]);
                                 item.flag_attested_monograph = dr["FLAG_ATTESTED_MONOGRAPH"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FLAG_ATTESTED_MONOGRAPH"]);
 
-                                licence = item;
+                                items.Add(item);
                             }
                         }
                     }
@@ -236,7 +237,7 @@ namespace lnhpd
                         con.Close();
                 }
             }
-            return licence;
+            return items;
         }
 
         public List<MedicinalIngredient> GetAllMedicinalIngredient(string lang)

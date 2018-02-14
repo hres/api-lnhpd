@@ -27,18 +27,18 @@ namespace lnhpdWebApi.Models
     }
 
 
-        public ProductLicence Get(int id, string lang)
+        public IEnumerable<ProductLicence> Get(int id, string lang)
     {
-        _licence = dbConnection.GetProductLicenceById(id, lang);
-        _licence.secondary_brand_name_list = dbConnection.GetSecondaryBrandNameList(id, lang);
-        _licence.route_list = dbConnection.GetProductRouteByLicenceNumber(id, lang);
-        _licence.dose_list = dbConnection.GetProductDoseByLicenceNumber(id, lang);
-        _licence.purpose_list = dbConnection.GetProductPurposeByLicenceNumber(id, lang);
-        _licence.risk_list = dbConnection.GetRiskByLicenceNumber(id, lang);
-        _licence.medicinal_ingredient_list = dbConnection.GetMedIngredientByLicenceNumber(id, lang);
-        _licence.non_medicinal_ingredient_list = dbConnection.GetNonMedIngredientByLicenceNumber(id, lang);
+        _licences = dbConnection.GetProductLicenceById(id, lang);
+        //_licence.secondary_brand_name_list = dbConnection.GetSecondaryBrandNameList(id, lang);
+        //_licence.route_list = dbConnection.GetProductRouteByLicenceNumber(id, lang);
+        //_licence.dose_list = dbConnection.GetProductDoseByLicenceNumber(id, lang);
+        //_licence.purpose_list = dbConnection.GetProductPurposeByLicenceNumber(id, lang);
+        //_licence.risk_list = dbConnection.GetRiskByLicenceNumber(id, lang);
+        //_licence.medicinal_ingredient_list = dbConnection.GetMedIngredientByLicenceNumber(id, lang);
+        //_licence.non_medicinal_ingredient_list = dbConnection.GetNonMedIngredientByLicenceNumber(id, lang);
 
-        return _licence;
+        return _licences;
     }
 
 

@@ -27,12 +27,12 @@ namespace lnhpdWebApi.Models
         public int flag_product_status { get; set; }
         public int flag_attested_monograph { get; set; }
         
-        public List<string> secondary_brand_name_list { get; set; }
-        public List<ProductDose> dose_list { get; set; }
-        public List<ProductRoute> route_list { get; set; }
-        public List<ProductPurpose> purpose_list { get; set; }
-        public List<ProductRisk> risk_list { get; set; }
-        public List<MedicinalIngredient> medicinal_ingredient_list { get; set; }
-        public List<MedicinalIngredient> non_medicinal_ingredient_list { get; set; }
+        //public List<string> secondary_brand_name_list { get; set; }
+        //public List<ProductDose> dose_list { get; set; }
+        //public List<ProductRoute> route_list { get; set; }
+        //public List<ProductPurpose> purpose_list { get; set; }
+        //public List<ProductRisk> risk_list { get; set; }
+        //public List<MedicinalIngredient> medicinal_ingredient_list { get; set; }
+        //public List<MedicinalIngredient> non_medicinal_ingredient_list { get; set; }
     }
 }
