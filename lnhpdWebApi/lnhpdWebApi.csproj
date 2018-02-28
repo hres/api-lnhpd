@@ -362,6 +362,7 @@
     <Content Include="StaticFallbackFiles\gcweb\transactFooter-fr.html" />
     <Content Include="StaticFallbackFiles\gcweb\transactTop-en.html" />
     <Content Include="StaticFallbackFiles\gcweb\transactTop-fr.html" />
+    <Content Include="Views\ChangeLog.txt" />
     <Content Include="Views\Shared\Error404.htm" />
     <Content Include="Views\Shared\Error500.htm" />
     <Content Include="Views\Shared\GenericError.htm" />
@@ -374,6 +375,10 @@
     </Content>
     <Content Include="Views\Home\IndexEN.cshtml" />
     <Content Include="Views\Home\IndexFR.cshtml" />
+    <Content Include="Views\GoCWebTemplate.LeftMenu_Layout.cshtml" />
+    <Content Include="Views\GoCWebTemplate.Transactional.LeftMenu_Layout.cshtml" />
+    <Content Include="Views\GoCWebTemplate.Transactional_Layout.cshtml" />
+    <Content Include="Views\GoCWebTemplate_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\bin\fr\" />
