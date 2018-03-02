@@ -271,9 +271,6 @@
     <Content Include="bin\fr\lnhpdWebApi.resources.dll" />
     <Content Include="bin\GoC.WebTemplateMVC.dll" />
     <Content Include="bin\lnhpdWebApi.dll" />
-    <Content Include="bin\lnhpdWebApi.dll.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="bin\lnhpdWebApi.pdb" />
     <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
     <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
@@ -366,9 +363,6 @@
     <Content Include="Views\Shared\Error404.htm" />
     <Content Include="Views\Shared\Error500.htm" />
     <Content Include="Views\Shared\GenericError.htm" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
@@ -379,6 +373,13 @@
     <Content Include="Views\GoCWebTemplate.Transactional.LeftMenu_Layout.cshtml" />
     <Content Include="Views\GoCWebTemplate.Transactional_Layout.cshtml" />
     <Content Include="Views\GoCWebTemplate_Layout.cshtml" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\bin\fr\" />
