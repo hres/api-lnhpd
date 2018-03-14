@@ -12,14 +12,14 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IProductPurposeRepository databasePlaceholder = new ProductPurposeRepository();
 
-        public IEnumerable<ProductPurpose> GetAllProductPurpose(string lang)
+        public IEnumerable<ProductPurpose> GetAllProductPurpose(string lang = "en")
         {
 
             return databasePlaceholder.GetAll(lang);
         }
 
 
-        public ProductPurpose GetProductPurposeByID(int id, string lang)
+        public ProductPurpose GetProductPurposeByID(int id, string lang = "en")
         {
             ProductPurpose purpose = databasePlaceholder.Get(id, lang);
             if (purpose == null)

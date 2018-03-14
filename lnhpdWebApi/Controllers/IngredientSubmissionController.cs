@@ -12,14 +12,14 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IIngredientSubmissionRepository databasePlaceholder = new IngredientSubmissionRepository();
 
-        public IEnumerable<IngredientSubmission> GetAllIngredientSubmission(string lang)
+        public IEnumerable<IngredientSubmission> GetAllIngredientSubmission(string lang = "en")
         {
 
             return databasePlaceholder.GetAll(lang);
         }
 
 
-        public IngredientSubmission GetIngredientSubmissionByID(int id, string lang)
+        public IngredientSubmission GetIngredientSubmissionByID(int id, string lang = "en")
         {
             IngredientSubmission submission = databasePlaceholder.Get(id, lang);
             if (submission == null)

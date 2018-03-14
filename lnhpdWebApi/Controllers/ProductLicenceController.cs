@@ -12,14 +12,14 @@ namespace lnhpdWebApi.Controllers
         static readonly IProductLicenceRepository databasePlaceholder = new ProductLicenceRepository();
 
         
-        public IEnumerable<ProductLicence> GetByCriteria(string brandname, string ingredient, string companyname, string din, string lang)
+        public IEnumerable<ProductLicence> GetByCriteria(string brandname, string ingredient, string companyname, string din, string lang = "en")
         {
 
             return databasePlaceholder.GetAllProductByCriteria(brandname, ingredient, companyname, din, lang);
         }
 
 
-        public IEnumerable<ProductLicence> GetLicenceCompanyByID(int id, string lang)
+        public IEnumerable<ProductLicence> GetLicenceCompanyByID(int id, string lang = "en")
         {
 
             return databasePlaceholder.Get(id, lang);
