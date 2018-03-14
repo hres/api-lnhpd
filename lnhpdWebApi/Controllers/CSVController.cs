@@ -33,37 +33,44 @@ namespace lnhpdWebApi.Controllers
 
             switch (dataType)
             {
-                case "ingredient":
-                    var ingredient = dbConnection.GetAllIngredient(lang).ToList();
-                    if (ingredient.Count > 0)
+                case "medicinalIngredient":
+                    var medicinalIngredient = dbConnection.GetAllMedicinalIngredient(lang).ToList();
+                    if (medicinalIngredient.Count > 0)
                     {
-                        json = JsonConvert.SerializeObject(ingredient);
+                        json = JsonConvert.SerializeObject(medicinalIngredient);
+                    }
+                    break;
+                case "nonMedicinalIngredient":
+                    var nonMedicinalIngredient = dbConnection.GetAllNonMedicinalIngredient(lang).ToList();
+                    if (nonMedicinalIngredient.Count > 0)
+                    {
+                        json = JsonConvert.SerializeObject(nonMedicinalIngredient);
                     }
                     break;
 
-                case "ingQuantity":
-                    var ingQuantity = dbConnection.GetAllIngredientQuantity(lang).ToList();
-                    if (ingQuantity.Count > 0)
-                    {
-                        json = JsonConvert.SerializeObject(ingQuantity);
-                    }
-                    break;
+                //case "ingQuantity":
+                //    var ingQuantity = dbConnection.GetAllIngredientQuantity(lang).ToList();
+                //    if (ingQuantity.Count > 0)
+                //    {
+                //        json = JsonConvert.SerializeObject(ingQuantity);
+                //    }
+                //    break;
 
-                case "ingSource":
-                    var ingSource = dbConnection.GetAllIngredientSource(lang).ToList();
-                    if (ingSource.Count > 0)
-                    {
-                        json = JsonConvert.SerializeObject(ingSource);
-                    }
-                    break;
+                //case "ingSource":
+                //    var ingSource = dbConnection.GetAllIngredientSource(lang).ToList();
+                //    if (ingSource.Count > 0)
+                //    {
+                //        json = JsonConvert.SerializeObject(ingSource);
+                //    }
+                //    break;
 
-                case "ingSubmission":
-                    var ingSubmission = dbConnection.GetAllIngredientSubmission(lang).ToList();
-                    if (ingSubmission.Count > 0)
-                    {
-                        json = JsonConvert.SerializeObject(ingSubmission);
-                    }
-                    break;
+                //case "ingSubmission":
+                //    var ingSubmission = dbConnection.GetAllIngredientSubmission(lang).ToList();
+                //    if (ingSubmission.Count > 0)
+                //    {
+                //        json = JsonConvert.SerializeObject(ingSubmission);
+                //    }
+                //    break;
 
                 case "productDose":
                     var productDose = dbConnection.GetAllProductDose(lang).ToList();

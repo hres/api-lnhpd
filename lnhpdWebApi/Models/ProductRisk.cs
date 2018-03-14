@@ -12,6 +12,7 @@ namespace lnhpdWebApi.Models
         public string risk_type_desc { get; set; }
         public string sub_risk_type_desc { get; set; }
 
-        public List<ProductRiskText> risk_text_list { get; set; }
+        //public List<ProductRiskText> risk_text_list { get; set; }
+        public string risk_text { get; set; }
     }
 }
