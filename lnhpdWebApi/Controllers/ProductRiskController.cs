@@ -12,14 +12,14 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly IProductRiskRepository databasePlaceholder = new ProductRiskRepository();
 
-        public IEnumerable<ProductRisk> GetAllProductRisk(string lang)
+        public IEnumerable<ProductRisk> GetAllProductRisk(string lang = "en")
         {
 
             return databasePlaceholder.GetAll(lang);
         }
 
 
-        public ProductRisk GetProductRiskByID(int id, string lang)
+        public ProductRisk GetProductRiskByID(int id, string lang = "en")
         {
             ProductRisk risk = databasePlaceholder.Get(id, lang);
             if (risk == null)

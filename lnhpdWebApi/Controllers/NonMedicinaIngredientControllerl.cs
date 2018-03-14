@@ -12,14 +12,14 @@ namespace lnhpdWebApi.Controllers
     {
         static readonly INonMedicinalIngredientRepository databasePlaceholder = new NonMedicinalIngredientRepository();
 
-        public IEnumerable<NonMedicinalIngredient> GetAllNonMedicinalIngredient(string lang)
+        public IEnumerable<NonMedicinalIngredient> GetAllNonMedicinalIngredient(string lang = "en")
         {
 
             return databasePlaceholder.GetAllNonMedicinal(lang);
         }
 
 
-        public IEnumerable<NonMedicinalIngredient> GetNonMedicinalIngredientyByID(int id, string lang)
+        public IEnumerable<NonMedicinalIngredient> GetNonMedicinalIngredientyByID(int id, string lang = "en")
         {
             //Ingredient ingredient = databasePlaceholder.Get(id, lang);
             //if (ingredient == null)

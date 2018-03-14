@@ -7,7 +7,7 @@ namespace lnhpdWebApi.Models
 {
     public class ProductLicence
     {
-        public int file_number { get; set; }
+        //public int file_number { get; set; }
         public int submission_id { get; set; }
         public string licence_number { get; set; }
         public DateTime? licence_date { get; set; }
