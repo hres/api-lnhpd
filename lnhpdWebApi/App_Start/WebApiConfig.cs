@@ -17,16 +17,16 @@ namespace lnhpdWebApi
             
             config.Routes.MapHttpRoute(
                 name: "Api UriPathExtension ID DIN and DrugName",
-                routeTemplate: "{controller}/{id}/{din}/{drugname}.{ext}",
-                defaults: new { id = RouteParameter.Optional, ext = RouteParameter.Optional});
+                routeTemplate: "{controller}/{id}/{din}/{drugname}/{lang}.{ext}",
+                defaults: new { id = RouteParameter.Optional, lang = RouteParameter.Optional, ext = RouteParameter.Optional});
             config.Routes.MapHttpRoute(
                name: "Api UriPathExtension DIN",
-               routeTemplate: "{controller}/{din}.{ext}",
-               defaults: new { id = RouteParameter.Optional, ext = RouteParameter.Optional });
+               routeTemplate: "{controller}/{din}/{lang}.{ext}",
+               defaults: new { id = RouteParameter.Optional, lang = RouteParameter.Optional, ext = RouteParameter.Optional });
             config.Routes.MapHttpRoute(
                 name: "Api ID and DIN",
-                routeTemplate: "{controller}/{id}/{din}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "{controller}/{id}/{lang}/{din}",
+                defaults: new { id = RouteParameter.Optional, lang = RouteParameter.Optional }
             );
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
