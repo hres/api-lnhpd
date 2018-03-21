@@ -7,7 +7,7 @@ namespace lnhpdWebApi.Models
 {
     public class ProductDose
     {
-        public int submission_id { get; set; }
+        public int lnhpd_id { get; set; }
         public int dose_id { get; set; }
         public string population_type_desc { get; set; }
         public int age { get; set; }

@@ -56,7 +56,7 @@ namespace lnhpd
                                 var item = new ProductLicence();
 
                                 //item.file_number = dr["FILE_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FILE_NUMBER"]);
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
                                 item.licence_date = dr["LICENCE_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["LICENCE_DATE"]);
                                 item.revised_date = dr["REVISED_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["REVISED_DATE"]);
@@ -143,7 +143,7 @@ namespace lnhpd
                             {
                                 var item = new ProductLicence();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
                                 item.product_name = dr["PRODUCT_NAME"] == DBNull.Value ? string.Empty : dr["PRODUCT_NAME"].ToString().Trim();
                                 item.company_name = dr["COMPANY_NAME"] == DBNull.Value ? string.Empty : dr["COMPANY_NAME"].ToString().Trim();
@@ -182,7 +182,7 @@ namespace lnhpd
             else {
                 commandText += "DOSAGE_FORM, SUB_SUBMISSION_TYPE_DESC ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE WHERE LICENCE_NUMBER = " + id;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE WHERE LICENCE_NUMBER = :id";
 
 
             using (
@@ -190,6 +190,8 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
+
                 try
                 {
                     con.Open();
@@ -202,7 +204,7 @@ namespace lnhpd
                                 var item = new ProductLicence();
 
                                 //item.file_number = dr["FILE_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FILE_NUMBER"]);
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"]))*5;
                                 item.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
                                 item.licence_date = dr["LICENCE_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["LICENCE_DATE"]);
                                 item.revised_date = dr["REVISED_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["REVISED_DATE"]);
@@ -275,7 +277,7 @@ namespace lnhpd
                             {
                                 var item = new MedicinalIngredient();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -342,7 +344,7 @@ namespace lnhpd
                             {
                                 var item = new NonMedicinalIngredient();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -388,7 +390,7 @@ namespace lnhpd
             commandText += " left join nhpplq_owner.ingredient_quantity_online q on i.matrix_id= q.matrix_id";
             commandText += " left join nhpplq_owner.ingredient_source_online s on i.matrix_id = s.matrix_id";
             commandText += " where i.matrix_type_code=2 ";
-            commandText += " and i.submission_id= " + id;          
+            commandText += " and i.submission_id= :id ";          
             
 
             using (
@@ -396,6 +398,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
                 try
                 {
                     con.Open();
@@ -407,7 +410,7 @@ namespace lnhpd
                             {
                                 var item = new MedicinalIngredient();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -462,7 +465,7 @@ namespace lnhpd
                 commandText += "INGREDIENT_NAME ";
             }
             commandText += "FROM NHPPLQ_OWNER.INGREDIENT_ONLINE WHERE MATRIX_TYPE_CODE= 3 ";
-            commandText += " and submission_id= " + id;
+            commandText += " and submission_id= :id ";
 
 
             using (
@@ -470,6 +473,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
                 try
                 {
                     con.Open();
@@ -481,7 +485,7 @@ namespace lnhpd
                             {
                                 var item = new NonMedicinalIngredient();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -538,7 +542,7 @@ namespace lnhpd
                             {
                                 var item = new MedicinalIngredient();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -594,7 +598,7 @@ namespace lnhpd
                             {
                                 var item = new MedicinalIngredient();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -693,13 +697,14 @@ namespace lnhpd
             else {
                 commandText += "Q.UOM_TYPE_DESC_AMT_QUANTITY, Q.UOM_TYPE_DESC_DHE, Q.EXTRACT_TYPE_DESC, Q.UOM_TYPE_DESC_POTENCY ";
             }
-            commandText += "FROM NHPPLQ_OWNER.INGREDIENT_QUANTITY_ONLINE Q, NHPPLQ_OWNER.INGREDIENT_ONLINE I WHERE I.MATRIX_ID = Q.MATRIX_ID AND Q.MATRIX_ID = " + matrix_id;
+            commandText += "FROM NHPPLQ_OWNER.INGREDIENT_QUANTITY_ONLINE Q, NHPPLQ_OWNER.INGREDIENT_ONLINE I WHERE I.MATRIX_ID = Q.MATRIX_ID AND Q.MATRIX_ID = :matrix_id ";
             commandText += " ORDER BY UPPER(INGREDIENT_NAME), QUANTITY, RATIO_NUMERATOR ASC";
 
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":matrix_id", matrix_id);
                 try
                 {
                     con.Open();
@@ -885,7 +890,7 @@ namespace lnhpd
             else {
                 commandText += "UOM_TYPE_DESC_AMT_QUANTITY, UOM_TYPE_DESC_DHE, EXTRACT_TYPE_DESC, UOM_TYPE_DESC_POTENCY ";
             }
-            commandText += "FROM NHPPLQ_OWNER.INGREDIENT_QUANTITY_ONLINE WHERE INGREDIENT_AMOUNT_ID = " + id;
+            commandText += "FROM NHPPLQ_OWNER.INGREDIENT_QUANTITY_ONLINE WHERE INGREDIENT_AMOUNT_ID = :id ";
 
 
             using (
@@ -893,6 +898,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
                 try
                 {
                     con.Open();
@@ -999,7 +1005,7 @@ namespace lnhpd
             else {
                 commandText += "MATERIAL_TYPE_DESC ";
             }
-            commandText += "FROM NHPPLQ_OWNER.INGREDIENT_SOURCE_ONLINE WHERE MATERIAL_ID = " + id;
+            commandText += "FROM NHPPLQ_OWNER.INGREDIENT_SOURCE_ONLINE WHERE MATERIAL_ID = :id ";
 
 
             using (
@@ -1007,6 +1013,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
                 try
                 {
                     con.Open();
@@ -1069,7 +1076,7 @@ namespace lnhpd
                                 var item = new IngredientSubmission();
 
                                 item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.ingredient_type_code = dr["INGREDIENT_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["INGREDIENT_TYPE_CODE"]);
                                 item.brand_name = dr["NAME_UPPER"] == DBNull.Value ? string.Empty : dr["NAME_UPPER"].ToString().Trim();
 
@@ -1103,7 +1110,7 @@ namespace lnhpd
             else {
                 commandText += "NAME_UPPER ";
             }
-            commandText += "FROM NHPPLQ_OWNER.INGREDIENT_SUBMISSION_ONLINE WHERE SUBMISSION_ID = " + id;
+            commandText += "FROM NHPPLQ_OWNER.INGREDIENT_SUBMISSION_ONLINE WHERE SUBMISSION_ID = :id " ;
 
 
             using (
@@ -1111,6 +1118,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
                 try
                 {
                     con.Open();
@@ -1123,7 +1131,7 @@ namespace lnhpd
                                 var item = new IngredientSubmission();
 
                                 item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.ingredient_type_code = dr["INGREDIENT_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["INGREDIENT_TYPE_CODE"]);
                                 item.brand_name = dr["NAME_UPPER"] == DBNull.Value ? string.Empty : dr["NAME_UPPER"].ToString().Trim();
 
@@ -1173,7 +1181,7 @@ namespace lnhpd
                             {
                                 var item = new ProductDose();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.dose_id = dr["DOSE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DOSE_ID"]);
                                 item.population_type_desc = dr["POPULATION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["POPULATION_TYPE_DESC"].ToString().Trim();
                                 item.age = dr["AGE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE"]);
@@ -1219,7 +1227,7 @@ namespace lnhpd
             else {
                 commandText += "POPULATION_TYPE_DESC, UOM_TYPE_DESC_AGE, UOM_TYPE_DESC_QUANTITY_DOSE, UOM_TYPE_DESC_FREQUENCY ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_DOSE_ONLINE WHERE DOSE_ID = " + id;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_DOSE_ONLINE WHERE DOSE_ID = :id ";
 
 
             using (
@@ -1227,6 +1235,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
                 try
                 {
                     con.Open();
@@ -1238,7 +1247,7 @@ namespace lnhpd
                             {
                                 var item = new ProductDose();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.dose_id = dr["DOSE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DOSE_ID"]);
                                 item.population_type_desc = dr["POPULATION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["POPULATION_TYPE_DESC"].ToString().Trim();
                                 item.age = dr["AGE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE"]);
@@ -1303,7 +1312,7 @@ namespace lnhpd
                             {
                                 var item = new ProductDose();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.dose_id = dr["DOSE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DOSE_ID"]);
                                 item.population_type_desc = dr["POPULATION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["POPULATION_TYPE_DESC"].ToString().Trim();
                                 item.age = dr["AGE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE"]);
@@ -1365,7 +1374,7 @@ namespace lnhpd
                             {
                                 var item = new ProductPurpose();
                                 item.text_id = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 if (lang.Equals("fr"))
                                 {
                                     item.purpose = dr["PURPOSE_F"] == DBNull.Value ? dr["PURPOSE_E"].ToString().Trim() : dr["PURPOSE_F"].ToString().Trim();
@@ -1405,7 +1414,8 @@ namespace lnhpd
             //else {
             //    commandText += "PURPOSE_E ";
             //}
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_PURPOSE_ONLINE WHERE SUBMISSION_ID = " + id;
+
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_PURPOSE_ONLINE WHERE SUBMISSION_ID = :id ";
 
 
             using (
@@ -1413,6 +1423,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
                 try
                 {
                     con.Open();
@@ -1425,7 +1436,7 @@ namespace lnhpd
                                 var item = new ProductPurpose();
 
                                 item.text_id = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 if (lang.Equals("fr"))
                                 {
                                     item.purpose = dr["PURPOSE_F"] == DBNull.Value ? dr["PURPOSE_E"].ToString().Trim() : dr["PURPOSE_F"].ToString().Trim();
@@ -1465,7 +1476,7 @@ namespace lnhpd
             else {
                 commandText += "P.PURPOSE_E ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE L, NHPPLQ_OWNER.PRODUCT_PURPOSE_ONLINE P WHERE L.SUBMISSION_ID = P.SUBMISSION_ID AND L.LICENCE_NUMBER = " + licenceNumber;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE L, NHPPLQ_OWNER.PRODUCT_PURPOSE_ONLINE P WHERE L.SUBMISSION_ID = P.SUBMISSION_ID AND L.LICENCE_NUMBER = :licenceNumber ";
 
 
             using (
@@ -1473,6 +1484,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":licenceNumber", licenceNumber);
                 try
                 {
                     con.Open();
@@ -1485,7 +1497,7 @@ namespace lnhpd
                                 var item = new ProductPurpose();
 
                                 item.text_id = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.purpose = dr["PURPOSE_E"] == DBNull.Value ? string.Empty : dr["PURPOSE_E"].ToString().Trim();
 
                                 items.Add(item);
@@ -1535,7 +1547,7 @@ namespace lnhpd
                             {
                                 var item = new ProductRisk();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
                                 item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
                                 item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
@@ -1577,7 +1589,7 @@ namespace lnhpd
             }
             //commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_ONLINE WHERE RISK_ID = " + id;
             commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_ONLINE R, NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE T ";
-            commandText += "WHERE R.RISK_ID=T.RISK_ID and R.RISK_ID= " + id; 
+            commandText += "WHERE R.RISK_ID=T.RISK_ID and R.RISK_ID= :id"; 
 
 
             using (
@@ -1585,6 +1597,8 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
+
                 try
                 {
                     con.Open();
@@ -1596,7 +1610,7 @@ namespace lnhpd
                             {
                                 //var item = new ProductRisk();
 
-                                risk.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                risk.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 risk.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
                                 risk.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
                                 risk.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
@@ -1637,7 +1651,7 @@ namespace lnhpd
             else {
                 commandText += "R.RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE P, NHPPLQ_OWNER.PRODUCT_RISK_ONLINE R WHERE P.SUBMISSION_ID = R.SUBMISSION_ID AND P.LICENCE_NUMBER = " + licenceNumber;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE P, NHPPLQ_OWNER.PRODUCT_RISK_ONLINE R WHERE P.SUBMISSION_ID = R.SUBMISSION_ID AND P.LICENCE_NUMBER = :licenceNumber ";
 
 
             using (
@@ -1645,6 +1659,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":licenceNumber", licenceNumber);
                 try
                 {
                     con.Open();
@@ -1656,7 +1671,7 @@ namespace lnhpd
                             {
                                 var item = new ProductRisk();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
                                 item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
                                 item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
@@ -1742,11 +1757,12 @@ namespace lnhpd
             else {
                 commandText += "RISK_TEXT_E ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE WHERE RISK_ID = " + riskId;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE WHERE RISK_ID = :riskId ";
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":riskId", riskId);
                 try
                 {
                     con.Open();
@@ -1792,7 +1808,7 @@ namespace lnhpd
             else {
                 commandText += "RISK_TEXT_E ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE WHERE TEXT_ID = " + id;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE WHERE TEXT_ID = :id ";
 
 
             using (
@@ -1800,6 +1816,8 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
+
                 try
                 {
                     con.Open();
@@ -1861,7 +1879,7 @@ namespace lnhpd
                             {
                                 var item = new ProductRoute();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.route_id = dr["ROUTE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["ROUTE_ID"]);
                                 item.route_type_desc = dr["ROUTE_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["ROUTE_TYPE_DESC"].ToString().Trim();
 
@@ -1895,7 +1913,7 @@ namespace lnhpd
             else {
                 commandText += "ROUTE_TYPE_DESC ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_ROUTE_ONLINE WHERE ROUTE_ID = " + id;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_ROUTE_ONLINE WHERE ROUTE_ID = :id" ;
 
 
             using (
@@ -1903,6 +1921,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":id", id);
                 try
                 {
                     con.Open();
@@ -1914,7 +1933,7 @@ namespace lnhpd
                             {
                                 var item = new ProductRoute();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.route_id = dr["ROUTE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["ROUTE_ID"]);
                                 item.route_type_desc = dr["ROUTE_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["ROUTE_TYPE_DESC"].ToString().Trim();
 
@@ -1949,7 +1968,7 @@ namespace lnhpd
             else {
                 commandText += "R.ROUTE_TYPE_DESC ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE P, NHPPLQ_OWNER.PRODUCT_ROUTE_ONLINE R WHERE P.SUBMISSION_ID = R.SUBMISSION_ID AND P.LICENCE_NUMBER = " + licenceNumber;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE P, NHPPLQ_OWNER.PRODUCT_ROUTE_ONLINE R WHERE P.SUBMISSION_ID = R.SUBMISSION_ID AND P.LICENCE_NUMBER = :licenceNumber ";
 
 
             using (
@@ -1957,6 +1976,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":licenceNumber", licenceNumber);
                 try
                 {
                     con.Open();
@@ -1968,7 +1988,7 @@ namespace lnhpd
                             {
                                 var item = new ProductRoute();
 
-                                item.submission_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SUBMISSION_ID"]);
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.route_id = dr["ROUTE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["ROUTE_ID"]);
                                 item.route_type_desc = dr["ROUTE_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["ROUTE_TYPE_DESC"].ToString().Trim();
 
@@ -1994,7 +2014,7 @@ namespace lnhpd
         public List<string> GetSecondaryBrandNameList(int licenceNumber, string lang)
         {
             var items = new List<string>();
-            string commandText = "SELECT DISTINCT PRODUCT_NAME FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE WHERE FLAG_PRIMARY_NAME = 0 AND LICENCE_NUMBER = " + licenceNumber;
+            string commandText = "SELECT DISTINCT PRODUCT_NAME FROM NHPPLQ_OWNER.PRODUCT_LICENCE_ONLINE WHERE FLAG_PRIMARY_NAME = 0 AND LICENCE_NUMBER = :licenceNumber";
             commandText += " ORDER BY PRODUCT_NAME ASC";
 
             using (
@@ -2002,6 +2022,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
+                cmd.Parameters.Add(":licenceNumber", licenceNumber); 
                 try
                 {
                     con.Open();
