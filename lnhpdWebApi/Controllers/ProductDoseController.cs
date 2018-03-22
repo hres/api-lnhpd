@@ -19,14 +19,14 @@ namespace lnhpdWebApi.Controllers
         }
 
 
-        public ProductDose GetProductDoseByID(int id, string lang = "en")
+        public IEnumerable<ProductDose> GetProductDoseByID(int id, string lang = "en")
         {
-            ProductDose dose = databasePlaceholder.Get(id, lang);
-            if (dose == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            return dose;
+             return databasePlaceholder.Get(id, lang);
+            //if (dose == null)
+            //{
+            //    throw new HttpResponseException(HttpStatusCode.NotFound);
+            //}
+            //return dose;
         }
     }
 }

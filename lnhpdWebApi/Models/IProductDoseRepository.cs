@@ -9,6 +9,6 @@ namespace lnhpdWebApi.Models
     interface IProductDoseRepository
     {
         IEnumerable<ProductDose> GetAll(string lang);
-        ProductDose Get(int id, string lang);
+        IEnumerable<ProductDose> Get(int id, string lang);
     }
 }

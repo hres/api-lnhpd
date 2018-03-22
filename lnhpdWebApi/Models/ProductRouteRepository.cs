@@ -15,10 +15,10 @@ namespace lnhpdWebApi.Models
             return _routes;
         }
 
-        public ProductRoute Get(int id, string lang)
+        public IEnumerable<ProductRoute> Get(int id, string lang)
         {
-            _route = dbConnection.GetProductRouteById(id, lang);
-            return _route;
+            _routes = dbConnection.GetProductRouteById(id, lang);
+            return _routes;
         }
     }
 }

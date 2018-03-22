@@ -15,10 +15,10 @@ namespace lnhpdWebApi.Models
             return _risks;
         }
 
-        public ProductRisk Get(int id, string lang)
+        public IEnumerable<ProductRisk> Get(int id, string lang)
         {
-            _risk = dbConnection.GetProductRiskById(id, lang);
-            return _risk;
+            _risks = dbConnection.GetProductRiskById(id, lang);
+            return _risks;
         }
     }
 }
