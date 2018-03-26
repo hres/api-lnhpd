@@ -1525,14 +1525,14 @@ namespace lnhpd
         public List<ProductRisk> GetAllProductRisk(string lang)
         {
             var items = new List<ProductRisk>();
-            string commandText = "SELECT R.SUBMISSION_ID, R.RISK_ID, ";
-            if (lang.Equals("fr"))
-            {
-                commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC, T.RISK_TEXT_F as RISK_TEXT ";
-            }
-            else {
-                commandText += "R.RISK_TYPE_DESC as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC as SUB_RISK_TYPE_DESC, T.RISK_TEXT_E as RISK_TEXT ";
-            }
+            string commandText = "SELECT R.SUBMISSION_ID, R.RISK_ID, R.RISK_TYPE_DESC, R.RISK_TYPE_DESC_F, R.SUB_RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F, T.RISK_TEXT_E, T.RISK_TEXT_F ";
+            //if (lang.Equals("fr"))
+            //{
+            //    commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC, T.RISK_TEXT_F as RISK_TEXT ";
+            //}
+            //else {
+            //    commandText += "R.RISK_TYPE_DESC as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC as SUB_RISK_TYPE_DESC, T.RISK_TEXT_E as RISK_TEXT ";
+            //}
             commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_ONLINE R, NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE T ";
             commandText += "WHERE R.RISK_ID = T.RISK_ID";
 
@@ -1549,17 +1549,37 @@ namespace lnhpd
                             while (dr.Read())
                             {
                                 var item = new ProductRisk();
-
+                                string risk_text_e = dr["RISK_TEXT_E"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_E"].ToString().Trim();
+                                string risk_text_f = dr["RISK_TEXT_F"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_F"].ToString().Trim();
+                                if (risk_text_e.Length > 3999)
+                                {
+                                    risk_text_e = "N/A";
+                                }
                                 item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
                                 item.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
-                                item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
-                                item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
+
+                                if (lang.Equals("fr"))
+                                {
+                                    item.risk_type_desc = dr["RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC_F"].ToString().Trim();
+                                    item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC_F"].ToString().Trim();
+                                    item.risk_text = risk_text_f == "" ? risk_text_e : risk_text_f;
+
+                                }
+                                else
+                                {
+                                    item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
+                                    item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
+                                    item.risk_text = risk_text_e == "N/A" ? risk_text_f : risk_text_e;
+                                }
+
+                                //item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
+                                //item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
                                 //var riskTextList = GetAllProductRiskTextByRiskId(item.risk_id,lang);
                                 //if (riskTextList != null && riskTextList.Count > 0)
                                 //{
                                 //    item.risk_text_list = riskTextList;
                                 //}
-                                item.risk_text = dr["RISK_TEXT"] == DBNull.Value ? string.Empty : dr["RISK_TEXT"].ToString().Trim();
+                                //item.risk_text = dr["RISK_TEXT"] == DBNull.Value ? string.Empty : dr["RISK_TEXT"].ToString().Trim();
                                 items.Add(item);
                             }
                         }
