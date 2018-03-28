@@ -13,12 +13,12 @@ namespace lnhpdWebApi.Models
             if (Object.ReferenceEquals(p1, p2)) return true;
 
             //Check whether the reports' properties are equal.
-            return p1.submission_id == p2.submission_id;
+            return p1.lnhpd_id == p2.lnhpd_id;
         }
 
         public int GetHashCode(ProductLicence p)
         {
-            return p.submission_id.GetHashCode();
+            return p.lnhpd_id.GetHashCode();
         }
 
     }

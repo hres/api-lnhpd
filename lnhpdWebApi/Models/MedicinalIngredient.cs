@@ -7,7 +7,7 @@ namespace lnhpdWebApi.Models
 {
     public class MedicinalIngredient
     {
-        public int submission_id { get; set; }
+        public int lnhpd_id { get; set; }
         public string ingredient_name { get; set; }
         //public int matrix_id { get; set; }
         //public int matrix_type_code { get; set; }

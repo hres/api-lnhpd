@@ -19,14 +19,14 @@ namespace lnhpdWebApi.Controllers
         }
 
 
-        public ProductPurpose GetProductPurposeByID(int id, string lang = "en")
+        public IEnumerable<ProductPurpose> GetProductPurposeByID(int id, string lang = "en")
         {
-            ProductPurpose purpose = databasePlaceholder.Get(id, lang);
-            if (purpose == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            return purpose;
+             return databasePlaceholder.Get(id, lang);
+            //if (purpose == null)
+            //{
+            //    throw new HttpResponseException(HttpStatusCode.NotFound);
+            //}
+            //return purpose;
         }
     }
 }

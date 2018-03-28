@@ -19,14 +19,14 @@ namespace lnhpdWebApi.Controllers
         }
 
 
-        public ProductRisk GetProductRiskByID(int id, string lang = "en")
+        public IEnumerable<ProductRisk> GetProductRiskByID(int id, string lang = "en")
         {
-            ProductRisk risk = databasePlaceholder.Get(id, lang);
-            if (risk == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            return risk;
+             return databasePlaceholder.Get(id, lang);
+            //if (risk == null)
+            //{
+            //    throw new HttpResponseException(HttpStatusCode.NotFound);
+            //}
+            //return risk;
         }
     }
 }

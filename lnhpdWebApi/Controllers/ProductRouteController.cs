@@ -19,14 +19,14 @@ namespace lnhpdWebApi.Controllers
         }
 
 
-        public ProductRoute GetProductRouteByID(int id, string lang = "en")
+        public IEnumerable<ProductRoute> GetProductRouteByID(int id, string lang = "en")
         {
-            ProductRoute route = databasePlaceholder.Get(id, lang);
-            if (route == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
-            return route;
+            return databasePlaceholder.Get(id, lang);
+            //if (route == null)
+            //{
+            //    throw new HttpResponseException(HttpStatusCode.NotFound);
+            //}
+            //return route;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace lnhpdWebApi.Controllers
             //return licence;
         }
 
-        public IEnumerable<ProductLicence> GetAllProductLicence(string lang)
+        public IEnumerable<ProductLicence> GetAllProductLicence(string lang = "en")
         {
 
             return databasePlaceholder.GetAll(lang);
