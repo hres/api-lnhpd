@@ -12,6 +12,17 @@ namespace lnhpd
     {
 
         private string _lang;
+        public int idCal(int id)
+        {
+             return id / 5;             
+        }
+
+        public int idLnhpd(int id)
+        {
+            return id * 5;
+        }
+
+
         public string Lang
         {
             get { return this._lang; }
@@ -56,7 +67,7 @@ namespace lnhpd
                                 var item = new ProductLicence();
 
                                 //item.file_number = dr["FILE_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FILE_NUMBER"]);
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
                                 item.licence_date = dr["LICENCE_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["LICENCE_DATE"]);
                                 item.revised_date = dr["REVISED_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["REVISED_DATE"]);
@@ -143,7 +154,7 @@ namespace lnhpd
                             {
                                 var item = new ProductLicence();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
                                 item.product_name = dr["PRODUCT_NAME"] == DBNull.Value ? string.Empty : dr["PRODUCT_NAME"].ToString().Trim();
                                 item.company_name = dr["COMPANY_NAME"] == DBNull.Value ? string.Empty : dr["COMPANY_NAME"].ToString().Trim();
@@ -204,7 +215,7 @@ namespace lnhpd
                                 var item = new ProductLicence();
 
                                 //item.file_number = dr["FILE_NUMBER"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FILE_NUMBER"]);
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"]))*5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.licence_number = dr["LICENCE_NUMBER"] == DBNull.Value ? string.Empty : dr["LICENCE_NUMBER"].ToString().Trim();
                                 item.licence_date = dr["LICENCE_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["LICENCE_DATE"]);
                                 item.revised_date = dr["REVISED_DATE"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["REVISED_DATE"]);
@@ -277,7 +288,7 @@ namespace lnhpd
                             {
                                 var item = new MedicinalIngredient();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -344,7 +355,7 @@ namespace lnhpd
                             {
                                 var item = new NonMedicinalIngredient();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -398,7 +409,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
-                cmd.Parameters.Add(":id", id);
+                cmd.Parameters.Add(":id", idCal(id));
                 try
                 {
                     con.Open();
@@ -410,7 +421,7 @@ namespace lnhpd
                             {
                                 var item = new MedicinalIngredient();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -473,7 +484,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
-                cmd.Parameters.Add(":id", id);
+                cmd.Parameters.Add(":id", idCal(id));
                 try
                 {
                     con.Open();
@@ -485,7 +496,7 @@ namespace lnhpd
                             {
                                 var item = new NonMedicinalIngredient();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -542,7 +553,7 @@ namespace lnhpd
                             {
                                 var item = new MedicinalIngredient();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -598,7 +609,7 @@ namespace lnhpd
                             {
                                 var item = new MedicinalIngredient();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
@@ -1076,7 +1087,7 @@ namespace lnhpd
                                 var item = new IngredientSubmission();
 
                                 item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.ingredient_type_code = dr["INGREDIENT_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["INGREDIENT_TYPE_CODE"]);
                                 item.brand_name = dr["NAME_UPPER"] == DBNull.Value ? string.Empty : dr["NAME_UPPER"].ToString().Trim();
 
@@ -1118,7 +1129,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
-                cmd.Parameters.Add(":id", id);
+                cmd.Parameters.Add(":id", idCal(id));
                 try
                 {
                     con.Open();
@@ -1131,7 +1142,7 @@ namespace lnhpd
                                 var item = new IngredientSubmission();
 
                                 item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.ingredient_type_code = dr["INGREDIENT_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["INGREDIENT_TYPE_CODE"]);
                                 item.brand_name = dr["NAME_UPPER"] == DBNull.Value ? string.Empty : dr["NAME_UPPER"].ToString().Trim();
 
@@ -1181,7 +1192,7 @@ namespace lnhpd
                             {
                                 var item = new ProductDose();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.dose_id = dr["DOSE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DOSE_ID"]);
                                 item.population_type_desc = dr["POPULATION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["POPULATION_TYPE_DESC"].ToString().Trim();
                                 item.age = dr["AGE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE"]);
@@ -1216,9 +1227,10 @@ namespace lnhpd
             return items;
         }
 
-        public ProductDose GetProductDoseById(int id, string lang)
+        public List<ProductDose> GetProductDoseById(int id, string lang)
         {
-            var dose = new ProductDose();
+            //var dose = new ProductDose();
+            var items = new List<ProductDose>();
             string commandText = "SELECT SUBMISSION_ID, DOSE_ID, AGE, AGE_MINIMUM, AGE_MAXIMUM, QUANTITY_DOSE, QUANTITY_MINIMUM_DOSE, QUANTITY_MAXIMUM_DOSE, FREQUENCY, FREQUENCY_MINIMUM, FREQUENCY_MAXIMUM, ";
             if (lang.Equals("fr"))
             {
@@ -1227,7 +1239,7 @@ namespace lnhpd
             else {
                 commandText += "POPULATION_TYPE_DESC, UOM_TYPE_DESC_AGE, UOM_TYPE_DESC_QUANTITY_DOSE, UOM_TYPE_DESC_FREQUENCY ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_DOSE_ONLINE WHERE DOSE_ID = :id ";
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_DOSE_ONLINE WHERE SUBMISSION_ID = :id ";
 
 
             using (
@@ -1235,7 +1247,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
-                cmd.Parameters.Add(":id", id);
+                cmd.Parameters.Add(":id", idCal(id));
                 try
                 {
                     con.Open();
@@ -1247,7 +1259,7 @@ namespace lnhpd
                             {
                                 var item = new ProductDose();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.dose_id = dr["DOSE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DOSE_ID"]);
                                 item.population_type_desc = dr["POPULATION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["POPULATION_TYPE_DESC"].ToString().Trim();
                                 item.age = dr["AGE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE"]);
@@ -1263,7 +1275,7 @@ namespace lnhpd
                                 item.frequency_maximum = dr["FREQUENCY_MAXIMUM"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FREQUENCY_MAXIMUM"]);
                                 item.uom_type_desc_frequency = dr["UOM_TYPE_DESC_FREQUENCY"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_FREQUENCY"].ToString().Trim();
 
-                                dose = item;
+                                items.Add(item);
                             }
                         }
                     }
@@ -1279,7 +1291,7 @@ namespace lnhpd
                         con.Close();
                 }
             }
-            return dose;
+            return items;
         }
 
         public List<ProductDose> GetProductDoseByLicenceNumber(int licenceNumber, string lang)
@@ -1312,7 +1324,7 @@ namespace lnhpd
                             {
                                 var item = new ProductDose();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.dose_id = dr["DOSE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DOSE_ID"]);
                                 item.population_type_desc = dr["POPULATION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["POPULATION_TYPE_DESC"].ToString().Trim();
                                 item.age = dr["AGE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE"]);
@@ -1374,7 +1386,7 @@ namespace lnhpd
                             {
                                 var item = new ProductPurpose();
                                 item.text_id = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 if (lang.Equals("fr"))
                                 {
                                     item.purpose = dr["PURPOSE_F"] == DBNull.Value ? dr["PURPOSE_E"].ToString().Trim() : dr["PURPOSE_F"].ToString().Trim();
@@ -1403,9 +1415,10 @@ namespace lnhpd
             return items;
         }
 
-        public ProductPurpose GetProductPurposeById(int id, string lang)
+        public List<ProductPurpose> GetProductPurposeById(int id, string lang)
         {
-            var purpose = new ProductPurpose();
+            //var purpose = new ProductPurpose();
+            var items = new List<ProductPurpose>();
             string commandText = "SELECT TEXT_ID, SUBMISSION_ID, PURPOSE_F, PURPOSE_E ";
             //if (lang.Equals("fr"))
             //{
@@ -1423,7 +1436,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
-                cmd.Parameters.Add(":id", id);
+                cmd.Parameters.Add(":id", idCal(id));
                 try
                 {
                     con.Open();
@@ -1436,7 +1449,7 @@ namespace lnhpd
                                 var item = new ProductPurpose();
 
                                 item.text_id = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 if (lang.Equals("fr"))
                                 {
                                     item.purpose = dr["PURPOSE_F"] == DBNull.Value ? dr["PURPOSE_E"].ToString().Trim() : dr["PURPOSE_F"].ToString().Trim();
@@ -1446,7 +1459,8 @@ namespace lnhpd
                                     item.purpose = dr["PURPOSE_E"] == DBNull.Value ? dr["PURPOSE_F"].ToString().Trim() : dr["PURPOSE_E"].ToString().Trim();
                                 }
 
-                                purpose = item;
+                                //purpose = item;
+                                items.Add(item);
                             }
                         }
                     }
@@ -1462,7 +1476,7 @@ namespace lnhpd
                         con.Close();
                 }
             }
-            return purpose;
+            return items;
         }
 
         public List<ProductPurpose> GetProductPurposeByLicenceNumber(int licenceNumber, string lang)
@@ -1497,7 +1511,7 @@ namespace lnhpd
                                 var item = new ProductPurpose();
 
                                 item.text_id = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.purpose = dr["PURPOSE_E"] == DBNull.Value ? string.Empty : dr["PURPOSE_E"].ToString().Trim();
 
                                 items.Add(item);
@@ -1522,14 +1536,14 @@ namespace lnhpd
         public List<ProductRisk> GetAllProductRisk(string lang)
         {
             var items = new List<ProductRisk>();
-            string commandText = "SELECT R.SUBMISSION_ID, R.RISK_ID, ";
-            if (lang.Equals("fr"))
-            {
-                commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC, T.RISK_TEXT_F as RISK_TEXT ";
-            }
-            else {
-                commandText += "R.RISK_TYPE_DESC as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC as SUB_RISK_TYPE_DESC, T.RISK_TEXT_E as RISK_TEXT ";
-            }
+            string commandText = "SELECT R.SUBMISSION_ID, R.RISK_ID, R.RISK_TYPE_DESC, R.RISK_TYPE_DESC_F, R.SUB_RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F, T.RISK_TEXT_E, T.RISK_TEXT_F ";
+            //if (lang.Equals("fr"))
+            //{
+            //    commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC, T.RISK_TEXT_F as RISK_TEXT ";
+            //}
+            //else {
+            //    commandText += "R.RISK_TYPE_DESC as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC as SUB_RISK_TYPE_DESC, T.RISK_TEXT_E as RISK_TEXT ";
+            //}
             commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_ONLINE R, NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE T ";
             commandText += "WHERE R.RISK_ID = T.RISK_ID";
 
@@ -1546,17 +1560,37 @@ namespace lnhpd
                             while (dr.Read())
                             {
                                 var item = new ProductRisk();
-
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                string risk_text_e = dr["RISK_TEXT_E"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_E"].ToString().Trim();
+                                string risk_text_f = dr["RISK_TEXT_F"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_F"].ToString().Trim();
+                                if (risk_text_e.Length > 3999)
+                                {
+                                    risk_text_e = "N/A";
+                                }
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
-                                item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
-                                item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
+
+                                if (lang.Equals("fr"))
+                                {
+                                    item.risk_type_desc = dr["RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC_F"].ToString().Trim();
+                                    item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC_F"].ToString().Trim();
+                                    item.risk_text = risk_text_f == "" ? risk_text_e : risk_text_f;
+
+                                }
+                                else
+                                {
+                                    item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
+                                    item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
+                                    item.risk_text = risk_text_e == "N/A" ? risk_text_f : risk_text_e;
+                                }
+
+                                //item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
+                                //item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
                                 //var riskTextList = GetAllProductRiskTextByRiskId(item.risk_id,lang);
                                 //if (riskTextList != null && riskTextList.Count > 0)
                                 //{
                                 //    item.risk_text_list = riskTextList;
                                 //}
-                                item.risk_text = dr["RISK_TEXT"] == DBNull.Value ? string.Empty : dr["RISK_TEXT"].ToString().Trim();
+                                //item.risk_text = dr["RISK_TEXT"] == DBNull.Value ? string.Empty : dr["RISK_TEXT"].ToString().Trim();
                                 items.Add(item);
                             }
                         }
@@ -1576,20 +1610,21 @@ namespace lnhpd
             return items;
         }
 
-        public ProductRisk GetProductRiskById(int id, string lang)
+        public List<ProductRisk> GetProductRiskById(int id, string lang)
         {
-            var risk = new ProductRisk();
-            string commandText = "SELECT R.SUBMISSION_ID, R.RISK_ID, ";
-            if (lang.Equals("fr"))
-            {
-                commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC, T.RISK_TEXT_F RISK_TEXT ";
-            }
-            else {
-                commandText += "R.RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC, T.RISK_TEXT_E RISK_TEXT ";
-            }
+            //var risk = new ProductRisk();
+            var items = new List<ProductRisk>();
+            string commandText = "SELECT R.SUBMISSION_ID, R.RISK_ID, R.RISK_TYPE_DESC, R.RISK_TYPE_DESC_F, R.SUB_RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F, T.RISK_TEXT_E, T.RISK_TEXT_F  ";
+            //if (lang.Equals("fr"))
+            //{
+            //    commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC, T.RISK_TEXT_F RISK_TEXT ";
+            //}
+            //else {
+            //    commandText += "R.RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC, T.RISK_TEXT_E RISK_TEXT ";
+            //}
             //commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_ONLINE WHERE RISK_ID = " + id;
             commandText += "FROM NHPPLQ_OWNER.PRODUCT_RISK_ONLINE R, NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE T ";
-            commandText += "WHERE R.RISK_ID=T.RISK_ID and R.RISK_ID= :id"; 
+            commandText += "WHERE R.RISK_ID=T.RISK_ID and R.SUBMISSION_ID= :id"; 
 
 
             using (
@@ -1597,7 +1632,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
-                cmd.Parameters.Add(":id", id);
+                cmd.Parameters.Add(":id", idCal(id));
 
                 try
                 {
@@ -1608,19 +1643,33 @@ namespace lnhpd
                         {
                             while (dr.Read())
                             {
-                                //var item = new ProductRisk();
+                                var item = new ProductRisk();
+                                
+                                string risk_text_e = dr["RISK_TEXT_E"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_E"].ToString().Trim();
+                                string risk_text_f = dr["RISK_TEXT_F"] == DBNull.Value ? string.Empty : dr["RISK_TEXT_F"].ToString().Trim();
+                                if (risk_text_e.Length > 3999)
+                                {
+                                    risk_text_e = "N/A";
+                                }
 
-                                risk.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
-                                risk.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
-                                risk.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
-                                risk.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
-                                //var riskTextList = GetAllProductRiskTextByRiskId(item.risk_id, lang);
-                                //if (riskTextList != null && riskTextList.Count > 0)
-                                //{
-                                //    item.risk_text_list = riskTextList;
-                                //}
-                                //risk = item;
-                                risk.risk_text = dr["RISK_TEXT"] == DBNull.Value ? string.Empty : dr["RISK_TEXT"].ToString().Trim();
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
+                                item.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
+                                if (lang.Equals("fr"))
+                                {
+                                    item.risk_type_desc = dr["RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC_F"].ToString().Trim();
+                                    item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC_F"].ToString().Trim();                                    
+                                    item.risk_text = risk_text_f == "" ? risk_text_e : risk_text_f;
+
+                                } else
+                                {
+                                    item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
+                                    item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
+                                    item.risk_text = risk_text_e == "N/A" ? risk_text_f : risk_text_e;
+                                }
+                                //item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
+                                //item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
+                                //item.risk_text = dr["RISK_TEXT"] == DBNull.Value ? string.Empty : dr["RISK_TEXT"].ToString().Trim();
+                                items.Add(item);
                             }
                         }
                     }
@@ -1637,7 +1686,7 @@ namespace lnhpd
                 }
             }
             
-            return risk;
+            return items;
         }
 
         public List<ProductRisk> GetRiskByLicenceNumber(int licenceNumber, string lang)
@@ -1671,7 +1720,7 @@ namespace lnhpd
                             {
                                 var item = new ProductRisk();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
                                 item.risk_type_desc = dr["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC"].ToString().Trim();
                                 item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC"].ToString().Trim();
@@ -1879,7 +1928,7 @@ namespace lnhpd
                             {
                                 var item = new ProductRoute();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.route_id = dr["ROUTE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["ROUTE_ID"]);
                                 item.route_type_desc = dr["ROUTE_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["ROUTE_TYPE_DESC"].ToString().Trim();
 
@@ -1902,9 +1951,10 @@ namespace lnhpd
             return items;
         }
 
-        public ProductRoute GetProductRouteById(int id, string lang)
+        public List<ProductRoute> GetProductRouteById(int id, string lang)
         {
-            var route = new ProductRoute();
+            //var route = new ProductRoute();
+            var items = new List<ProductRoute>();
             string commandText = "SELECT SUBMISSION_ID, ROUTE_ID, ";
             if (lang.Equals("fr"))
             {
@@ -1913,7 +1963,7 @@ namespace lnhpd
             else {
                 commandText += "ROUTE_TYPE_DESC ";
             }
-            commandText += "FROM NHPPLQ_OWNER.PRODUCT_ROUTE_ONLINE WHERE ROUTE_ID = :id" ;
+            commandText += "FROM NHPPLQ_OWNER.PRODUCT_ROUTE_ONLINE WHERE SUBMISSION_ID = :id";
 
 
             using (
@@ -1921,7 +1971,7 @@ namespace lnhpd
                 OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
                 OracleCommand cmd = new OracleCommand(commandText, con);
-                cmd.Parameters.Add(":id", id);
+                cmd.Parameters.Add(":id", idCal(id));
                 try
                 {
                     con.Open();
@@ -1933,11 +1983,11 @@ namespace lnhpd
                             {
                                 var item = new ProductRoute();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.route_id = dr["ROUTE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["ROUTE_ID"]);
                                 item.route_type_desc = dr["ROUTE_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["ROUTE_TYPE_DESC"].ToString().Trim();
 
-                                route = item;
+                                items.Add(item);
                             }
                         }
                     }
@@ -1953,7 +2003,7 @@ namespace lnhpd
                         con.Close();
                 }
             }
-            return route;
+            return items;
         }
 
         public List<ProductRoute> GetProductRouteByLicenceNumber(int licenceNumber, string lang)
@@ -1988,7 +2038,7 @@ namespace lnhpd
                             {
                                 var item = new ProductRoute();
 
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : (Convert.ToInt32(dr["SUBMISSION_ID"])) * 5;
+                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.route_id = dr["ROUTE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["ROUTE_ID"]);
                                 item.route_type_desc = dr["ROUTE_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["ROUTE_TYPE_DESC"].ToString().Trim();
 

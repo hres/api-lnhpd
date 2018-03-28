@@ -15,10 +15,10 @@ namespace lnhpdWebApi.Models
             return _purposes;
         }
 
-        public ProductPurpose Get(int id, string lang)
+        public IEnumerable<ProductPurpose> Get(int id, string lang)
         {
-            _purpose = dbConnection.GetProductPurposeById(id, lang);
-            return _purpose;
+            _purposes = dbConnection.GetProductPurposeById(id, lang);
+            return _purposes;
         }
     }
 }
