@@ -14,12 +14,18 @@ namespace lnhpd
         private string _lang;
         public int idCal(int id)
         {
-             return id / 5;             
+            id = id / 13;
+            id = id / 3;
+            id = id + 256;
+             return id;             
         }
 
         public int idLnhpd(int id)
         {
-            return id * 5;
+            id = id - 256;
+            id = id * 3;
+            id = id * 13;
+            return id;
         }
 
 
