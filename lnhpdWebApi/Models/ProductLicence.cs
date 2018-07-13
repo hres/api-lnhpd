@@ -14,7 +14,7 @@ namespace lnhpdWebApi.Models
         public DateTime? revised_date { get; set; }
         public DateTime? time_receipt { get; set; }
         public DateTime? date_start { get; set; }
-        public string notes { get; set; }
+        //public string notes { get; set; }
         public int product_name_id { get; set; }
         public string product_name { get; set; }
         public string dosage_form { get; set; }

@@ -219,6 +219,7 @@
     <Compile Include="Controllers\IngredientQuantityController.cs" />
     <Compile Include="Controllers\IngredientSourceController.cs" />
     <Compile Include="Controllers\IngredientSubmissionController.cs" />
+    <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\MedicinaIngredientControllerl.cs" />
     <Compile Include="Controllers\NonMedicinaIngredientControllerl.cs" />
     <Compile Include="Controllers\ProductDoseController.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Controllers\ProductRiskTextController.cs" />
     <Compile Include="Controllers\ProductRouteController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\XmlController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -270,98 +272,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\Antlr3.Runtime.pdb" />
-    <Content Include="bin\de\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\de\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\de\System.Spatial.resources.dll" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\EntityFramework.xml" />
-    <Content Include="bin\es\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\es\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\es\System.Spatial.resources.dll" />
-    <Content Include="bin\fr\lnhpdWebApi.resources.dll" />
-    <Content Include="bin\fr\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\fr\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\fr\System.Spatial.resources.dll" />
-    <Content Include="bin\GoC.WebTemplateMVC.dll" />
-    <Content Include="bin\it\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\it\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\it\System.Spatial.resources.dll" />
-    <Content Include="bin\ja\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\ja\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\ja\System.Spatial.resources.dll" />
-    <Content Include="bin\ko\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\ko\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\ko\System.Spatial.resources.dll" />
-    <Content Include="bin\lnhpdWebApi.dll" />
-    <Content Include="bin\lnhpdWebApi.pdb" />
-    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
-    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
-    <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
-    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
-    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
-    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.xml" />
-    <Content Include="bin\Microsoft.AI.Web.dll" />
-    <Content Include="bin\Microsoft.AI.Web.xml" />
-    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
-    <Content Include="bin\Microsoft.AI.WindowsServer.xml" />
-    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
-    <Content Include="bin\Microsoft.ApplicationInsights.xml" />
-    <Content Include="bin\Microsoft.Data.Edm.dll" />
-    <Content Include="bin\Microsoft.Data.Edm.xml" />
-    <Content Include="bin\Microsoft.Data.OData.dll" />
-    <Content Include="bin\Microsoft.Data.OData.xml" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Oracle.ManagedDataAccess.dll" />
-    <Content Include="bin\ru\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\ru\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\ru\System.Spatial.resources.dll" />
-    <Content Include="bin\Swashbuckle.Core.dll" />
-    <Content Include="bin\System.Net.Http.Extensions.dll" />
-    <Content Include="bin\System.Net.Http.Extensions.xml" />
-    <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.xml" />
-    <Content Include="bin\System.Net.Http.Primitives.dll" />
-    <Content Include="bin\System.Net.Http.Primitives.xml" />
-    <Content Include="bin\System.Spatial.dll" />
-    <Content Include="bin\System.Spatial.xml" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Helpers.xml" />
-    <Content Include="bin\System.Web.Http.dll" />
-    <Content Include="bin\System.Web.Http.OData.dll" />
-    <Content Include="bin\System.Web.Http.OData.xml" />
-    <Content Include="bin\System.Web.Http.Tracing.dll" />
-    <Content Include="bin\System.Web.Http.Tracing.xml" />
-    <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.xml" />
-    <Content Include="bin\System.Web.Http.xml" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Optimization.xml" />
-    <Content Include="bin\System.Web.Providers.dll" />
-    <Content Include="bin\System.Web.Providers.xml" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.xml" />
-    <Content Include="bin\WebActivatorEx.dll" />
-    <Content Include="bin\WebGrease.dll" />
-    <Content Include="bin\WebTemplateCore.dll" />
-    <Content Include="bin\zh-Hans\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\zh-Hans\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\zh-Hans\System.Spatial.resources.dll" />
-    <Content Include="bin\zh-Hant\Microsoft.Data.Edm.resources.dll" />
-    <Content Include="bin\zh-Hant\Microsoft.Data.OData.resources.dll" />
-    <Content Include="bin\zh-Hant\System.Spatial.resources.dll" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config">
       <SubType>Designer</SubType>
@@ -384,6 +294,7 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="home-en.html" />
     <Content Include="index-en.html" />
     <Content Include="js\dhpr.js" />
     <Content Include="js\jquery.xdomainrequest.min.js" />
@@ -395,6 +306,9 @@
     <Content Include="logs\20160304.txt" />
     <Content Include="logs\20160308.txt" />
     <Content Include="logs\20160715.txt" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="produit-sante-naturel-homologue.html" />
     <Content Include="produit-sante-naturel-homologue-detail.html" />
     <Content Include="licensed-natural-health-product-detail.html" />
@@ -402,9 +316,7 @@
     <Content Include="licensed-natural-health-product-result.html" />
     <Content Include="licensed-natural-health-product.html" />
     <Content Include="Controllers\dhprController.ashx" />
-    <Content Include="bin\lnhpdWebApi.dll.config" />
     <None Include="Properties\PublishProfiles\lnhpd.pubxml" />
-    <None Include="Properties\PublishProfiles\lnhpWebApi20151230113805 - Web Deploy.pubxml" />
     <Content Include="StaticFallbackFiles\gcweb\footer-en.html" />
     <Content Include="StaticFallbackFiles\gcweb\footer-fr.html" />
     <Content Include="StaticFallbackFiles\gcweb\prefooter-en.html" />
@@ -422,7 +334,6 @@
     <Content Include="StaticFallbackFiles\gcweb\transactFooter-fr.html" />
     <Content Include="StaticFallbackFiles\gcweb\transactTop-en.html" />
     <Content Include="StaticFallbackFiles\gcweb\transactTop-fr.html" />
-    <Content Include="Views\ChangeLog.txt" />
     <Content Include="Views\Shared\Error404.htm" />
     <Content Include="Views\Shared\Error500.htm" />
     <Content Include="Views\Shared\GenericError.htm" />
@@ -432,10 +343,6 @@
     </Content>
     <Content Include="Views\Home\IndexEN.cshtml" />
     <Content Include="Views\Home\IndexFR.cshtml" />
-    <Content Include="Views\GoCWebTemplate.LeftMenu_Layout.cshtml" />
-    <Content Include="Views\GoCWebTemplate.Transactional.LeftMenu_Layout.cshtml" />
-    <Content Include="Views\GoCWebTemplate.Transactional_Layout.cshtml" />
-    <Content Include="Views\GoCWebTemplate_Layout.cshtml" />
     <Content Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -445,13 +352,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\bin\fr\" />
-    <Folder Include="obj\Debug\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Folder Include="bin\" />
+    <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
