@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using LnhpdApi.Models.Todo;
-using LnhpdApi.Models.Response;
-using LnhpdApi.Models.LNHPD;
+using lnhpdWebApi.Models.Todo;
+using lnhpdWebApi.Models.Response;
+using lnhpdWebApi.Models.LNHPD;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Data;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
 
-namespace LnhpdApi.Controller
+namespace lnhpdWebApi.Controller
 {
   [Produces("application/json", "application/xml")]
   [Route("api/medicinal-ingredient")]

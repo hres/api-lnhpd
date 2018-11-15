@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using LnhpdApi.Models.Request;
-using LnhpdApi.Models.Response;
+using lnhpdWebApi.Models.Request;
+using lnhpdWebApi.Models.Response;
 using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
 
