@@ -252,6 +252,7 @@
     <Compile Include="Models\IProductRiskTextRepository.cs" />
     <Compile Include="Models\IProductRouteRepository.cs" />
     <Compile Include="Models\MedicinalIngredient.cs" />
+    <Compile Include="Models\MedicinalIngredientContext.cs" />
     <Compile Include="Models\MedicinalIngredientRepository.cs" />
     <Compile Include="Models\NonMedicinalIngredient.cs" />
     <Compile Include="Models\NonMedicinalIngredientRepository.cs" />
@@ -269,6 +270,10 @@
     <Compile Include="Models\ProductRiskTextRepository.cs" />
     <Compile Include="Models\ProductRoute.cs" />
     <Compile Include="Models\ProductRouteRepository.cs" />
+    <Compile Include="Models\Request\RequestInfo.cs" />
+    <Compile Include="Models\Response\Metadata.cs" />
+    <Compile Include="Models\Response\Pagination.cs" />
+    <Compile Include="Models\Response\Response.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

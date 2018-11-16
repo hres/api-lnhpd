@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using lnhpdWebApi.Models.Request;
 using lnhpdWebApi.Models.Response;
-using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
 
 namespace lnhpdWebApi.Models
@@ -132,51 +130,64 @@ namespace lnhpdWebApi.Models
       return query;
     }
 
-    private (List<MedicinalIngredient> data, int count) executeMany(string query, string countQuery)
-    {
-      var items = new List<MedicinalIngredient>();
-      int count = 0;
+        private class DBResult
+        {
+            public int count;
+            public List<MedicinalIngredient> data { get; set; }
 
-      using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
-      {
-        try
-        {
-          con.Open();
-          OracleCommand cmd = new OracleCommand(query, con);
-          using (OracleDataReader dr = cmd.ExecuteReader())
-          {
-            if (dr.HasRows)
+            public DBResult(List<MedicinalIngredient> data, int count)
             {
-              while (dr.Read())
-              {
-                items.Add(MedicinalIngredientFactory(dr));
-              }
+                this.count = count;
+                this.data = data;
             }
-          }
 
-          cmd = new OracleCommand(countQuery, con);
-          using (OracleDataReader dr = cmd.ExecuteReader())
-          {
-            if (dr.HasRows)
+        }
+
+        private DBResult executeMany(string query, string countQuery)
+        {
+            var items = new List<MedicinalIngredient>();
+            int count = 0;
+
+            using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
-              dr.Read();
-              count = dr.GetInt32(0);
+                try
+                {
+                    con.Open();
+                    OracleCommand cmd = new OracleCommand(query, con);
+                    using (OracleDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                items.Add(MedicinalIngredientFactory(dr));
+                            }
+                        }
+                    }
+
+                    cmd = new OracleCommand(countQuery, con);
+                    using (OracleDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            dr.Read();
+                            count = dr.GetInt32(0);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string errorMessages = string.Format("DbConnection.cs - GetAllIngredient()");
+                    Console.WriteLine(ex.Message);
+                    // ExceptionHelper.LogException(ex, errorMessages);
+                }
+                finally
+                {
+                    if (con.State == ConnectionState.Open)
+                        con.Close();
+                }
             }
-          }
-        }
-        catch (Exception ex)
-        {
-          string errorMessages = string.Format("DbConnection.cs - GetAllIngredient()");
-          Console.WriteLine(ex.Message);
-          // ExceptionHelper.LogException(ex, errorMessages);
-        }
-        finally
-        {
-          if (con.State == ConnectionState.Open)
-            con.Close();
-        }
-      }
-      return (data: items, count: count);
+            return new DBResult(items, count);
     }
 
     private MedicinalIngredient executeOne(string query)

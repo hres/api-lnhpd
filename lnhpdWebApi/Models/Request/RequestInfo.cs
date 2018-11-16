@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace lnhpdWebApi.Models.Request
+namespace lnhpdWebApi.Models
 {
   public class RequestInfo
   {
