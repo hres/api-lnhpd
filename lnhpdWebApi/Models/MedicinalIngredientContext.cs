@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using lnhpdWebApi.Models.Response;
 using Oracle.ManagedDataAccess.Client;
+using lnhpdWebApi.Models.Request;
 
 namespace lnhpdWebApi.Models
 {
@@ -21,9 +22,8 @@ namespace lnhpdWebApi.Models
 
     public Response<List<MedicinalIngredient>> GetAllMedicinalIngredient(RequestInfo requestInfo)
     {
-      var limit = requestInfo.limit;
-      var page = requestInfo.page;
-      var offset = requestInfo.offset;
+            var limit = 100;
+      var page = requestInfo.page ?? 1;
       var start = 0;
       var stop = 0;
 
@@ -32,14 +32,6 @@ namespace lnhpdWebApi.Models
       if (page != null && page >= 1)
       {
         start = (page - 1) * limit;
-      }
-      else if (offset != null)
-      {
-        start = offset;
-      }
-      else
-      {
-        start = 0;
       }
 
       stop = start + limit;
@@ -67,9 +59,8 @@ namespace lnhpdWebApi.Models
       response.metadata = new Metadata();
       var pagination = new Pagination();
       pagination.limit = limit;
-      pagination.offset = (page != null && page == 0 ? offset : 0);
       pagination.page = page;
-      pagination.count = result.count;
+      pagination.total = result.count;
 
       response.metadata.pagination = pagination;
 

@@ -1,5 +1,6 @@
 ﻿
 using lnhpdWebApi.Models;
+using lnhpdWebApi.Models.Request;
 using lnhpdWebApi.Models.Response;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -21,14 +22,12 @@ namespace lnhpdWebApi.Controllers
 
         public Response<List<MedicinalIngredient>> GetAllMedicinalIngredient(string lang = "en")
         {
-            System.Console.WriteLine("here");
             return _context.GetAllMedicinalIngredient(new RequestInfo());
         }
 
-        public Response<List<MedicinalIngredient>> GetAllMedicinalIngredient(int offset, int page, string lang = "en")
+        public Response<List<MedicinalIngredient>> GetAllMedicinalIngredient(int page, string lang = "en")
         {
-            System.Console.WriteLine("here");
-            return _context.GetAllMedicinalIngredient(new RequestInfo { offset = offset, page = page });
+            return _context.GetAllMedicinalIngredient(new RequestInfo { page = page });
         }
     }
 }

@@ -1,13 +1,29 @@
-using System.Collections.Generic;
+using System;
+using System.Web;
 
-namespace lnhpdWebApi.Models
+namespace lnhpdWebApi.Models.Request
 {
-  public class RequestInfo
-  {
-    public int limit { get; set; } = 10;
-    public int offset { get; set; }
-    public int page { get; set; }
-    public string[] languages { get; set; } = { "en", "fr" };
+    public class RequestInfo
+    {
 
-  }
+        public RequestInfo() { }
+
+        public int? limit = 100;
+
+        public Nullable<int> page { get; set; }
+
+        public string sort { get; set; }
+
+
+        public string[] languages { get; set; } = { "en", "fr" };
+
+        public string type { get; set; }
+
+        public string path
+        {
+            get { return context.Request.Path; }
+        }
+
+        public HttpContext context { get; set; }
+    }
 }
