@@ -15,7 +15,7 @@ namespace lnhpdWebApi.Models.Request
         public string sort { get; set; }
 
 
-        public string[] languages { get; set; } = { "en", "fr" };
+        public string languages { get; set; }
 
         public string type { get; set; }
 

@@ -134,7 +134,7 @@ namespace lnhpdWebApi.Models
 
                     stop = start + limit;
 
-                    var lang = "en";
+                    var lang = requestInfo.languages;
                     var query = getQueryColumns(lang) + getQueryTable();
                     query = "select " +
                       (start != 0 ? "sq." : "") + "*" +
@@ -191,7 +191,7 @@ namespace lnhpdWebApi.Models
             var next = buildBasePath(requestInfo);
             // page indexing starts at 1
             if ((page) * requestInfo.limit >= count) return null;
-            next += $"?limit={limit}&page={page + 1}";
+            next += $"?page={page + 1}&lang={requestInfo.languages}&type={requestInfo.type}";
             return next;
         }
 
@@ -199,7 +199,7 @@ namespace lnhpdWebApi.Models
         {
             var previous = buildBasePath(requestInfo);
             if (page <= 1) return null;
-            previous += $"?limit={limit}&page={page - 1}";
+            previous += $"?page={page - 1}&lang={requestInfo.languages}&type={requestInfo.type}";
 
             return previous;
         }
@@ -207,7 +207,10 @@ namespace lnhpdWebApi.Models
         private string buildBasePath(RequestInfo requestInfo)
         {
             var request = requestInfo.context.Request;
-            return $"{request.Url.Scheme}://{request.Url.Host}{request.Path}";
+            var scheme = request.Url.Scheme;
+            var port = request.Url.Port;
+            var portValue = ((scheme == "http" && port == 80) || (scheme == "https" && port == 443)) ? "" : (":" + port);
+            return $"{scheme}://{request.Url.Host}{portValue}{request.Path}";
         }
 
         private DBResult executeMany(string query, string countQuery)

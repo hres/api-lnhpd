@@ -22,10 +22,10 @@ namespace lnhpdWebApi.Controllers
             return response;
         }
 
-        public Response<List<MedicinalIngredient>> GetAllMedicinalIngredient(int page = 1, string lang = "en")
+        public Response<List<MedicinalIngredient>> GetAllMedicinalIngredient(string type = "json", int page = 1, string lang = "en")
         {
             var context = System.Web.HttpContext.Current;
-            return _context.GetAllMedicinalIngredient(new RequestInfo { page = page, context = context });
+            return _context.GetAllMedicinalIngredient(new RequestInfo { page = page, context = context, languages = lang, type = type });
         }
     }
 }
