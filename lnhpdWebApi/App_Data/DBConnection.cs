@@ -4,6 +4,7 @@ using System.Data;
 using System.Configuration;
 using lnhpdWebApi.Models;
 using Oracle.ManagedDataAccess.Client;
+using dhpr;
 
 namespace lnhpd
 {
@@ -293,9 +294,21 @@ namespace lnhpd
                             while (dr.Read())
                             {
                                 var item = new MedicinalIngredient();
+                                var ingreditnatLang = new biliLang();
+                                //ingreditnatLang.en = "";
+
+                             
+
 
                                 item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.ingredient_name = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
+
+                                ingreditnatLang.en = dr["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : dr["INGREDIENT_NAME"].ToString().Trim();
+                                ingreditnatLang.fr = dr["ingredient_name_other"] == DBNull.Value ? string.Empty : dr["ingredient_name_other"].ToString().Trim();
+
+                                item.ingredient_Text = ingreditnatLang;
+
+                                ingreditnatLang = new biliLang();
                                 //item.matrix_id = dr["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_ID"]);
                                 //item.matrix_type_code = dr["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["MATRIX_TYPE_CODE"]);
                                 //item.quantity_list = GetAllIngredientQuantityByMatrixId(item.matrix_id, lang);
