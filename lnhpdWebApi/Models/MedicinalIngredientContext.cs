@@ -206,11 +206,14 @@ namespace lnhpdWebApi.Models
 
         private string buildBasePath(RequestInfo requestInfo)
         {
-            var request = requestInfo.context.Request;
-            var scheme = request.Url.Scheme;
-            var port = request.Url.Port;
-            var portValue = ((scheme == "http" && port == 80) || (scheme == "https" && port == 443)) ? "" : (":" + port);
-            return $"{scheme}://{request.Url.Host}{portValue}{request.Path}";
+            // DOES NOT WORK WITH URL ALIASES!
+            //var request = requestInfo.context.Request;
+            //var scheme = request.Url.Scheme;
+            //var port = request.Url.Port;
+            //var portValue = ((scheme == "http" && port == 80) || (scheme == "https" && port == 443)) ? "" : (":" + port);
+            //return $"{scheme}://{request.Url.Host}{portValue}{request.Path}";
+
+            return requestInfo.path;
         }
 
         private DBResult executeMany(string query, string countQuery)
