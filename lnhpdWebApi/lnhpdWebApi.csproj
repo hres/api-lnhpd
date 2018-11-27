@@ -265,6 +265,7 @@
     <Compile Include="Models\ProductPurpose.cs" />
     <Compile Include="Models\ProductPurposeRepository.cs" />
     <Compile Include="Models\ProductRisk.cs" />
+    <Compile Include="Models\ProductRiskContext.cs" />
     <Compile Include="Models\ProductRiskRepository.cs" />
     <Compile Include="Models\ProductRiskText.cs" />
     <Compile Include="Models\ProductRiskTextRepository.cs" />

@@ -16,9 +16,9 @@ namespace lnhpdWebApi.Controllers
         // can't use DI as EF requires a DbContext reference, which limits our ability to transform data and there is no OracleProvider
         private readonly MedicinalIngredientContext _context = new MedicinalIngredientContext();
 
-        public Response<MedicinalIngredient> GetMedicinalIngredientById(int id, string lang = "en")
+        public Response<List<MedicinalIngredient>> GetMedicinalIngredientById(int id, string lang = "en")
         {
-            Response<MedicinalIngredient> response = _context.GetMedicinalIngredientById(id, lang);
+            Response<List<MedicinalIngredient>> response = _context.GetMedicinalIngredientById(id, lang);
             return response;
         }
 
