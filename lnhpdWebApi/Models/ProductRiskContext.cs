@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -8,34 +8,33 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace lnhpdWebApi.Models
 {
-    public class MedicinalIngredientContext
+    public class ProductRiskContext
     {
 
         private class DBResult
         {
             public int count;
-            public List<MedicinalIngredient> data { get; set; }
+            public List<ProductRisk> data { get; set; }
 
-            public DBResult(List<MedicinalIngredient> data, int count)
+            public DBResult(List<ProductRisk> data, int count)
             {
                 this.count = count;
                 this.data = data;
             }
-
         }
 
-        public Response<List<MedicinalIngredient>> GetMedicinalIngredientById(int id, string lang = "en")
+        public Response<List<ProductRisk>> GetProductRiskById(int id, string lang = "en")
         {
             var countQuery = $"select count(*) {getQueryTable()} and r.submission_id = {idCal(id)}";
             var query = getQueryColumns(lang) + getQueryTable();
-            query = query + $" and i.submission_id = :id";
+            query = query + $" and r.submission_id = :id";
             DBResult results = executeMany(countQuery, query, new Dictionary<string, string>() { { ":id", idCal(id).ToString() } }, lang);
-            return new Response<List<MedicinalIngredient>>() { data = results.data };
+            return new Response<List<ProductRisk>>() { data = results.data };
         }
 
-        public Response<List<MedicinalIngredient>> GetAllMedicinalIngredient(RequestInfo requestInfo)
+        public Response<List<ProductRisk>> GetAllProductRisk(RequestInfo requestInfo)
         {
-            return executeMany(requestInfo);
+            return executeMany($"select count(*) {getQueryTable()}", $"{getQueryColumns(requestInfo.languages) + getQueryTable()}", requestInfo);
 
         }
 
@@ -65,36 +64,20 @@ namespace lnhpdWebApi.Models
 
         private string getQueryColumns(string lang)
         {
-            var query = "select i.submission_id submission_id, i.matrix_id matrix_id, i.matrix_type_code matrix_type_code, ";
-            query += " q.potency_amount potency_amount, q.potency_constituent potency_constituent, ";
-            query += " q.quantity quantity, q.quantity_minimum quantity_minimum, q.quantity_maximum quantity_maximum, ";
-            query += " q.ratio_numerator ratio_numerator, q.ratio_denominator ratio_denominator, q.dried_herb_equivalent dried_herb_equivalent, ";
-            if (lang.Equals("fr"))
-            {
-                query += " i.ingredient_name_other as ingredient_name, q.uom_type_desc_potency_f potency_unit_of_measure,  q.uom_type_desc_amt_quantity_f quantity_unit_of_measure, ";
-                query += " q.uom_type_desc_dhe_f dhe_unit_of_measure, q.extract_type_desc_f extract_type_desc, s.material_type_desc_f source_material ";
-            }
-            else
-            {
-                query += " i.ingredient_name ingredient_name , q.uom_type_desc_potency potency_unit_of_measure,  q.uom_type_desc_amt_quantity quantity_unit_of_measure, ";
-                query += " q.uom_type_desc_dhe dhe_unit_of_measure, q.extract_type_desc extract_type_desc, s.material_type_desc source_material ";
-            };
-
+            var query = "SELECT R.SUBMISSION_ID, R.RISK_ID, R.RISK_TYPE_DESC, R.RISK_TYPE_DESC_F, R.SUB_RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F, T.RISK_TEXT_E, T.RISK_TEXT_F ";
             return query;
         }
 
         private string getQueryTable()
         {
-            var query = " from nhpplq_owner.ingredient_online i ";
-            query += " left join nhpplq_owner.ingredient_quantity_online q on i.matrix_id= q.matrix_id";
-            query += " left join nhpplq_owner.ingredient_source_online s on i.matrix_id = s.matrix_id";
-            query += " where i.matrix_type_code=2 ";
+            var query = " FROM NHPPLQ_OWNER.PRODUCT_RISK_ONLINE R, NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE T ";
+            query += "WHERE R.RISK_ID = T.RISK_ID";
             return query;
         }
 
-        private Response<List<MedicinalIngredient>> executeMany(RequestInfo requestInfo)
+        private Response<List<ProductRisk>> executeMany(string countQuery, string query, RequestInfo requestInfo)
         {
-            var items = new List<MedicinalIngredient>();
+            var items = new List<ProductRisk>();
             int count = 0;
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
@@ -102,7 +85,6 @@ namespace lnhpdWebApi.Models
                 try
                 {
                     con.Open();
-                    var countQuery = "select count(*) " + getQueryTable();
                     OracleCommand cmd = new OracleCommand(countQuery, con);
                     using (OracleDataReader dr = cmd.ExecuteReader())
                     {
@@ -135,7 +117,6 @@ namespace lnhpdWebApi.Models
                     stop = start + limit;
 
                     var lang = requestInfo.languages;
-                    var query = getQueryColumns(lang) + getQueryTable();
                     query = "select " +
                       (start != 0 ? "sq." : "") + "*" +
                       (start != 0 ? ", rownum as rnum " : " ") +
@@ -154,12 +135,12 @@ namespace lnhpdWebApi.Models
                         {
                             while (dr.Read())
                             {
-                                items.Add(MedicinalIngredientFactory(dr));
+                                items.Add(ProductRiskFactory(dr, lang));
                             }
                         }
                     }
 
-                    var response = new Response<List<MedicinalIngredient>> { data = items };
+                    var response = new Response<List<ProductRisk>> { data = items };
 
                     response.metadata = new Metadata();
                     var pagination = new Pagination();
@@ -218,7 +199,7 @@ namespace lnhpdWebApi.Models
 
         private DBResult executeMany(string countQuery, string query, Dictionary<string, string> parameters, string lang)
         {
-            var items = new List<MedicinalIngredient>();
+            var items = new List<ProductRisk>();
             int count = 0;
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
@@ -237,7 +218,7 @@ namespace lnhpdWebApi.Models
                         {
                             while (dr.Read())
                             {
-                                items.Add(MedicinalIngredientFactory(dr));
+                                items.Add(ProductRiskFactory(dr, lang));
                             }
                         }
                     }
@@ -265,9 +246,9 @@ namespace lnhpdWebApi.Models
             return new DBResult(items, count);
         }
 
-        private MedicinalIngredient executeOne(string query)
+        private ProductRisk executeOne(string query, string lang)
         {
-            MedicinalIngredient item = null;
+            ProductRisk item = null;
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
@@ -280,7 +261,7 @@ namespace lnhpdWebApi.Models
                         if (dr.HasRows)
                         {
                             dr.Read();
-                            item = MedicinalIngredientFactory(dr);
+                            item = ProductRiskFactory(dr, lang);
                         }
                     }
                 }
@@ -297,27 +278,40 @@ namespace lnhpdWebApi.Models
             return item;
         }
 
-        private MedicinalIngredient MedicinalIngredientFactory(OracleDataReader reader)
+        private ProductRisk ProductRiskFactory(OracleDataReader reader, string lang)
         {
-            var item = new MedicinalIngredient();
+            var item = new ProductRisk();
+            string risk_text_e = reader["RISK_TEXT_E"] == DBNull.Value ? string.Empty : reader["RISK_TEXT_E"].ToString().Trim();
+            string risk_text_f = reader["RISK_TEXT_F"] == DBNull.Value ? string.Empty : reader["RISK_TEXT_F"].ToString().Trim();
+            if (risk_text_e.Length > 3999)
+            {
+                risk_text_e = "N/A";
+            }
             item.lnhpd_id = reader["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(reader["SUBMISSION_ID"]));
-            item.ingredient_name = reader["INGREDIENT_NAME"] == DBNull.Value ? string.Empty : reader["INGREDIENT_NAME"].ToString().Trim();
-            //item.matrix_id = reader["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["MATRIX_ID"]);
-            //item.matrix_type_code = reader["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(reader["MATRIX_TYPE_CODE"]);
-            //item.quantity_list = GetAllIngredientQuantityByMatrixId(item.matrix_id, lang);
-            item.potency_amount = reader["potency_amount"] == DBNull.Value ? 0 : Convert.ToInt32(reader["potency_amount"]);
-            item.potency_constituent = reader["potency_constituent"] == DBNull.Value ? string.Empty : reader["potency_constituent"].ToString().Trim();
-            item.potency_unit_of_measure = reader["potency_unit_of_measure"] == DBNull.Value ? string.Empty : reader["potency_unit_of_measure"].ToString().Trim();
-            item.quantity = reader["quantity"] == DBNull.Value ? 0 : Convert.ToInt64(reader["quantity"]);
-            item.quantity_minimum = reader["quantity_minimum"] == DBNull.Value ? 0 : Convert.ToInt32(reader["quantity_minimum"]);
-            item.quantity_maximum = reader["quantity_maximum"] == DBNull.Value ? 0 : Convert.ToInt32(reader["quantity_maximum"]);
-            item.quantity_unit_of_measure = reader["quantity_unit_of_measure"] == DBNull.Value ? string.Empty : reader["quantity_unit_of_measure"].ToString().Trim();
-            item.ratio_numerator = reader["ratio_numerator"] == DBNull.Value ? string.Empty : reader["ratio_numerator"].ToString().Trim();
-            item.ratio_denominator = reader["ratio_denominator"] == DBNull.Value ? string.Empty : reader["ratio_denominator"].ToString().Trim();
-            item.dried_herb_equivalent = reader["dried_herb_equivalent"] == DBNull.Value ? string.Empty : reader["dried_herb_equivalent"].ToString().Trim();
-            item.dhe_unit_of_measure = reader["dhe_unit_of_measure"] == DBNull.Value ? string.Empty : reader["dhe_unit_of_measure"].ToString().Trim();
-            item.extract_type_desc = reader["extract_type_desc"] == DBNull.Value ? string.Empty : reader["extract_type_desc"].ToString().Trim();
-            item.source_material = reader["source_material"] == DBNull.Value ? string.Empty : reader["source_material"].ToString().Trim();
+            item.risk_id = reader["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["RISK_ID"]);
+
+            if (lang.Equals("fr"))
+            {
+                item.risk_type_desc = reader["RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : reader["RISK_TYPE_DESC_F"].ToString().Trim();
+                item.sub_risk_type_desc = reader["SUB_RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : reader["SUB_RISK_TYPE_DESC_F"].ToString().Trim();
+                item.risk_text = risk_text_f == "" ? risk_text_e : risk_text_f;
+
+            }
+            else
+            {
+                item.risk_type_desc = reader["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : reader["RISK_TYPE_DESC"].ToString().Trim();
+                item.sub_risk_type_desc = reader["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : reader["SUB_RISK_TYPE_DESC"].ToString().Trim();
+                item.risk_text = risk_text_e == "N/A" ? risk_text_f : risk_text_e;
+            }
+
+            //item.risk_type_desc = reader["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : reader["RISK_TYPE_DESC"].ToString().Trim();
+            //item.sub_risk_type_desc = reader["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : reader["SUB_RISK_TYPE_DESC"].ToString().Trim();
+            //var riskTextList = GetAllProductRiskTextByRiskId(item.risk_id,lang);
+            //if (riskTextList != null && riskTextList.Count > 0)
+            //{
+            //    item.risk_text_list = riskTextList;
+            //}
+            //item.risk_text = reader["RISK_TEXT"] == DBNull.Value ? string.Empty : reader["RISK_TEXT"].ToString().Trim();
             return item;
         }
     }
