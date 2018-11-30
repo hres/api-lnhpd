@@ -5,6 +5,6 @@ namespace lnhpdWebApi.Models.Response
   public class Metadata
   {
     public Pagination pagination { get; set; }
-    public DateTime dateCreated { get; set; } = DateTime.UtcNow;
+    public String dateCreated { get; set; } = DateTime.UtcNow.ToString("O");
   }
 }
