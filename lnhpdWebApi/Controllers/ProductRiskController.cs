@@ -8,8 +8,6 @@ using System.Web.Http;
 
 namespace lnhpdWebApi.Controllers
 {
-    // [Route("api/medicinal-ingredient")]
-    // [Route("api/ingredient-medicinale")]
     public class ProductRiskController : ApiController
     {
         // can't use DI as EF requires a DbContext reference, which limits our ability to transform data and there is no OracleProvider

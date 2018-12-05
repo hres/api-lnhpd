@@ -26,7 +26,7 @@ namespace lnhpdWebApi.Models
 
         public Response<List<MedicinalIngredient>> GetMedicinalIngredientById(int id, string lang = "en")
         {
-            var countQuery = $"select count(*) {getQueryTable()} and r.submission_id = {idCal(id)}";
+            var countQuery = $"select count(*) {getQueryTable()} and r.submission_id = :id";
             var query = getQueryColumns(lang) + getQueryTable();
             query = query + $" and i.submission_id = :id";
             DBResult results = executeMany(countQuery, query, new Dictionary<string, string>() { { ":id", idCal(id).ToString() } }, lang);
@@ -36,7 +36,6 @@ namespace lnhpdWebApi.Models
         public Response<List<MedicinalIngredient>> GetAllMedicinalIngredient(RequestInfo requestInfo)
         {
             return executeMany(requestInfo);
-
         }
 
         private string LnhpdDBConnection
@@ -123,7 +122,7 @@ namespace lnhpdWebApi.Models
                     // check for invalid page
                     if (start >= count || page < 1)
                     {
-                        throw new Exception();
+                        // throw new Exception();
                     }
 
                     // shorten the limit if it's the last page
@@ -243,6 +242,10 @@ namespace lnhpdWebApi.Models
                     }
 
                     cmd = new OracleCommand(countQuery, con);
+                    foreach (var parameter in parameters)
+                    {
+                        cmd.Parameters.Add(parameter.Key, parameter.Value);
+                    }
                     using (OracleDataReader dr = cmd.ExecuteReader())
                     {
                         if (dr.HasRows)
