@@ -263,6 +263,7 @@
     <Compile Include="Models\ProductLicenceRepository.cs" />
     <Compile Include="Models\IProductLicenceRepository.cs" />
     <Compile Include="Models\ProductPurpose.cs" />
+    <Compile Include="Models\ProductPurposeContext.cs" />
     <Compile Include="Models\ProductPurposeRepository.cs" />
     <Compile Include="Models\ProductRisk.cs" />
     <Compile Include="Models\ProductRiskContext.cs" />

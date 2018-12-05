@@ -8,31 +8,31 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace lnhpdWebApi.Models
 {
-    public class ProductRiskContext
+    public class ProductPurposeContext
     {
 
         private class DBResult
         {
             public int count;
-            public List<ProductRisk> data { get; set; }
+            public List<ProductPurpose> data { get; set; }
 
-            public DBResult(List<ProductRisk> data, int count)
+            public DBResult(List<ProductPurpose> data, int count)
             {
                 this.count = count;
                 this.data = data;
             }
         }
 
-        public Response<List<ProductRisk>> GetProductRiskById(int id, string lang = "en")
+        public Response<List<ProductPurpose>> GetProductPurposeById(int id, string lang = "en")
         {
-            var countQuery = $"select count(*) {getQueryTable()} and r.submission_id = :id";
+            var countQuery = $"select count(*) {getQueryTable()} where SUBMISSION_ID = :id";
             var query = getQueryColumns(lang) + getQueryTable();
-            query = query + $" and r.submission_id = :id";
+            query = query + $" where SUBMISSION_ID = :id";
             DBResult results = executeMany(countQuery, query, new Dictionary<string, string>() { { ":id", idCal(id).ToString() } }, lang);
-            return new Response<List<ProductRisk>>() { data = results.data };
+            return new Response<List<ProductPurpose>>() { data = results.data };
         }
 
-        public Response<List<ProductRisk>> GetAllProductRisk(RequestInfo requestInfo)
+        public Response<List<ProductPurpose>> GetAllProductPurpose(RequestInfo requestInfo)
         {
             return executeMany($"select count(*) {getQueryTable()}", $"{getQueryColumns(requestInfo.languages) + getQueryTable()}", requestInfo);
 
@@ -64,20 +64,19 @@ namespace lnhpdWebApi.Models
 
         private string getQueryColumns(string lang)
         {
-            var query = "SELECT R.SUBMISSION_ID, R.RISK_ID, R.RISK_TYPE_DESC, R.RISK_TYPE_DESC_F, R.SUB_RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F, T.RISK_TEXT_E, T.RISK_TEXT_F ";
+            var query = "SELECT TEXT_ID, SUBMISSION_ID, PURPOSE_F, PURPOSE_E ";
             return query;
         }
 
         private string getQueryTable()
         {
-            var query = " FROM NHPPLQ_OWNER.PRODUCT_RISK_ONLINE R, NHPPLQ_OWNER.PRODUCT_RISK_TEXT_ONLINE T ";
-            query += "WHERE R.RISK_ID = T.RISK_ID";
+            var query = " FROM NHPPLQ_OWNER.PRODUCT_PURPOSE_ONLINE";
             return query;
         }
 
-        private Response<List<ProductRisk>> executeMany(string countQuery, string query, RequestInfo requestInfo)
+        private Response<List<ProductPurpose>> executeMany(string countQuery, string query, RequestInfo requestInfo)
         {
-            var items = new List<ProductRisk>();
+            var items = new List<ProductPurpose>();
             int count = 0;
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
@@ -135,12 +134,12 @@ namespace lnhpdWebApi.Models
                         {
                             while (dr.Read())
                             {
-                                items.Add(ProductRiskFactory(dr, lang));
+                                items.Add(ProductPurposeFactory(dr, lang));
                             }
                         }
                     }
 
-                    var response = new Response<List<ProductRisk>> { data = items };
+                    var response = new Response<List<ProductPurpose>> { data = items };
 
                     response.metadata = new Metadata();
                     var pagination = new Pagination();
@@ -187,7 +186,7 @@ namespace lnhpdWebApi.Models
 
         private string buildBasePath(RequestInfo requestInfo)
         {
-            // DOES NOT WORK WITH URL ALIASES!
+            // ABSOLUTE PATH DOES NOT WORK WITH URL ALIASES!
             //var request = requestInfo.context.Request;
             //var scheme = request.Url.Scheme;
             //var port = request.Url.Port;
@@ -199,7 +198,7 @@ namespace lnhpdWebApi.Models
 
         private DBResult executeMany(string countQuery, string query, Dictionary<string, string> parameters, string lang)
         {
-            var items = new List<ProductRisk>();
+            var items = new List<ProductPurpose>();
             int count = 0;
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
@@ -218,7 +217,7 @@ namespace lnhpdWebApi.Models
                         {
                             while (dr.Read())
                             {
-                                items.Add(ProductRiskFactory(dr, lang));
+                                items.Add(ProductPurposeFactory(dr, lang));
                             }
                         }
                     }
@@ -250,9 +249,9 @@ namespace lnhpdWebApi.Models
             return new DBResult(items, count);
         }
 
-        private ProductRisk executeOne(string query, string lang)
+        private ProductPurpose executeOne(string query, string lang)
         {
-            ProductRisk item = null;
+            ProductPurpose item = null;
 
             using (OracleConnection con = new OracleConnection(LnhpdDBConnection))
             {
@@ -265,7 +264,7 @@ namespace lnhpdWebApi.Models
                         if (dr.HasRows)
                         {
                             dr.Read();
-                            item = ProductRiskFactory(dr, lang);
+                            item = ProductPurposeFactory(dr, lang);
                         }
                     }
                 }
@@ -282,40 +281,20 @@ namespace lnhpdWebApi.Models
             return item;
         }
 
-        private ProductRisk ProductRiskFactory(OracleDataReader reader, string lang)
+        private ProductPurpose ProductPurposeFactory(OracleDataReader dr, string lang)
         {
-            var item = new ProductRisk();
-            string risk_text_e = reader["RISK_TEXT_E"] == DBNull.Value ? string.Empty : reader["RISK_TEXT_E"].ToString().Trim();
-            string risk_text_f = reader["RISK_TEXT_F"] == DBNull.Value ? string.Empty : reader["RISK_TEXT_F"].ToString().Trim();
-            if (risk_text_e.Length > 3999)
-            {
-                risk_text_e = "N/A";
-            }
-            item.lnhpd_id = reader["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(reader["SUBMISSION_ID"]));
-            item.risk_id = reader["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["RISK_ID"]);
-
+            var item = new ProductPurpose();
+            item.text_id = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
+            item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
             if (lang.Equals("fr"))
             {
-                item.risk_type_desc = reader["RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : reader["RISK_TYPE_DESC_F"].ToString().Trim();
-                item.sub_risk_type_desc = reader["SUB_RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : reader["SUB_RISK_TYPE_DESC_F"].ToString().Trim();
-                item.risk_text = risk_text_f == "" ? risk_text_e : risk_text_f;
-
+                item.purpose = dr["PURPOSE_F"] == DBNull.Value ? dr["PURPOSE_E"].ToString().Trim() : dr["PURPOSE_F"].ToString().Trim();
             }
             else
             {
-                item.risk_type_desc = reader["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : reader["RISK_TYPE_DESC"].ToString().Trim();
-                item.sub_risk_type_desc = reader["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : reader["SUB_RISK_TYPE_DESC"].ToString().Trim();
-                item.risk_text = risk_text_e == "N/A" ? risk_text_f : risk_text_e;
+                item.purpose = dr["PURPOSE_E"] == DBNull.Value ? dr["PURPOSE_F"].ToString().Trim() : dr["PURPOSE_E"].ToString().Trim();
             }
 
-            //item.risk_type_desc = reader["RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : reader["RISK_TYPE_DESC"].ToString().Trim();
-            //item.sub_risk_type_desc = reader["SUB_RISK_TYPE_DESC"] == DBNull.Value ? string.Empty : reader["SUB_RISK_TYPE_DESC"].ToString().Trim();
-            //var riskTextList = GetAllProductRiskTextByRiskId(item.risk_id,lang);
-            //if (riskTextList != null && riskTextList.Count > 0)
-            //{
-            //    item.risk_text_list = riskTextList;
-            //}
-            //item.risk_text = reader["RISK_TEXT"] == DBNull.Value ? string.Empty : reader["RISK_TEXT"].ToString().Trim();
             return item;
         }
     }
