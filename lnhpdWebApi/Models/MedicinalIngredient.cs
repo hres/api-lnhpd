@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dhpr;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,8 @@ namespace lnhpdWebApi.Models
     {
         public int lnhpd_id { get; set; }
         public string ingredient_name { get; set; }
+        public biliLang ingredient_Text { get; set; }
+        
         //public int matrix_id { get; set; }
         //public int matrix_type_code { get; set; }
         //public List<IngredientQuantity> quantity_list { get; set; }
@@ -25,6 +28,8 @@ namespace lnhpdWebApi.Models
         public string dhe_unit_of_measure { get; set; }
         public string extract_type_desc { get; set; }
         public string source_material { get; set; }
+
+        
         //public string brand_name { get; set; }
     }
         
