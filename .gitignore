@@ -9,7 +9,6 @@ logs/
 *.user
 *.userosscache
 *.sln.docstates
-*.config
 Web*.config
 lnhpdWebApi.dll.config
 
