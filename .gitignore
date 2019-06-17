@@ -10,6 +10,8 @@ logs/
 *.userosscache
 *.sln.docstates
 *.config
+Web*.config
+lnhpdWebApi.dll.config
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
