@@ -331,7 +331,7 @@
     <Content Include="licensed-natural-health-product.html" />
     <Content Include="Controllers\dhprController.ashx" />
     <Content Include="NLog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
