@@ -23,7 +23,6 @@ lnhpdWebApi.dll.config
 x64/
 x86/
 build/
-bin/
 bld/
 [Oo]bj/
 
