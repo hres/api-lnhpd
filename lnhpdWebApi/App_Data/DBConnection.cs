@@ -50,7 +50,7 @@ namespace lnhpd
         {
             var items = new List<ProductLicence>();
             string commandText = "SELECT FILE_NUMBER, SUBMISSION_ID, LICENCE_NUMBER, LICENCE_DATE, REVISED_DATE, TIME_RECEIPT, DATE_START, NOTES, PRODUCT_NAME_ID, PRODUCT_NAME, COMPANY_ID, COMPANY_NAME_ID, COMPANY_NAME, SUB_SUBMISSION_TYPE_CODE, FLAG_PRIMARY_NAME, FLAG_PRODUCT_STATUS, FLAG_ATTESTED_MONOGRAPH, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "DOSAGE_FORM_F as DOSAGE_FORM, SUB_SUBMISSION_TYPE_DESC_F as SUB_SUBMISSION_TYPE_DESC ";
             }
@@ -193,7 +193,7 @@ namespace lnhpd
             //var licence = new ProductLicence();
             var items = new List<ProductLicence>();
             string commandText = "SELECT FILE_NUMBER, SUBMISSION_ID, LICENCE_NUMBER, LICENCE_DATE, REVISED_DATE, TIME_RECEIPT, DATE_START, NOTES, PRODUCT_NAME_ID, PRODUCT_NAME, COMPANY_ID, COMPANY_NAME_ID, COMPANY_NAME, SUB_SUBMISSION_TYPE_CODE, FLAG_PRIMARY_NAME, FLAG_PRODUCT_STATUS, FLAG_ATTESTED_MONOGRAPH, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "DOSAGE_FORM_F as DOSAGE_FORM, SUB_SUBMISSION_TYPE_DESC_F as SUB_SUBMISSION_TYPE_DESC ";
             }
@@ -267,7 +267,7 @@ namespace lnhpd
             commandText += " q.potency_amount potency_amount, q.potency_constituent potency_constituent, ";
             commandText += " q.quantity quantity, q.quantity_minimum quantity_minimum, q.quantity_maximum quantity_maximum, ";
             commandText += " q.ratio_numerator ratio_numerator, q.ratio_denominator ratio_denominator, q.dried_herb_equivalent dried_herb_equivalent, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += " i.ingredient_name_other as ingredient_name, q.uom_type_desc_potency_f potency_unit_of_measure,  q.uom_type_desc_amt_quantity_f quantity_unit_of_measure, ";
                 commandText += " q.uom_type_desc_dhe_f dhe_unit_of_measure, q.extract_type_desc_f extract_type_desc, s.material_type_desc_f source_material ";
@@ -350,7 +350,7 @@ namespace lnhpd
         {
             var items = new List<NonMedicinalIngredient>();
             string commandText = "SELECT SUBMISSION_ID, MATRIX_ID, MATRIX_TYPE_CODE, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "INGREDIENT_NAME_OTHER as INGREDIENT_NAME ";
             }
@@ -407,7 +407,7 @@ namespace lnhpd
             commandText += " q.potency_amount potency_amount, q.potency_constituent potency_constituent, ";
             commandText += " q.quantity quantity, q.quantity_minimum quantity_minimum, q.quantity_maximum quantity_maximum, ";
             commandText += " q.ratio_numerator ratio_numerator, q.ratio_denominator ratio_denominator, q.dried_herb_equivalent dried_herb_equivalent, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += " i.ingredient_name_other as ingredient_name, q.uom_type_desc_potency_f potency_unit_of_measure,  q.uom_type_desc_amt_quantity_f quantity_unit_of_measure, ";
                 commandText += " q.uom_type_desc_dhe_f dhe_unit_of_measure, q.extract_type_desc_f extract_type_desc, s.material_type_desc_f source_material ";
@@ -487,7 +487,7 @@ namespace lnhpd
             //var ingredient = new Ingredient();
             var items = new List<NonMedicinalIngredient>();
             string commandText = "SELECT SUBMISSION_ID, MATRIX_ID, MATRIX_TYPE_CODE, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "INGREDIENT_NAME_OTHER as INGREDIENT_NAME ";
             }
@@ -545,7 +545,7 @@ namespace lnhpd
         {
             var items = new List<MedicinalIngredient>();
             string commandText = "SELECT DISTINCT I.SUBMISSION_ID, I.MATRIX_ID, I.MATRIX_TYPE_CODE, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "I.INGREDIENT_NAME_OTHER as INGREDIENT_NAME ";
             }
@@ -601,7 +601,7 @@ namespace lnhpd
         {
             var items = new List<MedicinalIngredient>();
             string commandText = "SELECT DISTINCT I.SUBMISSION_ID, I.MATRIX_ID, I.MATRIX_TYPE_CODE, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "I.INGREDIENT_NAME_OTHER as INGREDIENT_NAME ";
             }
@@ -656,7 +656,7 @@ namespace lnhpd
         {
             var items = new List<IngredientQuantity>();
             string commandText = "SELECT INGREDIENT_AMOUNT_ID, MATRIX_ID, QUANTITY, QUANTITY_MINIMUM, QUANTITY_MAXIMUM, RATIO_NUMERATOR, RATIO_DENOMINATOR, DRIED_HERB_EQUIVALENT, POTENCY_AMOUNT, POTENCY_CONSTITUENT, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "UOM_TYPE_DESC_AMT_QUANTITY_F as UOM_TYPE_DESC_AMT_QUANTITY, UOM_TYPE_DESC_DHE_F as UOM_TYPE_DESC_DHE, EXTRACT_TYPE_DESC_F as EXTRACT_TYPE_DESC, UOM_TYPE_DESC_POTENCY_F as UOM_TYPE_DESC_POTENCY ";
             }
@@ -720,7 +720,7 @@ namespace lnhpd
             var newItems = new List<IngredientQuantity>(); // MassagedItems contains merged Potencies with the same ingredient names
 
             string commandText = "SELECT I.INGREDIENT_NAME, Q.INGREDIENT_AMOUNT_ID, Q.MATRIX_ID, Q.QUANTITY, Q.QUANTITY_MINIMUM, Q.QUANTITY_MAXIMUM, Q.RATIO_NUMERATOR, Q.RATIO_DENOMINATOR, Q.DRIED_HERB_EQUIVALENT, Q.POTENCY_AMOUNT, Q.POTENCY_CONSTITUENT, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "Q.UOM_TYPE_DESC_AMT_QUANTITY_F as UOM_TYPE_DESC_AMT_QUANTITY, Q.UOM_TYPE_DESC_DHE_F as UOM_TYPE_DESC_DHE, Q.EXTRACT_TYPE_DESC_F as EXTRACT_TYPE_DESC, Q.UOM_TYPE_DESC_POTENCY_F as UOM_TYPE_DESC_POTENCY ";
             }
@@ -913,7 +913,7 @@ namespace lnhpd
         {
             var quantity = new IngredientQuantity();
             string commandText = "SELECT INGREDIENT_AMOUNT_ID, MATRIX_ID, QUANTITY, QUANTITY_MINIMUM, QUANTITY_MAXIMUM, RATIO_NUMERATOR, RATIO_DENOMINATOR, DRIED_HERB_EQUIVALENT, POTENCY_AMOUNT, POTENCY_CONSTITUENT, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "UOM_TYPE_DESC_AMT_QUANTITY_F as UOM_TYPE_DESC_AMT_QUANTITY, UOM_TYPE_DESC_DHE_F as UOM_TYPE_DESC_DHE, EXTRACT_TYPE_DESC_F as EXTRACT_TYPE_DESC, UOM_TYPE_DESC_POTENCY_F as UOM_TYPE_DESC_POTENCY ";
             }
@@ -978,7 +978,7 @@ namespace lnhpd
         {
             var items = new List<IngredientSource>();
             string commandText = "SELECT MATERIAL_ID, MATRIX_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "MATERIAL_TYPE_DESC_F as MATERIAL_TYPE_DESC ";
             }
@@ -1028,7 +1028,7 @@ namespace lnhpd
         {
             var source = new IngredientSource();
             string commandText = "SELECT MATERIAL_ID, MATRIX_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "MATERIAL_TYPE_DESC_F as MATERIAL_TYPE_DESC ";
             }
@@ -1082,7 +1082,7 @@ namespace lnhpd
         {
             var items = new List<IngredientSubmission>();
             string commandText = "SELECT MATRIX_ID, SUBMISSION_ID, INGREDIENT_TYPE_CODE, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "NAME_UPPER_F as NAME_UPPER ";
             }
@@ -1133,7 +1133,7 @@ namespace lnhpd
         {
             var submission = new IngredientSubmission();
             string commandText = "SELECT MATRIX_ID, SUBMISSION_ID, INGREDIENT_TYPE_CODE, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "NAME_UPPER_F as NAME_UPPER ";
             }
@@ -1188,7 +1188,7 @@ namespace lnhpd
         {
             var items = new List<ProductDose>();
             string commandText = "SELECT SUBMISSION_ID, DOSE_ID, AGE, AGE_MINIMUM, AGE_MAXIMUM, QUANTITY_DOSE, QUANTITY_MINIMUM_DOSE, QUANTITY_MAXIMUM_DOSE, FREQUENCY, FREQUENCY_MINIMUM, FREQUENCY_MAXIMUM, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "POPULATION_TYPE_DESC_F as POPULATION_TYPE_DESC, UOM_TYPE_DESC_AGE_F as UOM_TYPE_DESC_AGE, UOM_TYPE_DESC_QUANTITY_DOSE_F as UOM_TYPE_DESC_QUANTITY_DOSE, UOM_TYPE_DESC_FREQUENCY_F as UOM_TYPE_DESC_FREQUENCY ";
             }
@@ -1251,7 +1251,7 @@ namespace lnhpd
             //var dose = new ProductDose();
             var items = new List<ProductDose>();
             string commandText = "SELECT SUBMISSION_ID, DOSE_ID, AGE, AGE_MINIMUM, AGE_MAXIMUM, QUANTITY_DOSE, QUANTITY_MINIMUM_DOSE, QUANTITY_MAXIMUM_DOSE, FREQUENCY, FREQUENCY_MINIMUM, FREQUENCY_MAXIMUM, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "POPULATION_TYPE_DESC_F as POPULATION_TYPE_DESC, UOM_TYPE_DESC_AGE_F as UOM_TYPE_DESC_AGE, UOM_TYPE_DESC_QUANTITY_DOSE_F as UOM_TYPE_DESC_QUANTITY_DOSE, UOM_TYPE_DESC_FREQUENCY_F as UOM_TYPE_DESC_FREQUENCY ";
             }
@@ -1317,7 +1317,7 @@ namespace lnhpd
         {
             var items = new List<ProductDose>();
             string commandText = "SELECT DISTINCT D.SUBMISSION_ID, D.DOSE_ID, D.AGE, D.AGE_MINIMUM, D.AGE_MAXIMUM, D.QUANTITY_DOSE, D.QUANTITY_MINIMUM_DOSE, D.QUANTITY_MAXIMUM_DOSE, D.FREQUENCY, D.FREQUENCY_MINIMUM, D.FREQUENCY_MAXIMUM, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "D.POPULATION_TYPE_DESC_F as POPULATION_TYPE_DESC, D.UOM_TYPE_DESC_AGE_F as UOM_TYPE_DESC_AGE, D.UOM_TYPE_DESC_QUANTITY_DOSE_F as UOM_TYPE_DESC_QUANTITY_DOSE, D.UOM_TYPE_DESC_FREQUENCY_F as UOM_TYPE_DESC_FREQUENCY ";
             }
@@ -1382,7 +1382,7 @@ namespace lnhpd
         {
             var items = new List<ProductPurpose>();
             string commandText = "SELECT TEXT_ID, SUBMISSION_ID, PURPOSE_F, PURPOSE_E ";
-            //if (lang.Equals("fr"))
+            //if (lang != null && lang.Equals("fr"))
             //{
             //    commandText += "PURPOSE_F as PURPOSE ";
             //}
@@ -1406,7 +1406,7 @@ namespace lnhpd
                                 var item = new ProductPurpose();
                                 item.text_id = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
                                 item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
-                                if (lang.Equals("fr"))
+                                if (lang != null && lang.Equals("fr"))
                                 {
                                     item.purpose = dr["PURPOSE_F"] == DBNull.Value ? dr["PURPOSE_E"].ToString().Trim() : dr["PURPOSE_F"].ToString().Trim();
                                 }
@@ -1439,7 +1439,7 @@ namespace lnhpd
             //var purpose = new ProductPurpose();
             var items = new List<ProductPurpose>();
             string commandText = "SELECT TEXT_ID, SUBMISSION_ID, PURPOSE_F, PURPOSE_E ";
-            //if (lang.Equals("fr"))
+            //if (lang != null && lang.Equals("fr"))
             //{
             //    commandText += "PURPOSE_F as PURPOSE_E ";
             //}
@@ -1469,7 +1469,7 @@ namespace lnhpd
 
                                 item.text_id = dr["TEXT_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["TEXT_ID"]);
                                 item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
-                                if (lang.Equals("fr"))
+                                if (lang != null && lang.Equals("fr"))
                                 {
                                     item.purpose = dr["PURPOSE_F"] == DBNull.Value ? dr["PURPOSE_E"].ToString().Trim() : dr["PURPOSE_F"].ToString().Trim();
                                 }
@@ -1502,7 +1502,7 @@ namespace lnhpd
         {
             var items = new List<ProductPurpose>();
             string commandText = "SELECT DISTINCT P.TEXT_ID, P.SUBMISSION_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "P.PURPOSE_F as PURPOSE_E ";
             }
@@ -1556,7 +1556,7 @@ namespace lnhpd
         {
             var items = new List<ProductRisk>();
             string commandText = "SELECT R.SUBMISSION_ID, R.RISK_ID, R.RISK_TYPE_DESC, R.RISK_TYPE_DESC_F, R.SUB_RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F, T.RISK_TEXT_E, T.RISK_TEXT_F ";
-            //if (lang.Equals("fr"))
+            //if (lang != null && lang.Equals("fr"))
             //{
             //    commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC, T.RISK_TEXT_F as RISK_TEXT ";
             //}
@@ -1588,7 +1588,7 @@ namespace lnhpd
                                 item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
 
-                                if (lang.Equals("fr"))
+                                if (lang != null && lang.Equals("fr"))
                                 {
                                     item.risk_type_desc = dr["RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC_F"].ToString().Trim();
                                     item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC_F"].ToString().Trim();
@@ -1634,7 +1634,7 @@ namespace lnhpd
             //var risk = new ProductRisk();
             var items = new List<ProductRisk>();
             string commandText = "SELECT R.SUBMISSION_ID, R.RISK_ID, R.RISK_TYPE_DESC, R.RISK_TYPE_DESC_F, R.SUB_RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F, T.RISK_TEXT_E, T.RISK_TEXT_F  ";
-            //if (lang.Equals("fr"))
+            //if (lang != null && lang.Equals("fr"))
             //{
             //    commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC, T.RISK_TEXT_F RISK_TEXT ";
             //}
@@ -1673,7 +1673,7 @@ namespace lnhpd
 
                                 item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
                                 item.risk_id = dr["RISK_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["RISK_ID"]);
-                                if (lang.Equals("fr"))
+                                if (lang != null && lang.Equals("fr"))
                                 {
                                     item.risk_type_desc = dr["RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["RISK_TYPE_DESC_F"].ToString().Trim();
                                     item.sub_risk_type_desc = dr["SUB_RISK_TYPE_DESC_F"] == DBNull.Value ? string.Empty : dr["SUB_RISK_TYPE_DESC_F"].ToString().Trim();                                    
@@ -1712,7 +1712,7 @@ namespace lnhpd
         {
             var items = new List<ProductRisk>();
             string commandText = "SELECT DISTINCT R.SUBMISSION_ID, R.RISK_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "R.RISK_TYPE_DESC_F as RISK_TYPE_DESC, R.SUB_RISK_TYPE_DESC_F as SUB_RISK_TYPE_DESC ";
             }
@@ -1768,7 +1768,7 @@ namespace lnhpd
         {
             var items = new List<ProductRiskText>();
             string commandText = "SELECT TEXT_ID, RISK_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "RISK_TEXT_F as RISK_TEXT_E ";
             }
@@ -1818,7 +1818,7 @@ namespace lnhpd
         {
             var items = new List<ProductRiskText>();
             string commandText = "SELECT TEXT_ID, RISK_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "RISK_TEXT_F as RISK_TEXT_E ";
             }
@@ -1869,7 +1869,7 @@ namespace lnhpd
         {
             var riskText = new ProductRiskText();
             string commandText = "SELECT TEXT_ID, RISK_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "RISK_TEXT_F as RISK_TEXT_E ";
             }
@@ -1924,7 +1924,7 @@ namespace lnhpd
         {
             var items = new List<ProductRoute>();
             string commandText = "SELECT SUBMISSION_ID, ROUTE_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "ROUTE_TYPE_DESC_F as ROUTE_TYPE_DESC ";
             }
@@ -1975,7 +1975,7 @@ namespace lnhpd
             //var route = new ProductRoute();
             var items = new List<ProductRoute>();
             string commandText = "SELECT SUBMISSION_ID, ROUTE_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "ROUTE_TYPE_DESC_F as ROUTE_TYPE_DESC ";
             }
@@ -2030,7 +2030,7 @@ namespace lnhpd
             var items = new List<ProductRoute>();
             var route = new ProductRoute();
             string commandText = "SELECT DISTINCT R.SUBMISSION_ID, R.ROUTE_ID, ";
-            if (lang.Equals("fr"))
+            if (lang != null && lang.Equals("fr"))
             {
                 commandText += "R.ROUTE_TYPE_DESC_F as ROUTE_TYPE_DESC ";
             }
