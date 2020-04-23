@@ -15,10 +15,10 @@ namespace lnhpdWebApi.Models
         //public int matrix_id { get; set; }
         //public int matrix_type_code { get; set; }
         //public List<IngredientQuantity> quantity_list { get; set; }
-        public int potency_amount { get; set; }
+        public double potency_amount { get; set; }
         public string potency_constituent { get; set; }
         public string potency_unit_of_measure { get; set; }
-        public Int64 quantity { get; set; }
+        public double quantity { get; set; }
         public int quantity_minimum { get; set; }
         public int quantity_maximum { get; set; }
         public string quantity_unit_of_measure { get; set; }
