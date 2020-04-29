@@ -19,8 +19,8 @@ namespace lnhpdWebApi.Models
         public string potency_constituent { get; set; }
         public string potency_unit_of_measure { get; set; }
         public double quantity { get; set; }
-        public int quantity_minimum { get; set; }
-        public int quantity_maximum { get; set; }
+        public double quantity_minimum { get; set; }
+        public double quantity_maximum { get; set; }
         public string quantity_unit_of_measure { get; set; }
         public string ratio_numerator { get; set; }
         public string ratio_denominator { get; set; }
