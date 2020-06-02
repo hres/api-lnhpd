@@ -167,6 +167,10 @@ namespace lnhpdWebApi.Models
                     pagination.total = count;
                     pagination.next = getNextPage(requestInfo, limit, page, count);
                     pagination.previous = getPreviousPage(requestInfo, limit, page, count);
+                    var temp = requestInfo.context.Request.Url.AbsolutePath + "^" + requestInfo.context.Request.Url.AbsoluteUri + "^"
+                        + requestInfo.context.Request.ApplicationPath + "^" + requestInfo.context.Request.RawUrl;
+                    pagination.temp = temp;
+
 
                     response.metadata.pagination = pagination;
 
