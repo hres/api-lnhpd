@@ -44,7 +44,7 @@ namespace lnhpdWebApi.Utils
         {
             String requestPath = requestInfo.context.Request.Path;
             String applicationPath = requestInfo.context.Request.ApplicationPath;
-            String endpoint = requestPath.Replace(applicationPath, "");
+            String endpoint = requestPath.Replace(applicationPath, "").Replace("/", "");
             // both external en and fr urls point to a same reverse proxy for the IIS url, all the urls path don't match (/api/natural-licences, /api/homologations-naturel, /api/lnhpd)
             // currently cannot get the orginal request base path from the IIS request, so just return the endpoint instead of the path for now
             return endpoint;
