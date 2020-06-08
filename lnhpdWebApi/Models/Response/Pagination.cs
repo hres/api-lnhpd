@@ -10,6 +10,5 @@ namespace lnhpdWebApi.Models.Response
         public string next { get; set; }
         public string previous { get; set; }
 
-        public string temp { get; set; }
     }
 }

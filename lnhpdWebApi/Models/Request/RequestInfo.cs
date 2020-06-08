@@ -21,7 +21,7 @@ namespace lnhpdWebApi.Models.Request
 
         public string path
         {
-            get { return context.Request.Url.AbsolutePath; }
+            get { return context.Request.Path; }
         }
 
         public HttpContext context { get; set; }
