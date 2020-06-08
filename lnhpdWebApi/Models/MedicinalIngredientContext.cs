@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using lnhpdWebApi.Models.Request;
 using lnhpdWebApi.Models.Response;
+using lnhpdWebApi.Utils;
 using Oracle.ManagedDataAccess.Client;
 
 namespace lnhpdWebApi.Models
@@ -161,14 +162,7 @@ namespace lnhpdWebApi.Models
                     var response = new Response<List<MedicinalIngredient>> { data = items };
 
                     response.metadata = new Metadata();
-                    var pagination = new Pagination();
-                    pagination.limit = limit;
-                    pagination.page = page;
-                    pagination.total = count;
-                    pagination.next = getNextPage(requestInfo, limit, page, count);
-                    pagination.previous = getPreviousPage(requestInfo, limit, page, count);
-
-                    response.metadata.pagination = pagination;
+                    response.metadata.pagination = ResponseHelper.PaginationFactory(requestInfo, limit, page, count);
 
                     return response;
                 }
@@ -183,36 +177,6 @@ namespace lnhpdWebApi.Models
                 }
             }
             return null;
-        }
-
-        private string getNextPage(RequestInfo requestInfo, int limit, int page, int count)
-        {
-            var next = buildBasePath(requestInfo);
-            // page indexing starts at 1
-            if ((page) * requestInfo.limit >= count) return null;
-            next += $"?page={page + 1}&lang={requestInfo.languages}&type={requestInfo.type}";
-            return next;
-        }
-
-        private string getPreviousPage(RequestInfo requestInfo, int limit, int page, int count)
-        {
-            var previous = buildBasePath(requestInfo);
-            if (page <= 1) return null;
-            previous += $"?page={page - 1}&lang={requestInfo.languages}&type={requestInfo.type}";
-
-            return previous;
-        }
-
-        private string buildBasePath(RequestInfo requestInfo)
-        {
-            // DOES NOT WORK WITH URL ALIASES!
-            //var request = requestInfo.context.Request;
-            //var scheme = request.Url.Scheme;
-            //var port = request.Url.Port;
-            //var portValue = ((scheme == "http" && port == 80) || (scheme == "https" && port == 443)) ? "" : (":" + port);
-            //return $"{scheme}://{request.Url.Host}{portValue}{request.Path}";
-
-            return requestInfo.path;
         }
 
         private DBResult executeMany(string countQuery, string query, Dictionary<string, string> parameters, string lang)
