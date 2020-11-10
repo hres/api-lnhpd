@@ -272,12 +272,12 @@ namespace lnhpdWebApi.Models
             //item.matrix_id = reader["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["MATRIX_ID"]);
             //item.matrix_type_code = reader["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(reader["MATRIX_TYPE_CODE"]);
             //item.quantity_list = GetAllIngredientQuantityByMatrixId(item.matrix_id, lang);
-            item.potency_amount = reader["potency_amount"] == DBNull.Value ? 0 : Convert.ToDouble(reader["potency_amount"]);
+            item.potency_amount = reader["potency_amount"] == DBNull.Value ? 0 : Convert.ToDouble(reader["potency_amount"].ToString());
             item.potency_constituent = reader["potency_constituent"] == DBNull.Value ? string.Empty : reader["potency_constituent"].ToString().Trim();
             item.potency_unit_of_measure = reader["potency_unit_of_measure"] == DBNull.Value ? string.Empty : reader["potency_unit_of_measure"].ToString().Trim();
-            item.quantity = reader["quantity"] == DBNull.Value ? 0 : Convert.ToDouble(reader["quantity"]);
-            item.quantity_minimum = reader["quantity_minimum"] == DBNull.Value ? 0 : Convert.ToDouble(reader["quantity_minimum"]);
-            item.quantity_maximum = reader["quantity_maximum"] == DBNull.Value ? 0 : Convert.ToDouble(reader["quantity_maximum"]);
+            item.quantity = reader["quantity"] == DBNull.Value ? 0 : Convert.ToDouble(reader["quantity"].ToString());
+            item.quantity_minimum = reader["quantity_minimum"] == DBNull.Value ? 0 : Convert.ToDouble(reader["quantity_minimum"].ToString());
+            item.quantity_maximum = reader["quantity_maximum"] == DBNull.Value ? 0 : Convert.ToDouble(reader["quantity_maximum"].ToString());
             item.quantity_unit_of_measure = reader["quantity_unit_of_measure"] == DBNull.Value ? string.Empty : reader["quantity_unit_of_measure"].ToString().Trim();
             item.ratio_numerator = reader["ratio_numerator"] == DBNull.Value ? string.Empty : reader["ratio_numerator"].ToString().Trim();
             item.ratio_denominator = reader["ratio_denominator"] == DBNull.Value ? string.Empty : reader["ratio_denominator"].ToString().Trim();
