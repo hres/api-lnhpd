@@ -9,5 +9,6 @@ namespace lnhpdWebApi.Models.Response
         public int total { get; set; }
         public string next { get; set; }
         public string previous { get; set; }
+
     }
 }

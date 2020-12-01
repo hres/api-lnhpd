@@ -1209,25 +1209,7 @@ namespace lnhpd
                         {
                             while (dr.Read())
                             {
-                                var item = new ProductDose();
-
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
-                                item.dose_id = dr["DOSE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DOSE_ID"]);
-                                item.population_type_desc = dr["POPULATION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["POPULATION_TYPE_DESC"].ToString().Trim();
-                                item.age = dr["AGE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE"]);
-                                item.age_minimum = dr["AGE_MINIMUM"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE_MINIMUM"]);
-                                item.age_maximum = dr["AGE_MAXIMUM"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE_MAXIMUM"]);
-                                item.uom_type_desc_age = dr["UOM_TYPE_DESC_AGE"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_AGE"].ToString().Trim();
-                                item.quantity_dose = dr["QUANTITY_DOSE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["QUANTITY_DOSE"]);
-                                item.quantity_dose_minimum = dr["QUANTITY_MINIMUM_DOSE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["QUANTITY_MINIMUM_DOSE"]);
-                                item.quantity_dose_maximum = dr["QUANTITY_MAXIMUM_DOSE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["QUANTITY_MAXIMUM_DOSE"]);
-                                item.uom_type_desc_quantity_dose = dr["UOM_TYPE_DESC_QUANTITY_DOSE"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_QUANTITY_DOSE"].ToString().Trim();
-                                item.frequency = dr["FREQUENCY"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FREQUENCY"]);
-                                item.frequency_minimum = dr["FREQUENCY_MINIMUM"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FREQUENCY_MINIMUM"]);
-                                item.frequency_maximum = dr["FREQUENCY_MAXIMUM"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FREQUENCY_MAXIMUM"]);
-                                item.uom_type_desc_frequency = dr["UOM_TYPE_DESC_FREQUENCY"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_FREQUENCY"].ToString().Trim();
-
-                                items.Add(item);
+                                items.Add(ProductDoseFactory(dr));
                             }
                         }
                     }
@@ -1276,25 +1258,7 @@ namespace lnhpd
                         {
                             while (dr.Read())
                             {
-                                var item = new ProductDose();
-
-                                item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
-                                item.dose_id = dr["DOSE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DOSE_ID"]);
-                                item.population_type_desc = dr["POPULATION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["POPULATION_TYPE_DESC"].ToString().Trim();
-                                item.age = dr["AGE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE"]);
-                                item.age_minimum = dr["AGE_MINIMUM"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE_MINIMUM"]);
-                                item.age_maximum = dr["AGE_MAXIMUM"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE_MAXIMUM"]);
-                                item.uom_type_desc_age = dr["UOM_TYPE_DESC_AGE"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_AGE"].ToString().Trim();
-                                item.quantity_dose = dr["QUANTITY_DOSE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["QUANTITY_DOSE"]);
-                                item.quantity_dose_minimum = dr["QUANTITY_MINIMUM_DOSE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["QUANTITY_MINIMUM_DOSE"]);
-                                item.quantity_dose_maximum = dr["QUANTITY_MAXIMUM_DOSE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["QUANTITY_MAXIMUM_DOSE"]);
-                                item.uom_type_desc_quantity_dose = dr["UOM_TYPE_DESC_QUANTITY_DOSE"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_QUANTITY_DOSE"].ToString().Trim();
-                                item.frequency = dr["FREQUENCY"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FREQUENCY"]);
-                                item.frequency_minimum = dr["FREQUENCY_MINIMUM"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FREQUENCY_MINIMUM"]);
-                                item.frequency_maximum = dr["FREQUENCY_MAXIMUM"] == DBNull.Value ? 0 : Convert.ToInt32(dr["FREQUENCY_MAXIMUM"]);
-                                item.uom_type_desc_frequency = dr["UOM_TYPE_DESC_FREQUENCY"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_FREQUENCY"].ToString().Trim();
-
-                                items.Add(item);
+                                items.Add(ProductDoseFactory(dr));
                             }
                         }
                     }
@@ -1313,7 +1277,30 @@ namespace lnhpd
             return items;
         }
 
-        public List<ProductDose> GetProductDoseByLicenceNumber(int licenceNumber, string lang)
+        private ProductDose ProductDoseFactory(OracleDataReader dr)
+        {
+            var item = new ProductDose();
+
+            item.lnhpd_id = dr["SUBMISSION_ID"] == DBNull.Value ? 0 : idLnhpd(Convert.ToInt32(dr["SUBMISSION_ID"]));
+            item.dose_id = dr["DOSE_ID"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DOSE_ID"]);
+            item.population_type_desc = dr["POPULATION_TYPE_DESC"] == DBNull.Value ? string.Empty : dr["POPULATION_TYPE_DESC"].ToString().Trim();
+            item.age = dr["AGE"] == DBNull.Value ? 0 : Convert.ToInt32(dr["AGE"]);
+            item.age_minimum = dr["AGE_MINIMUM"] == DBNull.Value ? 0 : Convert.ToDouble(dr["AGE_MINIMUM"].ToString());
+            item.age_maximum = dr["AGE_MAXIMUM"] == DBNull.Value ? 0 : Convert.ToDouble(dr["AGE_MAXIMUM"].ToString());
+            item.uom_type_desc_age = dr["UOM_TYPE_DESC_AGE"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_AGE"].ToString().Trim();
+            item.quantity_dose = dr["QUANTITY_DOSE"] == DBNull.Value ? 0 : Convert.ToDouble(dr["QUANTITY_DOSE"].ToString());
+            item.quantity_dose_minimum = dr["QUANTITY_MINIMUM_DOSE"] == DBNull.Value ? 0 : Convert.ToDouble(dr["QUANTITY_MINIMUM_DOSE"].ToString());
+            item.quantity_dose_maximum = dr["QUANTITY_MAXIMUM_DOSE"] == DBNull.Value ? 0 : Convert.ToDouble(dr["QUANTITY_MAXIMUM_DOSE"].ToString());
+            item.uom_type_desc_quantity_dose = dr["UOM_TYPE_DESC_QUANTITY_DOSE"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_QUANTITY_DOSE"].ToString().Trim();
+            item.frequency = dr["FREQUENCY"] == DBNull.Value ? 0 : Convert.ToDouble(dr["FREQUENCY"].ToString());
+            item.frequency_minimum = dr["FREQUENCY_MINIMUM"] == DBNull.Value ? 0 : Convert.ToDouble(dr["FREQUENCY_MINIMUM"].ToString());
+            item.frequency_maximum = dr["FREQUENCY_MAXIMUM"] == DBNull.Value ? 0 : Convert.ToDouble(dr["FREQUENCY_MAXIMUM"].ToString());
+            item.uom_type_desc_frequency = dr["UOM_TYPE_DESC_FREQUENCY"] == DBNull.Value ? string.Empty : dr["UOM_TYPE_DESC_FREQUENCY"].ToString().Trim();
+
+            return item;
+        }
+
+            public List<ProductDose> GetProductDoseByLicenceNumber(int licenceNumber, string lang)
         {
             var items = new List<ProductDose>();
             string commandText = "SELECT DISTINCT D.SUBMISSION_ID, D.DOSE_ID, D.AGE, D.AGE_MINIMUM, D.AGE_MAXIMUM, D.QUANTITY_DOSE, D.QUANTITY_MINIMUM_DOSE, D.QUANTITY_MAXIMUM_DOSE, D.FREQUENCY, D.FREQUENCY_MINIMUM, D.FREQUENCY_MAXIMUM, ";

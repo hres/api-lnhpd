@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using lnhpdWebApi.Models.Request;
 using lnhpdWebApi.Models.Response;
+using lnhpdWebApi.Utils;
 using Oracle.ManagedDataAccess.Client;
 
 namespace lnhpdWebApi.Models
@@ -161,14 +162,7 @@ namespace lnhpdWebApi.Models
                     var response = new Response<List<MedicinalIngredient>> { data = items };
 
                     response.metadata = new Metadata();
-                    var pagination = new Pagination();
-                    pagination.limit = limit;
-                    pagination.page = page;
-                    pagination.total = count;
-                    pagination.next = getNextPage(requestInfo, limit, page, count);
-                    pagination.previous = getPreviousPage(requestInfo, limit, page, count);
-
-                    response.metadata.pagination = pagination;
+                    response.metadata.pagination = ResponseHelper.PaginationFactory(requestInfo, limit, page, count);
 
                     return response;
                 }
@@ -183,36 +177,6 @@ namespace lnhpdWebApi.Models
                 }
             }
             return null;
-        }
-
-        private string getNextPage(RequestInfo requestInfo, int limit, int page, int count)
-        {
-            var next = buildBasePath(requestInfo);
-            // page indexing starts at 1
-            if ((page) * requestInfo.limit >= count) return null;
-            next += $"?page={page + 1}&lang={requestInfo.languages}&type={requestInfo.type}";
-            return next;
-        }
-
-        private string getPreviousPage(RequestInfo requestInfo, int limit, int page, int count)
-        {
-            var previous = buildBasePath(requestInfo);
-            if (page <= 1) return null;
-            previous += $"?page={page - 1}&lang={requestInfo.languages}&type={requestInfo.type}";
-
-            return previous;
-        }
-
-        private string buildBasePath(RequestInfo requestInfo)
-        {
-            // DOES NOT WORK WITH URL ALIASES!
-            //var request = requestInfo.context.Request;
-            //var scheme = request.Url.Scheme;
-            //var port = request.Url.Port;
-            //var portValue = ((scheme == "http" && port == 80) || (scheme == "https" && port == 443)) ? "" : (":" + port);
-            //return $"{scheme}://{request.Url.Host}{portValue}{request.Path}";
-
-            return requestInfo.path;
         }
 
         private DBResult executeMany(string countQuery, string query, Dictionary<string, string> parameters, string lang)
@@ -308,12 +272,12 @@ namespace lnhpdWebApi.Models
             //item.matrix_id = reader["MATRIX_ID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["MATRIX_ID"]);
             //item.matrix_type_code = reader["MATRIX_TYPE_CODE"] == DBNull.Value ? 0 : Convert.ToInt32(reader["MATRIX_TYPE_CODE"]);
             //item.quantity_list = GetAllIngredientQuantityByMatrixId(item.matrix_id, lang);
-            item.potency_amount = reader["potency_amount"] == DBNull.Value ? 0 : Convert.ToInt32(reader["potency_amount"]);
+            item.potency_amount = reader["potency_amount"] == DBNull.Value ? 0 : Convert.ToDouble(reader["potency_amount"].ToString());
             item.potency_constituent = reader["potency_constituent"] == DBNull.Value ? string.Empty : reader["potency_constituent"].ToString().Trim();
             item.potency_unit_of_measure = reader["potency_unit_of_measure"] == DBNull.Value ? string.Empty : reader["potency_unit_of_measure"].ToString().Trim();
-            item.quantity = reader["quantity"] == DBNull.Value ? 0 : Convert.ToInt64(reader["quantity"]);
-            item.quantity_minimum = reader["quantity_minimum"] == DBNull.Value ? 0 : Convert.ToInt32(reader["quantity_minimum"]);
-            item.quantity_maximum = reader["quantity_maximum"] == DBNull.Value ? 0 : Convert.ToInt32(reader["quantity_maximum"]);
+            item.quantity = reader["quantity"] == DBNull.Value ? 0 : Convert.ToDouble(reader["quantity"].ToString());
+            item.quantity_minimum = reader["quantity_minimum"] == DBNull.Value ? 0 : Convert.ToDouble(reader["quantity_minimum"].ToString());
+            item.quantity_maximum = reader["quantity_maximum"] == DBNull.Value ? 0 : Convert.ToDouble(reader["quantity_maximum"].ToString());
             item.quantity_unit_of_measure = reader["quantity_unit_of_measure"] == DBNull.Value ? string.Empty : reader["quantity_unit_of_measure"].ToString().Trim();
             item.ratio_numerator = reader["ratio_numerator"] == DBNull.Value ? string.Empty : reader["ratio_numerator"].ToString().Trim();
             item.ratio_denominator = reader["ratio_denominator"] == DBNull.Value ? string.Empty : reader["ratio_denominator"].ToString().Trim();
