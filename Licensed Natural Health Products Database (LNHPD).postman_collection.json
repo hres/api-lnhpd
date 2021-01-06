@@ -1,0 +1,2684 @@
+{
+	"info": {
+		"_postman_id": "451010de-f59e-4e50-878d-1fbe53082b58",
+		"name": "Licensed Natural Health Products Database (LNHPD)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product Purpose By Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4193565-6e4c-4cf5-aebb-2272cdc4904a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"    \"required\": [\r",
+							"        \"metadata\",\r",
+							"        \"data\"\r",
+							"    ],\r",
+							"    \"properties\": {\r",
+							"        \"metadata\": {\r",
+							"            \"required\": [\r",
+							"                \"pagination\",\r",
+							"                \"dateReceived\"\r",
+							"            ],\r",
+							"            \"properties\": {\r",
+							"                \"pagination\": {\r",
+							"                    \"required\": [\r",
+							"                        \"limit\",\r",
+							"                        \"page\",\r",
+							"                        \"total\",\r",
+							"                        \"next\",\r",
+							"                        \"previous\"\r",
+							"                    ],\r",
+							"                    \"properties\": {\r",
+							"                        \"limit\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/limit\",\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"page\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/page\",\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"total\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/total\",\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"next\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/next\",\r",
+							"                            \"type\": [\"string\",\"null\"]\r",
+							"                        },\r",
+							"                        \"previous\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/previous\",\r",
+							"                            \"type\": [\"string\",\"null\"]\r",
+							"                        }\r",
+							"                    },\r",
+							"                    \"$id\": \"#/properties/metadata/properties/pagination\",\r",
+							"                    \"type\": \"object\"\r",
+							"                },\r",
+							"                \"dateReceived\": {\r",
+							"                    \"$id\": \"#/properties/metadata/properties/dateReceived\",\r",
+							"                    \"type\": \"string\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/metadata\",\r",
+							"            \"type\": \"object\"\r",
+							"        },\r",
+							"        \"data\": {\r",
+							"            \"items\": {\r",
+							"                \"required\": [\r",
+							"                    \"text_id\",\r",
+							"                    \"lnhpd_id\",\r",
+							"                    \"purpose\"\r",
+							"                ],\r",
+							"                \"properties\": {\r",
+							"                    \"text_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/text_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"lnhpd_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/lnhpd_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"purpose\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/purpose\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    }\r",
+							"                },\r",
+							"                \"$id\": \"#/properties/data/items\",\r",
+							"                \"type\": \"object\"\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/data\",\r",
+							"            \"type\": \"array\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify json values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.metadata.pagination.limit).to.eql(100);\r",
+							"    pm.expect(jsonData.metadata.pagination.page).to.eql(2);\r",
+							"    pm.expect(jsonData.metadata.pagination.previous).to.eql(\"productpurpose?page=1&lang=en&type=json\");\r",
+							"    pm.expect(jsonData.metadata.pagination.next).to.eql(\"productpurpose?page=3&lang=en&type=json\");   \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "81ca31f1-9d1e-4c36-967b-5ff01a3276d3",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productpurpose\");\r",
+							"pm.globals.set(\"pageNo\",\"2\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&page={{pageNo}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "page",
+							"value": "{{pageNo}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Purpose Pagination Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2951ef4d-824b-4916-820b-1cc58363199c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Test Pagination', function() {\r",
+							"    const url = require('url'); \r",
+							"    var jsonData = pm.response.json();\r",
+							"    let nextPageLink = jsonData.metadata.pagination.next;\r",
+							"    let nextPageParams =nextPageLink.substr(nextPageLink.indexOf(\"?\"),nextPageLink.length); \r",
+							"    let urlLink = pm.variables.get('url') + nextPageParams;  \r",
+							"    if(urlLink!== null)\r",
+							"        {     \r",
+							"            pm.variables.set(\"queryParams\", url.parse(urlLink).query);       \r",
+							"            postman.setNextRequest(\"Product Purpose Pagination Test\");       \r",
+							"        }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4c69d6db-3dc2-4981-99ca-835c516de8a0",
+						"exec": [
+							"if (!pm.variables.has(\"url\")){\r",
+							"    const url = pm.environment.get(\"baseUrl\") + \"/productpurpose\";    \r",
+							"    pm.variables.set(\"url\",url);\r",
+							"}\r",
+							"if(!pm.variables.has(\"queryParams\")){\r",
+							"    const queryParams = {\r",
+							"       page:  1,\r",
+							"       lang: \"en\",\r",
+							"       type: \"json\"\r",
+							"       \r",
+							"    };\r",
+							"\r",
+							"pm.variables.set(\"queryParams\", Object.entries(queryParams).map(([key,value])=>`${key}= ${value}`).join('&'));\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}?{{queryParams}}",
+					"host": [
+						"{{url}}"
+					],
+					"query": [
+						{
+							"key": "{{queryParams}}",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Risk By Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16c9c635-ed28-4904-b5a7-46b76a595444",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"            \"required\": [\r",
+							"        \"metadata\",\r",
+							"        \"data\"\r",
+							"    ],\r",
+							"    \"properties\": {\r",
+							"        \"metadata\": {\r",
+							"            \"required\": [\r",
+							"                \"pagination\",\r",
+							"                \"dateReceived\"\r",
+							"            ],\r",
+							"            \"properties\": {\r",
+							"                \"pagination\": {\r",
+							"                    \"required\": [\r",
+							"                        \"limit\",\r",
+							"                        \"page\",\r",
+							"                        \"total\",\r",
+							"                        \"next\",\r",
+							"                        \"previous\"\r",
+							"                    ],\r",
+							"                    \"properties\": {\r",
+							"                        \"limit\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/limit\",\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"page\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/page\",\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"total\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/total\",\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"next\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/next\",\r",
+							"                            \"type\": [\"string\",\"null\"]\r",
+							"                        },\r",
+							"                        \"previous\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/previous\",\r",
+							"                            \"type\": [\"string\",\"null\"]\r",
+							"                        }\r",
+							"                    },\r",
+							"                    \"$id\": \"#/properties/metadata/properties/pagination\",\r",
+							"                    \"type\": \"object\"\r",
+							"                },\r",
+							"                \"dateReceived\": {\r",
+							"                    \"$id\": \"#/properties/metadata/properties/dateReceived\",\r",
+							"                    \"type\": \"string\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/metadata\",\r",
+							"            \"type\": \"object\"\r",
+							"        },\r",
+							"        \"data\": {\r",
+							"            \"items\": {\r",
+							"                \"required\": [\r",
+							"                    \"lnhpd_id\",\r",
+							"                    \"risk_id\",\r",
+							"                    \"risk_type_desc\",\r",
+							"                    \"sub_risk_type_desc\",\r",
+							"                    \"risk_text\"\r",
+							"                ],\r",
+							"                \"properties\": {\r",
+							"                    \"lnhpd_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/lnhpd_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"risk_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/risk_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"risk_type_desc\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/risk_type_desc\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"sub_risk_type_desc\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/sub_risk_type_desc\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"risk_text\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/risk_text\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    }\r",
+							"                },\r",
+							"                \"$id\": \"#/properties/data/items\",\r",
+							"                \"type\": \"object\"\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/data\",\r",
+							"            \"type\": \"array\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify json values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.metadata.pagination.limit).to.eql(100);\r",
+							"    pm.expect(jsonData.metadata.pagination.page).to.eql(2);\r",
+							"    pm.expect(jsonData.metadata.pagination.previous).to.eql(\"productrisk?page=1&lang=en&type=json\");\r",
+							"    pm.expect(jsonData.metadata.pagination.next).to.eql(\"productrisk?page=3&lang=en&type=json\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6d5c7a5a-12f2-4ee9-b598-e0f379a297a3",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productrisk\");\r",
+							"pm.globals.set(\"pageNo\",\"2\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&page={{pageNo}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "page",
+							"value": "{{pageNo}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Risk Pagination Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eee77130-3581-49d0-b1cf-c0e6ab7770f3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Test Pagination', function() {\r",
+							"    const url=require('url'); \r",
+							"    var jsonData = pm.response.json();\r",
+							"    let nextPageLink = jsonData.metadata.pagination.next;\r",
+							"    let nextPageParams =nextPageLink.substr(nextPageLink.indexOf(\"?\"),nextPageLink.length); \r",
+							"    let urlLink = pm.variables.get('url') + nextPageParams;  \r",
+							"    if(urlLink!== null)\r",
+							"        {     \r",
+							"            pm.variables.set(\"queryParams\", url.parse(urlLink).query);       \r",
+							"            postman.setNextRequest(\"Product Risk Pagination Test\");       \r",
+							"        }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "98069391-7826-4dac-974e-c8e06b08055f",
+						"exec": [
+							"if (!pm.variables.has(\"url\")){\r",
+							"    const url = pm.environment.get(\"baseUrl\") + \"/productrisk\";    \r",
+							"    pm.variables.set(\"url\",url);\r",
+							"}\r",
+							"if(!pm.variables.has(\"queryParams\")){\r",
+							"    const queryParams = {\r",
+							"       page:  1,\r",
+							"       lang: \"en\",\r",
+							"       type: \"json\"\r",
+							"       \r",
+							"    };\r",
+							"\r",
+							"pm.variables.set(\"queryParams\", Object.entries(queryParams).map(([key,value])=>`${key}= ${value}`).join('&'));\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}?{{queryParams}}",
+					"host": [
+						"{{url}}"
+					],
+					"query": [
+						{
+							"key": "{{queryParams}}",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Medicinal Ingredient By Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39508a30-7bcf-4bd1-bf70-4efa55755bdd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"    \"required\": [\r",
+							"        \"metadata\",\r",
+							"        \"data\"\r",
+							"    ],\r",
+							"    \"properties\": {\r",
+							"        \"metadata\": {\r",
+							"            \"required\": [\r",
+							"                \"pagination\",\r",
+							"                \"dateReceived\"\r",
+							"            ],\r",
+							"            \"properties\": {\r",
+							"                \"pagination\": {\r",
+							"                    \"required\": [\r",
+							"                        \"limit\",\r",
+							"                        \"page\",\r",
+							"                        \"total\",\r",
+							"                        \"next\",\r",
+							"                        \"previous\"\r",
+							"                    ],\r",
+							"                    \"properties\": {\r",
+							"                        \"limit\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/limit\",\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"page\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/page\",\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"total\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/total\",\r",
+							"                            \"type\": \"integer\"\r",
+							"                        },\r",
+							"                        \"next\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/next\",\r",
+							"                            \"type\": [\"string\",\"null\"]\r",
+							"                        },\r",
+							"                        \"previous\": {\r",
+							"                            \"$id\": \"#/properties/metadata/properties/pagination/properties/previous\",\r",
+							"                            \"type\": [\"string\",\"null\"]\r",
+							"                        }\r",
+							"                    },\r",
+							"                    \"$id\": \"#/properties/metadata/properties/pagination\",\r",
+							"                    \"type\": \"object\"\r",
+							"                },\r",
+							"                \"dateReceived\": {\r",
+							"                    \"$id\": \"#/properties/metadata/properties/dateReceived\",\r",
+							"                    \"type\": \"string\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/metadata\",\r",
+							"            \"type\": \"object\"\r",
+							"        },\r",
+							"        \"data\": {\r",
+							"            \"items\": {\r",
+							"                \"required\": [\r",
+							"                    \"lnhpd_id\",\r",
+							"                    \"ingredient_name\",\r",
+							"                    \"ingredient_Text\",\r",
+							"                    \"potency_amount\",\r",
+							"                    \"potency_constituent\",\r",
+							"                    \"potency_unit_of_measure\",\r",
+							"                    \"quantity\",\r",
+							"                    \"quantity_minimum\",\r",
+							"                    \"quantity_maximum\",\r",
+							"                    \"quantity_unit_of_measure\",\r",
+							"                    \"ratio_numerator\",\r",
+							"                    \"ratio_denominator\",\r",
+							"                    \"dried_herb_equivalent\",\r",
+							"                    \"dhe_unit_of_measure\",\r",
+							"                    \"extract_type_desc\",\r",
+							"                    \"source_material\"\r",
+							"                ],\r",
+							"                \"properties\": {\r",
+							"                    \"lnhpd_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/lnhpd_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"ingredient_name\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/ingredient_name\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"ingredient_Text\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/ingredient_Text\",\r",
+							"                        \"type\": \"null\"\r",
+							"                    },\r",
+							"                    \"potency_amount\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/potency_amount\",\r",
+							"                        \"type\": \"number\"\r",
+							"                    },\r",
+							"                    \"potency_constituent\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/potency_constituent\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"potency_unit_of_measure\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/potency_unit_of_measure\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"quantity\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/quantity\",\r",
+							"                        \"type\": \"number\"\r",
+							"                    },\r",
+							"                    \"quantity_minimum\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/quantity_minimum\",\r",
+							"                        \"type\": \"number\"\r",
+							"                    },\r",
+							"                    \"quantity_maximum\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/quantity_maximum\",\r",
+							"                        \"type\": \"number\"\r",
+							"                    },\r",
+							"                    \"quantity_unit_of_measure\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/quantity_unit_of_measure\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"ratio_numerator\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/ratio_numerator\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"ratio_denominator\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/ratio_denominator\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"dried_herb_equivalent\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/dried_herb_equivalent\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"dhe_unit_of_measure\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/dhe_unit_of_measure\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"extract_type_desc\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/extract_type_desc\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"source_material\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/source_material\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    }\r",
+							"                },\r",
+							"                \"$id\": \"#/properties/data/items\",\r",
+							"                \"type\": \"object\"\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/data\",\r",
+							"            \"type\": \"array\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify json values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.metadata.pagination.limit).to.eql(100);\r",
+							"    pm.expect(jsonData.metadata.pagination.page).to.eql(2);\r",
+							"    pm.expect(jsonData.metadata.pagination.previous).to.eql(\"medicinalingredient?page=1&lang=en&type=json\");\r",
+							"    pm.expect(jsonData.metadata.pagination.next).to.eql(\"medicinalingredient?page=3&lang=en&type=json\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1f8c3f1f-b1fc-478b-91f2-8a12907caf3e",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"medicinalingredient\");\r",
+							"pm.globals.set(\"pageNo\",\"2\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&page={{pageNo}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "page",
+							"value": "{{pageNo}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Medicinal Ingredient Pagination Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb0a290c-7526-441e-b00c-10636fb050e8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Test Pagination', function() {\r",
+							"    const url=require('url'); \r",
+							"    var jsonData = pm.response.json();\r",
+							"    let nextPageLink = jsonData.metadata.pagination.next;\r",
+							"    let nextPageParams =nextPageLink.substr(nextPageLink.indexOf(\"?\"),nextPageLink.length); \r",
+							"    let urlLink = pm.variables.get('url') + nextPageParams;  \r",
+							"    if(urlLink!== null)\r",
+							"        {     \r",
+							"            pm.variables.set(\"queryParams\", url.parse(urlLink).query);       \r",
+							"            postman.setNextRequest(\"Medicinal Ingredient Pagination Test\");       \r",
+							"        }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3b845ade-c247-4801-9eed-97d08d859045",
+						"exec": [
+							"if (!pm.variables.has(\"url\")){\r",
+							"    const url = pm.environment.get(\"baseUrl\") + \"/medicinalingredient\";    \r",
+							"    pm.variables.set(\"url\",url);\r",
+							"}\r",
+							"if(!pm.variables.has(\"queryParams\")){\r",
+							"    const queryParams = {\r",
+							"       page:  1,\r",
+							"       lang: \"en\",\r",
+							"       type: \"json\"\r",
+							"       \r",
+							"    };\r",
+							"\r",
+							"pm.variables.set(\"queryParams\", Object.entries(queryParams).map(([key,value])=>`${key}= ${value}`).join('&'));\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}?{{queryParams}}",
+					"host": [
+						"{{url}}"
+					],
+					"query": [
+						{
+							"key": "{{queryParams}}",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Non Medicinal Ingredient",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43795b0a-84bc-4120-a76f-17558d0be8c7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"            \"items\": {\r",
+							"        \"required\": [\r",
+							"            \"lnhpd_id\",\r",
+							"            \"ingredient_name\"\r",
+							"        ],\r",
+							"        \"properties\": {\r",
+							"            \"lnhpd_id\": {\r",
+							"                \"$id\": \"#/items/properties/lnhpd_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"ingredient_name\": {\r",
+							"                \"$id\": \"#/items/properties/ingredient_name\",\r",
+							"                \"type\": \"string\"\r",
+							"            }\r",
+							"        },\r",
+							"        \"$id\": \"#/items\",\r",
+							"        \"type\": \"object\"\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"array\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f9d3a208-d3c7-4a0a-a701-f3f685dac893",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"nonmedicinalingredient\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Product Dose",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cfbe321c-4376-464c-9d2a-90670d252047",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"\"items\": {\r",
+							"        \"required\": [\r",
+							"            \"lnhpd_id\",\r",
+							"            \"dose_id\",\r",
+							"            \"population_type_desc\",\r",
+							"            \"age\",\r",
+							"            \"age_minimum\",\r",
+							"            \"age_maximum\",\r",
+							"            \"uom_type_desc_age\",\r",
+							"            \"quantity_dose\",\r",
+							"            \"quantity_dose_minimum\",\r",
+							"            \"quantity_dose_maximum\",\r",
+							"            \"uom_type_desc_quantity_dose\",\r",
+							"            \"frequency\",\r",
+							"            \"frequency_minimum\",\r",
+							"            \"frequency_maximum\",\r",
+							"            \"uom_type_desc_frequency\"\r",
+							"        ],\r",
+							"        \"properties\": {\r",
+							"            \"lnhpd_id\": {\r",
+							"                \"$id\": \"#/items/properties/lnhpd_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"dose_id\": {\r",
+							"                \"$id\": \"#/items/properties/dose_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"population_type_desc\": {\r",
+							"                \"$id\": \"#/items/properties/population_type_desc\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"age\": {\r",
+							"                \"$id\": \"#/items/properties/age\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"age_minimum\": {\r",
+							"                \"$id\": \"#/items/properties/age_minimum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"age_maximum\": {\r",
+							"                \"$id\": \"#/items/properties/age_maximum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"uom_type_desc_age\": {\r",
+							"                \"$id\": \"#/items/properties/uom_type_desc_age\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"quantity_dose\": {\r",
+							"                \"$id\": \"#/items/properties/quantity_dose\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"quantity_dose_minimum\": {\r",
+							"                \"$id\": \"#/items/properties/quantity_dose_minimum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"quantity_dose_maximum\": {\r",
+							"                \"$id\": \"#/items/properties/quantity_dose_maximum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"uom_type_desc_quantity_dose\": {\r",
+							"                \"$id\": \"#/items/properties/uom_type_desc_quantity_dose\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"frequency\": {\r",
+							"                \"$id\": \"#/items/properties/frequency\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"frequency_minimum\": {\r",
+							"                \"$id\": \"#/items/properties/frequency_minimum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"frequency_maximum\": {\r",
+							"                \"$id\": \"#/items/properties/frequency_maximum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"uom_type_desc_frequency\": {\r",
+							"                \"$id\": \"#/items/properties/uom_type_desc_frequency\",\r",
+							"                \"type\": \"string\"\r",
+							"            }\r",
+							"        },\r",
+							"        \"$id\": \"#/items\",\r",
+							"        \"type\": \"object\"\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"array\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "19776682-93df-4869-b525-171e6e4defa7",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productdose\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Product Route",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c9763b5-417c-44f1-be7d-926a25d39bdf",
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"              \"items\": {\r",
+							"        \"required\": [\r",
+							"            \"lnhpd_id\",\r",
+							"            \"route_id\",\r",
+							"            \"route_type_desc\"\r",
+							"        ],\r",
+							"        \"properties\": {\r",
+							"            \"lnhpd_id\": {\r",
+							"                \"$id\": \"#/items/properties/lnhpd_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"route_id\": {\r",
+							"                \"$id\": \"#/items/properties/route_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"route_type_desc\": {\r",
+							"                \"$id\": \"#/items/properties/route_type_desc\",\r",
+							"                \"type\": \"string\"\r",
+							"            }\r",
+							"        },\r",
+							"        \"$id\": \"#/items\",\r",
+							"        \"type\": \"object\"\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"array\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "777fc1b7-e9b6-45b2-acd9-11fe539cd5dd",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productroute\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Product Licence",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86de4481-500d-4d79-8113-87d87d16fd51",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"                // Paste JSON Schema generated from BrijPad here... \r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "99935f3a-438c-454c-8347-179622ba5f05",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productlicence\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Risk By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61e36f62-281b-49e7-b380-d6fb85957c4a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"\"required\": [\r",
+							"        \"metadata\",\r",
+							"        \"data\"\r",
+							"    ],\r",
+							"    \"properties\": {\r",
+							"        \"metadata\": {\r",
+							"            \"required\": [\r",
+							"                \"pagination\",\r",
+							"                \"dateReceived\"\r",
+							"            ],\r",
+							"            \"properties\": {\r",
+							"                \"pagination\": {\r",
+							"                    \"$id\": \"#/properties/metadata/properties/pagination\",\r",
+							"                    \"type\": \"null\"\r",
+							"                },\r",
+							"                \"dateReceived\": {\r",
+							"                    \"$id\": \"#/properties/metadata/properties/dateReceived\",\r",
+							"                    \"type\": \"string\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/metadata\",\r",
+							"            \"type\": \"object\"\r",
+							"        },\r",
+							"        \"data\": {\r",
+							"            \"items\": {\r",
+							"                \"required\": [\r",
+							"                    \"lnhpd_id\",\r",
+							"                    \"risk_id\",\r",
+							"                    \"risk_type_desc\",\r",
+							"                    \"sub_risk_type_desc\",\r",
+							"                    \"risk_text\"\r",
+							"                ],\r",
+							"                \"properties\": {\r",
+							"                    \"lnhpd_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/lnhpd_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"risk_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/risk_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"risk_type_desc\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/risk_type_desc\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"sub_risk_type_desc\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/sub_risk_type_desc\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"risk_text\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/risk_text\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    }\r",
+							"                },\r",
+							"                \"$id\": \"#/properties/data/items\",\r",
+							"                \"type\": \"object\"\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/data\",\r",
+							"            \"type\": \"array\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"   const jsonData = pm.response.json();\r",
+							"   const risk = jsonData.data.find\r",
+							"      (m => m.risk_id === 35352);\r",
+							"   pm.expect(risk.lnhpd_id).to.eqls(pm.variables.get(\"id\"));\r",
+							"   pm.expect(risk.risk_type_desc).to.include(\"Cautions and Warnings\");\r",
+							"   pm.expect(risk.risk_text).to.include(\"Consult a health care provider if you have hyperthyroidism or Grave's Disease (Jellin et al. 2003)\\nConsult a health care provider if you are taking dopamine, thyroid hormone medication and/or contraceptive medications (van Spronsen 2001).\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0842830a-81eb-4e72-9243-c55486367e0b",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productrisk\");\r",
+							"pm.variables.set(\"id\",3912246);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&id={{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Purpose By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b59acf10-2974-45f6-8f84-3235bdac41ad",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"       \"required\": [\r",
+							"        \"metadata\",\r",
+							"        \"data\"\r",
+							"    ],\r",
+							"    \"properties\": {\r",
+							"        \"metadata\": {\r",
+							"            \"required\": [\r",
+							"                \"pagination\",\r",
+							"                \"dateReceived\"\r",
+							"            ],\r",
+							"            \"properties\": {\r",
+							"                \"pagination\": {\r",
+							"                    \"$id\": \"#/properties/metadata/properties/pagination\",\r",
+							"                    \"type\": \"null\"\r",
+							"                },\r",
+							"                \"dateReceived\": {\r",
+							"                    \"$id\": \"#/properties/metadata/properties/dateReceived\",\r",
+							"                    \"type\": \"string\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/metadata\",\r",
+							"            \"type\": \"object\"\r",
+							"        },\r",
+							"        \"data\": {\r",
+							"            \"items\": {\r",
+							"                \"required\": [\r",
+							"                    \"text_id\",\r",
+							"                    \"lnhpd_id\",\r",
+							"                    \"purpose\"\r",
+							"                ],\r",
+							"                \"properties\": {\r",
+							"                    \"text_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/text_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"lnhpd_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/lnhpd_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"purpose\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/purpose\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    }\r",
+							"                },\r",
+							"                \"$id\": \"#/properties/data/items\",\r",
+							"                \"type\": \"object\"\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/data\",\r",
+							"            \"type\": \"array\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"pm.test(\"verify json values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data[0].text_id).to.eql(503474);\r",
+							"    pm.expect(jsonData.data[0].lnhpd_id).is.to.equal(pm.variables.get(\"id\"));\r",
+							"    pm.expect(jsonData.data[0].purpose).is.to.equal(\"Naturaly relieves joint pain\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cb1c3803-3204-4e00-9b13-611dd9dc0e79",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productpurpose\");\r",
+							"pm.variables.set(\"id\",3953859);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&id={{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Medicinal Ingredient By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7144080-2335-4764-bde7-3b567bdf509a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"    \"required\": [\r",
+							"        \"metadata\",\r",
+							"        \"data\"\r",
+							"    ],\r",
+							"    \"properties\": {\r",
+							"        \"metadata\": {\r",
+							"            \"required\": [\r",
+							"                \"pagination\",\r",
+							"                \"dateReceived\"\r",
+							"            ],\r",
+							"            \"properties\": {\r",
+							"                \"pagination\": {\r",
+							"                    \"$id\": \"#/properties/metadata/properties/pagination\",\r",
+							"                    \"type\": \"null\"\r",
+							"                },\r",
+							"                \"dateReceived\": {\r",
+							"                    \"$id\": \"#/properties/metadata/properties/dateReceived\",\r",
+							"                    \"type\": \"string\"\r",
+							"                }\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/metadata\",\r",
+							"            \"type\": \"object\"\r",
+							"        },\r",
+							"        \"data\": {\r",
+							"            \"items\": {\r",
+							"                \"required\": [\r",
+							"                    \"lnhpd_id\",\r",
+							"                    \"ingredient_name\",\r",
+							"                    \"ingredient_Text\",\r",
+							"                    \"potency_amount\",\r",
+							"                    \"potency_constituent\",\r",
+							"                    \"potency_unit_of_measure\",\r",
+							"                    \"quantity\",\r",
+							"                    \"quantity_minimum\",\r",
+							"                    \"quantity_maximum\",\r",
+							"                    \"quantity_unit_of_measure\",\r",
+							"                    \"ratio_numerator\",\r",
+							"                    \"ratio_denominator\",\r",
+							"                    \"dried_herb_equivalent\",\r",
+							"                    \"dhe_unit_of_measure\",\r",
+							"                    \"extract_type_desc\",\r",
+							"                    \"source_material\"\r",
+							"                ],\r",
+							"                \"properties\": {\r",
+							"                    \"lnhpd_id\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/lnhpd_id\",\r",
+							"                        \"type\": \"integer\"\r",
+							"                    },\r",
+							"                    \"ingredient_name\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/ingredient_name\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"ingredient_Text\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/ingredient_Text\",\r",
+							"                        \"type\": \"null\"\r",
+							"                    },\r",
+							"                    \"potency_amount\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/potency_amount\",\r",
+							"                        \"type\": \"number\"\r",
+							"                    },\r",
+							"                    \"potency_constituent\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/potency_constituent\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"potency_unit_of_measure\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/potency_unit_of_measure\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"quantity\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/quantity\",\r",
+							"                        \"type\": \"number\"\r",
+							"                    },\r",
+							"                    \"quantity_minimum\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/quantity_minimum\",\r",
+							"                        \"type\": \"number\"\r",
+							"                    },\r",
+							"                    \"quantity_maximum\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/quantity_maximum\",\r",
+							"                        \"type\": \"number\"\r",
+							"                    },\r",
+							"                    \"quantity_unit_of_measure\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/quantity_unit_of_measure\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"ratio_numerator\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/ratio_numerator\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"ratio_denominator\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/ratio_denominator\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"dried_herb_equivalent\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/dried_herb_equivalent\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"dhe_unit_of_measure\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/dhe_unit_of_measure\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"extract_type_desc\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/extract_type_desc\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    },\r",
+							"                    \"source_material\": {\r",
+							"                        \"$id\": \"#/properties/data/items/properties/source_material\",\r",
+							"                        \"type\": \"string\"\r",
+							"                    }\r",
+							"                },\r",
+							"                \"$id\": \"#/properties/data/items\",\r",
+							"                \"type\": \"object\"\r",
+							"            },\r",
+							"            \"$id\": \"#/properties/data\",\r",
+							"            \"type\": \"array\"\r",
+							"        }\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"pm.test(\"verify json values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data[0].ingredient_name).to.eql(\"Eucalyptus globulus\");\r",
+							"    pm.expect(jsonData.data[0].lnhpd_id).is.to.equal(pm.variables.get(\"id\"));\r",
+							"    pm.expect(jsonData.data[0].quantity).is.to.equal(5.6);\r",
+							"    pm.expect(jsonData.data[0].potency_amount).is.to.equal(4.71);\r",
+							"    pm.expect(jsonData.data[0].quantity_minimum).is.to.equal(0.0);\r",
+							"    pm.expect(jsonData.data[0].quantity_maximum).is.to.equal(0.0);\r",
+							"   \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "09fcecf9-86ee-4bae-b863-ece1ab36a33c",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"medicinalingredient\");\r",
+							"pm.variables.set(\"id\",3916926);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&id={{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Non Medicinal Ingredient By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da2a51bb-c8d9-4aaf-b0c9-6636a8690fef",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"            \"items\": {\r",
+							"        \"required\": [\r",
+							"            \"lnhpd_id\",\r",
+							"            \"ingredient_name\"\r",
+							"        ],\r",
+							"        \"properties\": {\r",
+							"            \"lnhpd_id\": {\r",
+							"                \"$id\": \"#/items/properties/lnhpd_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"ingredient_name\": {\r",
+							"                \"$id\": \"#/items/properties/ingredient_name\",\r",
+							"                \"type\": \"string\"\r",
+							"            }\r",
+							"        },\r",
+							"        \"$id\": \"#/items\",\r",
+							"        \"type\": \"object\"\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"array\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify json values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].lnhpd_id).to.eql(pm.variables.get(\"id\"));\r",
+							"    pm.expect(jsonData[0].ingredient_name).is.to.equal(\"Lactose\");\r",
+							"    pm.expect(jsonData[1].lnhpd_id).to.eql(pm.variables.get(\"id\"));\r",
+							"    pm.expect(jsonData[1].ingredient_name).is.to.equal(\"Sucrose\");\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5e74c2e9-52c6-4320-849d-5daade84c390",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"nonmedicinalingredient\");\r",
+							"pm.variables.set(\"id\",15697149);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&id={{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Dose By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90f85acd-6e75-4e60-81c4-8d74744cb1ac",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"\"items\": {\r",
+							"        \"required\": [\r",
+							"            \"lnhpd_id\",\r",
+							"            \"dose_id\",\r",
+							"            \"population_type_desc\",\r",
+							"            \"age\",\r",
+							"            \"age_minimum\",\r",
+							"            \"age_maximum\",\r",
+							"            \"uom_type_desc_age\",\r",
+							"            \"quantity_dose\",\r",
+							"            \"quantity_dose_minimum\",\r",
+							"            \"quantity_dose_maximum\",\r",
+							"            \"uom_type_desc_quantity_dose\",\r",
+							"            \"frequency\",\r",
+							"            \"frequency_minimum\",\r",
+							"            \"frequency_maximum\",\r",
+							"            \"uom_type_desc_frequency\"\r",
+							"        ],\r",
+							"        \"properties\": {\r",
+							"            \"lnhpd_id\": {\r",
+							"                \"$id\": \"#/items/properties/lnhpd_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"dose_id\": {\r",
+							"                \"$id\": \"#/items/properties/dose_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"population_type_desc\": {\r",
+							"                \"$id\": \"#/items/properties/population_type_desc\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"age\": {\r",
+							"                \"$id\": \"#/items/properties/age\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"age_minimum\": {\r",
+							"                \"$id\": \"#/items/properties/age_minimum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"age_maximum\": {\r",
+							"                \"$id\": \"#/items/properties/age_maximum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"uom_type_desc_age\": {\r",
+							"                \"$id\": \"#/items/properties/uom_type_desc_age\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"quantity_dose\": {\r",
+							"                \"$id\": \"#/items/properties/quantity_dose\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"quantity_dose_minimum\": {\r",
+							"                \"$id\": \"#/items/properties/quantity_dose_minimum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"quantity_dose_maximum\": {\r",
+							"                \"$id\": \"#/items/properties/quantity_dose_maximum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"uom_type_desc_quantity_dose\": {\r",
+							"                \"$id\": \"#/items/properties/uom_type_desc_quantity_dose\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"frequency\": {\r",
+							"                \"$id\": \"#/items/properties/frequency\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"frequency_minimum\": {\r",
+							"                \"$id\": \"#/items/properties/frequency_minimum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"frequency_maximum\": {\r",
+							"                \"$id\": \"#/items/properties/frequency_maximum\",\r",
+							"                \"type\": \"number\"\r",
+							"            },\r",
+							"            \"uom_type_desc_frequency\": {\r",
+							"                \"$id\": \"#/items/properties/uom_type_desc_frequency\",\r",
+							"                \"type\": \"string\"\r",
+							"            }\r",
+							"        },\r",
+							"        \"$id\": \"#/items\",\r",
+							"        \"type\": \"object\"\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"array\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"pm.test(\"verify json values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].dose_id).to.eql(3528960);\r",
+							"    pm.expect(jsonData[0].lnhpd_id).to.eql(15697149);\r",
+							"    pm.expect(jsonData[0].population_type_desc).to.eql(\"Infants\");\r",
+							"    pm.expect(jsonData[0].quantity_dose).to.eql(5.0);\r",
+							"    pm.expect(jsonData[0].frequency).to.eql(3.0);\r",
+							"\r",
+							"    pm.expect(jsonData[1].dose_id).to.eql(3528959);\r",
+							"    pm.expect(jsonData[1].lnhpd_id).to.eql(15697149);\r",
+							"    pm.expect(jsonData[1].population_type_desc).to.eql(\"Children\");\r",
+							"    pm.expect(jsonData[1].quantity_dose).to.eql(5.0);\r",
+							"    pm.expect(jsonData[1].frequency).to.eql(3.0);\r",
+							"\r",
+							"    pm.expect(jsonData[2].dose_id).to.eql(3472390);\r",
+							"    pm.expect(jsonData[2].lnhpd_id).to.eql(15697149);\r",
+							"    pm.expect(jsonData[2].population_type_desc).to.eql(\"Adults\");\r",
+							"    pm.expect(jsonData[2].quantity_dose).to.eql(5.0);\r",
+							"    pm.expect(jsonData[2].frequency).to.eql(3.0);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "15abd7e2-0116-4d23-a8ea-5297a7e461a4",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productdose\");\r",
+							"pm.variables.set(\"id\",15697149);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&id={{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Route By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14c3fb94-98e1-439f-8410-baee10951277",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"\"items\": {\r",
+							"        \"required\": [\r",
+							"            \"lnhpd_id\",\r",
+							"            \"route_id\",\r",
+							"            \"route_type_desc\"\r",
+							"        ],\r",
+							"        \"properties\": {\r",
+							"            \"lnhpd_id\": {\r",
+							"                \"$id\": \"#/items/properties/lnhpd_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"route_id\": {\r",
+							"                \"$id\": \"#/items/properties/route_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"route_type_desc\": {\r",
+							"                \"$id\": \"#/items/properties/route_type_desc\",\r",
+							"                \"type\": \"string\"\r",
+							"            }\r",
+							"        },\r",
+							"        \"$id\": \"#/items\",\r",
+							"        \"type\": \"object\"\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"array\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify json values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].lnhpd_id).to.eql(pm.variables.get(\"id\"));\r",
+							"    pm.expect(jsonData[0].route_id).to.eql(3791844);\r",
+							"    pm.expect(jsonData[0].route_type_desc).to.eql(\"Oral\");\r",
+							"    \r",
+							"});\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8e29dfe6-4935-4d34-9a53-1c4de01c6e6d",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productroute\");\r",
+							"pm.variables.set(\"id\",4313868);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&id={{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Licence By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b6f27213-11d8-4485-be8f-36b9bb3fc309",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"var Ajv = require('ajv'),\r",
+							"    ajv = new Ajv({logger: console}),\r",
+							"    schema = {\r",
+							"                \"items\": {\r",
+							"        \"required\": [\r",
+							"            \"lnhpd_id\",\r",
+							"            \"licence_number\",\r",
+							"            \"licence_date\",\r",
+							"            \"revised_date\",\r",
+							"            \"time_receipt\",\r",
+							"            \"date_start\",\r",
+							"            \"product_name_id\",\r",
+							"            \"product_name\",\r",
+							"            \"dosage_form\",\r",
+							"            \"company_id\",\r",
+							"            \"company_name_id\",\r",
+							"            \"company_name\",\r",
+							"            \"sub_submission_type_code\",\r",
+							"            \"sub_submission_type_desc\",\r",
+							"            \"flag_primary_name\",\r",
+							"            \"flag_product_status\",\r",
+							"            \"flag_attested_monograph\"\r",
+							"        ],\r",
+							"        \"properties\": {\r",
+							"            \"lnhpd_id\": {\r",
+							"                \"$id\": \"#/items/properties/lnhpd_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"licence_number\": {\r",
+							"                \"$id\": \"#/items/properties/licence_number\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"licence_date\": {\r",
+							"                \"$id\": \"#/items/properties/licence_date\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"revised_date\": {\r",
+							"                \"$id\": \"#/items/properties/revised_date\",\r",
+							"                \"type\": \"null\"\r",
+							"            },\r",
+							"            \"time_receipt\": {\r",
+							"                \"$id\": \"#/items/properties/time_receipt\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"date_start\": {\r",
+							"                \"$id\": \"#/items/properties/date_start\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"product_name_id\": {\r",
+							"                \"$id\": \"#/items/properties/product_name_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"product_name\": {\r",
+							"                \"$id\": \"#/items/properties/product_name\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"dosage_form\": {\r",
+							"                \"$id\": \"#/items/properties/dosage_form\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"company_id\": {\r",
+							"                \"$id\": \"#/items/properties/company_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"company_name_id\": {\r",
+							"                \"$id\": \"#/items/properties/company_name_id\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"company_name\": {\r",
+							"                \"$id\": \"#/items/properties/company_name\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"sub_submission_type_code\": {\r",
+							"                \"$id\": \"#/items/properties/sub_submission_type_code\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"sub_submission_type_desc\": {\r",
+							"                \"$id\": \"#/items/properties/sub_submission_type_desc\",\r",
+							"                \"type\": \"string\"\r",
+							"            },\r",
+							"            \"flag_primary_name\": {\r",
+							"                \"$id\": \"#/items/properties/flag_primary_name\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"flag_product_status\": {\r",
+							"                \"$id\": \"#/items/properties/flag_product_status\",\r",
+							"                \"type\": \"integer\"\r",
+							"            },\r",
+							"            \"flag_attested_monograph\": {\r",
+							"                \"$id\": \"#/items/properties/flag_attested_monograph\",\r",
+							"                \"type\": \"integer\"\r",
+							"            }\r",
+							"        },\r",
+							"        \"$id\": \"#/items\",\r",
+							"        \"type\": \"object\"\r",
+							"    },\r",
+							"    \"$id\": \"http://example.org/root.json#\",\r",
+							"    \"type\": \"array\",\r",
+							"    \"definitions\": {},\r",
+							"    \"$schema\": \"http://json-schema.org/draft-07/schema#\"\r",
+							"    };\r",
+							" \r",
+							"pm.test('Schema is valid', function() {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(ajv.validate(schema, data)).to.be.true;\r",
+							"});\r",
+							"//Testing header\r",
+							"pm.test(\"Content-Type header\", () => {\r",
+							"  if(pm.globals.get(\"type\") === \"json\"){\r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+							"  }\r",
+							"  if(pm.globals.get(\"type\") === \"xml\"){  \r",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/xml');\r",
+							"  }  \r",
+							"});\r",
+							"\r",
+							"pm.test(\"verify json values\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].lnhpd_id).to.eql(3894930);\r",
+							"    pm.expect(jsonData[0].licence_number).to.eql(pm.variables.get(\"id\"));\r",
+							"    pm.expect(jsonData[0].licence_date).to.eql(\"2004-10-15\");\r",
+							"    pm.expect(jsonData[0].revised_date).is.to.equal(null);\r",
+							"    pm.expect(jsonData[0].time_receipt).to.eql(\"2004-01-13\");\r",
+							"    pm.expect(jsonData[0].date_start).to.eql(\"2004-01-19\");\r",
+							"    pm.expect(jsonData[0].product_name_id).to.eql(170030);\r",
+							"    pm.expect(jsonData[0].product_name).is.to.equal(\"Primanol\");\r",
+							"    \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3acc1d8f-f6e5-4bdf-b777-ca5972bb84fd",
+						"exec": [
+							"pm.globals.set(\"language\",\"en\");\r",
+							"pm.globals.set(\"type\",\"json\");\r",
+							"pm.variables.set(\"path\",\"productlicence\");\r",
+							"pm.variables.set(\"id\",\"02096870\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_ Key}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "user-key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/{{path}}?lang={{language}}&type={{type}}&id={{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"{{path}}"
+					],
+					"query": [
+						{
+							"key": "lang",
+							"value": "{{language}}"
+						},
+						{
+							"key": "type",
+							"value": "{{type}}"
+						},
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
